@@ -27,7 +27,7 @@ URL: https://github.com/MrAjMann/devSearch
 - [Description Of Website](##Description-Of-Website)
   - [Purpose](###Purpose)
   - [Features and Functionality](###Features-and-Functionality)
-  - [Target Audience](###Target-Audience)
+  - [Target Audience](d)
   - [Tech Stack](###Tech-Stack)
 - [Dataflow Diagram](##Dataflow-Diagram)
 - [Application Architecture Diagram](##Application-Architecture-Diagram)
@@ -111,11 +111,22 @@ The features of DevSearch will be broken up into three parts, these are Combined
    - Review Feedback from Employer
 
 ### Target Audience
-
+This application is targeted towards job seekers, and employers looking for employees specifically in tech field.
 ### Tech Stack
+- MongoDB: document database with the scalability and flexibility that you want with the querying and indexing that you need.
+- ExpressJS: web framework that let's you structure a web application to handle multiple different http requests at a specific url.
+- React: an open-source JavaScript library for building user interfaces.
+- NodeJS: Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web.
+- Reactstrap: easy to use React Bootstrap 4 components compatible with React.
+- Mongoose: an object data modeling (ODM) library that provides a rigorous modeling environment for your data.
+- JWT: compact and self-contained way for securely transmitting information between parties.
+- Heroku: a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
+- Axios: promise based HTTP client for the browser and node.js
+- Cloudinary: cloudinary is an end-to-end image- and video-management solution for websites and mobile app.
+- Cypress: a test automation tools used for functional testing of web applications by automating browser actions.
 
 ## Dataflow Diagram
-
+![data-flow-diagram](docs/data-flow-diagram.png)  
 ## Application Architecture Diagram
 
 ## User Stories
