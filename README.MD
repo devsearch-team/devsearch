@@ -68,11 +68,47 @@ The features of DevSearch will be broken up into three parts, these are Combined
 
 #### **Employers**
 
-1. The Employers have the ability to create a profile which can be used to prefil information when creating a new position.
+1. The Employers have the ability to create a company profile
+   - Upload Company Logo
+2. View an applicants job applications
 
-2.
+   - Offer an Interview
+   - Offer a Position
+   - Reject an applicant
+   - Download resume and cover letter
+   - Upload contract documents
+
+3. Create a new Job Posting
+
+   - View all current Job posts by employer.
+   - Update Job Post
+   - Delete Job Post
+
+4. Provide Feedback to applicants
+
+5. Track an applicant through the hiring process
 
 #### **Job Seekers**
+
+1. Create a Profile
+
+   - Upload photo
+   - Upload Resume
+   - Delete Profile
+
+2. View Job Listings
+
+   - Search for a specific job using keywords
+
+3. Apply to a Job
+
+   - Select or Upload Resume
+   - Upload Cover Letter
+
+4. Automated progress tracking
+   - Jobs change tabs as Employer & Job Seeker make changes
+   - In App Notifications of changes to your application
+   - Review Feedback from Employer
 
 ### Target Audience
 
