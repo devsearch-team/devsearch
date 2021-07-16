@@ -113,23 +113,51 @@ The features of DevSearch will be broken up into three parts, these are Combined
 ### Target Audience
 This application is targeted towards job seekers, and employers looking for employees specifically in tech field.
 ### Tech Stack
-- MongoDB: document database with the scalability and flexibility that you want with the querying and indexing that you need.
-- ExpressJS: web framework that let's you structure a web application to handle multiple different http requests at a specific url.
-- React: an open-source JavaScript library for building user interfaces.
-- NodeJS: Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web.
-- Reactstrap: easy to use React Bootstrap 4 components compatible with React.
-- Mongoose: an object data modeling (ODM) library that provides a rigorous modeling environment for your data.
-- JWT: compact and self-contained way for securely transmitting information between parties.
-- Heroku: a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
-- Axios: promise based HTTP client for the browser and node.js
-- Cloudinary: cloudinary is an end-to-end image- and video-management solution for websites and mobile app.
-- Cypress: a test automation tools used for functional testing of web applications by automating browser actions.
+- **MongoDB:** document database with the scalability and flexibility that you want with the querying and indexing that you need.
+- **ExpressJS:** web framework that let's you structure a web application to handle multiple different http requests at a specific url.
+- **React:** an open-source JavaScript library for building user interfaces.
+- **NodeJS:** Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web.
+- **Reactstrap:** easy to use React Bootstrap 4 components compatible with React.
+- **Mongoose:** an object data modeling (ODM) library that provides a rigorous modeling environment for your data.
+- **JWT:** compact and self-contained way for securely transmitting information between parties.
+- **Heroku:** a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
+- **Axios:** promise based HTTP client for the browser and node.js
+- **Cloudinary:** cloudinary is an end-to-end image- and video-management solution for websites and mobile app.
+- **Cypress:** a test automation tools used for functional testing of web applications by automating browser actions.
 
 ## Dataflow Diagram
 ![data-flow-diagram](docs/data-flow-diagram.png)  
 ## Application Architecture Diagram
 
 ## User Stories
+
+### First iteration :
+
+In our first iteration of creating the user stories, we created them based heavily on technical requirements
+
+As an employer I want to be able to:
+
+- Create an employer account and store my information in my employer profile so I can become an employer in DevSearch.
+- Log in using my unique profile so I can use the application. 
+- Create a job so job seekers can see it.
+- Update the status of the job applications to either accepted for interview, hired, rejected.
+
+### Second Iteration :
+
+We decided to create user stories based on the user needs and perspective, we started creating a list of the employer wants and began a job seeker list to add multiple stories per feature.
+
+As an employer I want to:
+1. Advertise available job positions in my company, so I can find the right person for the job.
+2. Have a company profile so the job seekers can see the companies details within the job advertisement page.
+3. Manage and track the hiring process entirely using the application so I do not lose track of the application.
+4. Check the applicant details for each application so I can reject them or proceed with the hiring process.
+5. Download applicants resumes so I can have a printable version if it.
+6.  Set an interview time from the calendar so the job seeker can accept it or reject it. 
+7. Reject applicants after receiving their job applications or after interviewing them so I can keep track of the hiring process.
+8. Make an offer to an applicant so the applicant accepts it or rejects it.
+9. Use the application from my phone, so I can access it when outside of office.
+10. Visually differentiate the job applications based on where they are at the hiring process, so I can better picture my job applications and easily proceed the hiring process. As an employer I want to:
+
 
 ## Wireframes
 
