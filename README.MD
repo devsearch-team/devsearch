@@ -128,7 +128,7 @@ This application is targeted towards job seekers, and employers looking for empl
 ## Dataflow Diagram
 ![data-flow-diagram](docs/data-flow-diagram.png)  
 ## Application Architecture Diagram
-
+![architecture-diagram](docs/architecture-diagram.png)
 ## User Stories
 
 ### First iteration :
