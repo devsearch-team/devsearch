@@ -12,7 +12,7 @@ Production Site.<br>
 Please click [here](devsearch.io).<br>
 URL: https://devsearch.io
 
-<!--  -->
+<!--  -->git branch
 
 GitHub Repository.<br>
 Please Click [here](https://github.com/MrAjMann/devSearch).<br>
@@ -57,6 +57,22 @@ upload resume's and cover letters and track their applications from start to fin
 ---
 
 ### Features and Functionality
+
+The features of DevSearch will be broken up into three parts, these are Combined, Employer, Job Seeker.
+
+#### **Combined** - This is features both parties share
+
+1. The ability to login and logout of DevSearch
+2. To change passwords
+3. Create an account and delete the account
+
+#### **Employers**
+
+1. The Employers have the ability to create a profile which can be used to prefil information when creating a new position.
+
+2.
+
+#### **Job Seekers**
 
 ### Target Audience
 
