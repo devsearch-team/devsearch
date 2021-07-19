@@ -1,13 +1,16 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 
-import { Styles, theme } from "../src/globalStyles";
+import { Container, Styles, theme } from "../src/globalStyles";
+import SideBar from "./globalComponents/SideBar";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Styles />
-      Hellow World
+      <Container>
+        <SideBar />
+      </Container>
     </ThemeProvider>
   );
 };
