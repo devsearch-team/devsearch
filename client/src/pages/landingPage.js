@@ -102,11 +102,5 @@ flex-wrap:wrap;
     margin-top:2rem;
 }
 `
-const styles={
-    formDiv:{
-        display:"flex",
-        marginTop: "111px"
 
-    }
-}
 
