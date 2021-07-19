@@ -1,7 +1,10 @@
 import React from "react";
+import LandingPage from "./pages/landingPage";
 
 const App = () => {
-  return <div>DevSearch</div>;
+  return (
+    <LandingPage/>
+  )
 };
 
 export default App;
