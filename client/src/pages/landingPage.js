@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import landingImage from "../assets/landingImage.svg";
+import landingImage from "../Assets/landingImage.svg";
 import { theme } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
-
+import SelectUserModal from "../modals/SelectUserModal";
 import {} from "../globalComponents/Buttons";
+
 export default function LandingPage() {
+  // Using state to open a Select User modal when a User Clicks Register
+  const [showSelectUserModal, setSelectUserModal] = useState(false);
+
+  // This function runs when the Register button after prefilling the email address is selected
+  const openSelectUserModal = () => {
+    setSelectUserModal((prev) => !prev);
+  };
+
   return (
     <div>
       <Container>
@@ -16,9 +25,15 @@ export default function LandingPage() {
             Whether you are a job seeker looking for work or an employer looking
             for staff, we have the tools to help you succeed.
           </Text>
+          <SelectUserModal
+            showSelectUserModal={showSelectUserModal}
+            setSelectUserModal={setSelectUserModal}
+          />
           <FormDiv>
             <Input placeHolder="yourEmail@email.com"></Input>
-            <InputButton>Sign Up to DevSeach</InputButton>
+            <InputButton onClick={openSelectUserModal}>
+              Sign Up to DevSeach
+            </InputButton>
           </FormDiv>
         </LeftSection>
         <RightSection>
@@ -32,7 +47,6 @@ export default function LandingPage() {
 //styles
 const Container = styled.div`
   display: flex;
-
   height: 90vh;
   align-items: center;
   justify-content: center;
@@ -41,7 +55,7 @@ const Container = styled.div`
 const Header = styled.h1`
   font-size: 45px;
   font-family: roboto;
-  color: white;
+  color: ${(props) => theme.PrimaryTxt};
   margin: 0.5rem 0;
   @media only screen and (max-width: 800px) {
     font-size: 18px;
@@ -50,7 +64,7 @@ const Header = styled.h1`
 `;
 const Text = styled.p`
   font-size: 24px;
-  color: white;
+  color: ${(props) => theme.PrimaryTxt};
   max-width: 550px;
   margin: 1rem 0;
   @media only screen and (max-width: 800px) {
@@ -77,7 +91,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  color: #000;
+  color: ${(props) => theme.PrimaryTxt};
   margin-right: 0.5rem;
   font-size: 18px;
   @media only screen and (max-width: 800px) {
