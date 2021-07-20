@@ -10,7 +10,7 @@ export const Styles = createGlobalStyle`
 }
 body{
     background: ${(props) => props.theme.MainBg};
-    overflow-x: hidden;
+    // overflow-x: hidden;
 }
 `;
 
