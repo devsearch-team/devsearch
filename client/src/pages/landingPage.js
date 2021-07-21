@@ -91,7 +91,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  color: ${(props) => theme.PrimaryTxt};
+  color: ${(props) => theme.SecondaryTxt};
   margin-right: 0.5rem;
   font-size: 18px;
   @media only screen and (max-width: 800px) {

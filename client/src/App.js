@@ -6,6 +6,7 @@ import NavBar from "./globalComponents/NavBar";
 import { Container, Styles, theme } from "../src/globalStyles";
 // import SideBar from "./globalComponents/SideBar";
 import LandingPage from "./pages/landingPage";
+import EmpSignIn from "./pages/EmpSignIn";
 
 const App = () => {
   return (
@@ -15,6 +16,10 @@ const App = () => {
        <NavBar />
           <Switch>
             <Route exact path="/" component={LandingPage}/>
+            <Route exact path="/employer/singin" component={EmpSignIn}/>
+            {/* <Route exact path="/employer/singup" component={EmpSignUP}/>
+            <Route exact path="/seeker/signin" component={SeekerSignIn}/>
+            <Route exact path="/seeker/singup" component={SeekerSignUP}/> */}
           </Switch>
         </BrowserRouter>
       {/* <LandingPage />     */}

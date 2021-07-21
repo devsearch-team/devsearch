@@ -18,6 +18,14 @@ export const Container = styled.div`
   width: 80%;
   margin-left: 30rem;
 `;
+export const MiddleContainer = styled.div`
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+`;
 
 export const theme = {
   // Background Colors
