@@ -1,5 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import NavBar from "./globalComponents/NavBar";
 
 import { Container, Styles, theme } from "../src/globalStyles";
 // import SideBar from "./globalComponents/SideBar";
@@ -8,8 +10,14 @@ import LandingPage from "./pages/landingPage";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Styles />
-      <LandingPage />
+      <Styles /> 
+      <BrowserRouter>
+       <NavBar />
+          <Switch>
+            <Route exact path="/" component={LandingPage}/>
+          </Switch>
+        </BrowserRouter>
+      {/* <LandingPage />     */}
       {/* The Container and sidebar need to conditionally loaded when a user / employer is logged in */}
       <Container>{/* <SideBar /> */}</Container>
     </ThemeProvider>
