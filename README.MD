@@ -182,9 +182,25 @@ As a Job Seeker I want to:
 
 ## Wireframes
 
+[Link to Figma Board.](https://www.figma.com/file/E9KSA9VcggekHrZqaQTocy/DevSearch?node-id=0%3A1)
+
+![All Wireframes](docs/AllWireframes.jpg)
+![High Fidelity MockUps](docs/HighFidelityWireframes.png)
+
 ### Desktop
 
+![Employer Desktop Wireframes](docs/AllEmployerDesktop.jpg)
+![JobSeeker Desktop Wireframes](docs/AllJobSeekerDesktop.png)
+
+### Tablet
+
+![Employer Tablet Wireframes](docs/EmployerTabletWireframes.jpg)
+![JobSeeker Tablet Wireframes](docs/JobSeekerTabletWireframes.jpg)
+
 ### Mobile
+
+![Employer Mobile Wireframes](docs/EmployerMobileWireframes.jpg)
+![JobSeeker Mobile Wireframes](docs/JobSeekerMobileWireframes.jpg)
 
 ## Trello Board
 
