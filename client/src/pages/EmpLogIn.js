@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import {Link} from 'react-router-dom'
 import { MiddleContainer } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
-export default function EmpSignIn(){
+export default function EmpLogIn(){
 return(
     <MiddleContainer>
         <Header>Employer Login</Header>
@@ -12,6 +13,7 @@ return(
         <InputButton>
               Sign In
         </InputButton>
+        <p style={{marginTop:"2rem"}}>Have an account? <Link to="/employer/register">register</Link></p>
     </MiddleContainer>
 )
 }
