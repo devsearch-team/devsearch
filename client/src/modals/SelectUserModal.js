@@ -114,6 +114,7 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 const SelectUserModal = ({ showSelectUserModal, setSelectUserModal }) => {
+  // Adds close functionality to SelectUser Modal
   const modalRef = useRef();
 
   const closeModal = (e) => {

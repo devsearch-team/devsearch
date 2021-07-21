@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../globalStyles";
+import LoginModal from "../modals/LoginModal";
+import SelectUserModal from "../modals/SelectUserModal";
 
 const NavWrapper = styled.nav`
   width: 100%;
@@ -46,16 +48,37 @@ const Line = styled.div`
 `;
 
 const NavBar = () => {
+  const [showLoginModal, setLoginModal] = useState(false);
+
+  // This function runs when the Login button is pressed
+  const openLoginModal = () => {
+    setLoginModal((prev) => !prev);
+  };
+  // Using state to open a Select User modal when a User Clicks Register
+  const [showSelectUserModal, setSelectUserModal] = useState(false);
+
+  // This function runs when the Register button after prefilling the email address is selected
+  const openSelectUserModal = () => {
+    setSelectUserModal((prev) => !prev);
+  };
   return (
     <NavWrapper>
       <LogoWrapper>
         <Logo> DevSearch.io</Logo>
       </LogoWrapper>
       <NavLinks>
-        <NavItem>Login</NavItem>
+        <NavItem onClick={openLoginModal}>Login</NavItem>
         <Line />
-        <NavItem>Register</NavItem>
+        <NavItem onClick={openSelectUserModal}>Register</NavItem>
       </NavLinks>
+      <LoginModal
+        showLoginModal={showLoginModal}
+        setLoginModal={setLoginModal}
+      ></LoginModal>
+      <SelectUserModal
+        showSelectUserModal={showSelectUserModal}
+        setSelectUserModal={setSelectUserModal}
+      />
     </NavWrapper>
   );
 };
