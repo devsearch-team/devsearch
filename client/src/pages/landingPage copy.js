@@ -1,22 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import landingImage from "../Assets/landingImage.svg";
-import { theme } from "../globalStyles";
-import { InputButton } from "../globalComponents/Buttons";
-import SelectUserModal from "../modals/SelectUserModal";
-import {} from "../globalComponents/Buttons";
+import landingImage from "../assets/landingImage.svg";
 
 export default function LandingPage() {
-  // Using state to open a Select User modal when a User Clicks Register
-  const [showSelectUserModal, setSelectUserModal] = useState(false);
-
-  // This function runs when the Register button after prefilling the email address is selected
-  const openSelectUserModal = () => {
-    setSelectUserModal((prev) => !prev);
-  };
-
   return (
-    <div>
+    <div style={{ backgroundColor: "#424A52" }}>
       <Container>
         <LeftSection>
           <Header>Hiring Staff? We got you!!</Header>
@@ -25,15 +13,9 @@ export default function LandingPage() {
             Whether you are a job seeker looking for work or an employer looking
             for staff, we have the tools to help you succeed.
           </Text>
-          <SelectUserModal
-            showSelectUserModal={showSelectUserModal}
-            setSelectUserModal={setSelectUserModal}
-          />
           <FormDiv>
             <Input placeHolder="yourEmail@email.com"></Input>
-            <InputButton onClick={openSelectUserModal}>
-              Sign Up to DevSeach
-            </InputButton>
+            <Button>sign up to divSearch</Button>
           </FormDiv>
         </LeftSection>
         <RightSection>
@@ -47,15 +29,14 @@ export default function LandingPage() {
 //styles
 const Container = styled.div`
   display: flex;
-  height: 90vh;
-  align-items: center;
+  margin: 10% 8%;
   justify-content: center;
   flex-wrap: wrap-reverse;
 `;
 const Header = styled.h1`
   font-size: 45px;
   font-family: roboto;
-  color: ${(props) => theme.PrimaryTxt};
+  color: white;
   margin: 0.5rem 0;
   @media only screen and (max-width: 800px) {
     font-size: 18px;
@@ -64,7 +45,7 @@ const Header = styled.h1`
 `;
 const Text = styled.p`
   font-size: 24px;
-  color: ${(props) => theme.PrimaryTxt};
+  color: white;
   max-width: 550px;
   margin: 1rem 0;
   @media only screen and (max-width: 800px) {
@@ -88,10 +69,6 @@ const RightSection = styled.div`
 `;
 const Input = styled.input`
   width: 300px;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  color: ${(props) => theme.PrimaryTxt};
   margin-right: 0.5rem;
   font-size: 18px;
   @media only screen and (max-width: 800px) {
@@ -99,7 +76,15 @@ const Input = styled.input`
     margin-bottom: 0.5rem;
   }
 `;
-
+const Button = styled.button`
+  height: 26px;
+  background-color: #f7b13e;
+  color: white;
+  max-width: 200px;
+  @media only screen and (max-width: 800px) {
+    max-width: 150px;
+  }
+`;
 const FormDiv = styled.div`
   display: flex;
   margin-top: 5.5rem;
