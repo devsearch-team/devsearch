@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from "react";
-
+import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 
 import { MdClose } from "react-icons/md";
@@ -116,7 +116,7 @@ const CloseModalButton = styled(MdClose)`
 
 const LoginModal = ({ showLoginModal, setLoginModal }) => {
   const modalRef = useRef();
-
+  let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setLoginModal(false);
@@ -145,12 +145,12 @@ const LoginModal = ({ showLoginModal, setLoginModal }) => {
             <SecondBackground>
               <EmployerRegisterContent>
                 <Heading>Login As Employer</Heading>
-                <ModalBtn>Login</ModalBtn>
+                <ModalBtn onClick={() => {history.push('/employer/login'); setLoginModal(false);}}>Login</ModalBtn>
               </EmployerRegisterContent>
             </SecondBackground>
             <JobSeekerRegisterContent>
               <Heading>Login As Job Seeker </Heading>
-              <ModalBtn>Login</ModalBtn>
+              <ModalBtn onClick={() =>{ history.push('/seeker/login'); setLoginModal(false);}}>Login</ModalBtn>
             </JobSeekerRegisterContent>
 
             <CloseModalButton

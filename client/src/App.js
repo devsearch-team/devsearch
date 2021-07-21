@@ -16,9 +16,9 @@ const App = () => {
        <NavBar />
           <Switch>
             <Route exact path="/" component={LandingPage}/>
-            <Route exact path="/employer/singin" component={EmpSignIn}/>
+            <Route exact path="/employer/login" component={EmpSignIn}/>
             {/* <Route exact path="/employer/singup" component={EmpSignUP}/>
-            <Route exact path="/seeker/signin" component={SeekerSignIn}/>
+            <Route exact path="/seeker/login" component={SeekerSignIn}/>
             <Route exact path="/seeker/singup" component={SeekerSignUP}/> */}
           </Switch>
         </BrowserRouter>
