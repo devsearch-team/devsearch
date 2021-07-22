@@ -126,9 +126,13 @@ This application is targeted towards job seekers, and employers looking for empl
 
 ## Dataflow Diagram
 
+[Link to Diagrams.net Dataflow diagram](https://app.diagrams.net/?src=about#G1QABTrSsEFYEDQD2Q8J1L0cKP8UJmCyHx)
+
 ![data-flow-diagram](docs/data-flow-diagram.png)
 
 ## Application Architecture Diagram
+
+[Link to Diagrams.net Architecture diagram](https://drive.google.com/file/d/1OrWT3w7WxmWrqiDimOpc0sUHPYZAIpKD/view?usp=sharing)
 
 ![architecture-diagram](docs/architecture-diagram.png)
 
