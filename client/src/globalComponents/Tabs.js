@@ -113,7 +113,7 @@ const Tab = styled.button`
   background: ${(props) => {
     console.log(props.id);
     console.log("active tab", props.activeTab);
-    return props.id === props.activeTab
+    return props.id == props.activeTab
       ? theme.PrimaryBtnBg
       : theme.SecondaryBtnBg;
   }};
