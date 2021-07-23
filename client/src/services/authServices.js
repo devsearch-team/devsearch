@@ -28,3 +28,7 @@ export async function seekerSignUp(data) {
 		jwt: "token"
 	}
 }
+
+export async function logOut(data) {
+	return data.userName
+}
