@@ -12,8 +12,6 @@ Production Site.<br>
 Please click [here](devsearch.io).<br>
 URL: https://devsearch.io
 
-<!--  -->git branch
-
 GitHub Repository.<br>
 Please Click [here](https://github.com/MrAjMann/devSearch).<br>
 URL: https://github.com/MrAjMann/devSearch
@@ -34,10 +32,9 @@ URL: https://github.com/MrAjMann/devSearch
 - [User Stories](##User-Stories)
 - [Wireframes](##Wireframes)
   - [Desktop](###Desktop)
+  - [Tablet](###Tablet)
   - [Mobile](###Mobile)
 - [Trello Board](##Trello-Board)
-  - [Early Stage](###Early-Stage)
-  - [Late Stage](###Late-Stage)
 
 ---
 
@@ -120,7 +117,6 @@ This application is targeted towards job seekers, and employers looking for empl
 - **ExpressJS:** web framework that lets you structure a web application to handle multiple different HTTP requests at a specific URL.
 - **React:** an open-source JavaScript library for building user interfaces.
 - **NodeJS:** Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web.
-- **Reactstrap:** easy to use React Bootstrap 4 components compatible with React.
 - **Mongoose:** an object data modeling (ODM) library that provides a rigorous modeling environment for your data.
 - **JWT:** compact and self-contained way for securely transmitting information between parties.
 - **Heroku:** a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
@@ -130,9 +126,13 @@ This application is targeted towards job seekers, and employers looking for empl
 
 ## Dataflow Diagram
 
+[Link to Diagrams.net Dataflow diagram](https://app.diagrams.net/?src=about#G1QABTrSsEFYEDQD2Q8J1L0cKP8UJmCyHx)
+
 ![data-flow-diagram](docs/data-flow-diagram.png)
 
 ## Application Architecture Diagram
+
+[Link to Diagrams.net Architecture diagram](https://drive.google.com/file/d/1OrWT3w7WxmWrqiDimOpc0sUHPYZAIpKD/view?usp=sharing)
 
 ![architecture-diagram](docs/architecture-diagram.png)
 
@@ -182,16 +182,46 @@ As a Job Seeker I want to:
 
 ## Wireframes
 
+[Link to Figma Board.](https://www.figma.com/file/E9KSA9VcggekHrZqaQTocy/DevSearch?node-id=0%3A1)
+
+![All Wireframes](docs/AllWireframes.jpg)
+![High Fidelity MockUps](docs/HighFidelityWireframes.png)
+
 ### Desktop
+
+![Employer Desktop Wireframes](docs/AllEmployerDesktop.jpg)
+![JobSeeker Desktop Wireframes](docs/AllJobSeekerDesktop.png)
+
+### Tablet
+
+![Employer Tablet Wireframes](docs/EmployerTabletWireframes.jpg)
+![JobSeeker Tablet Wireframes](docs/JobSeekerTabletWireframes.jpg)
 
 ### Mobile
 
+![Employer Mobile Wireframes](docs/EmployerMobileWireframes.jpg)
+![JobSeeker Mobile Wireframes](docs/JobSeekerMobileWireframes.jpg)
+
 ## Trello Board
+
+We have defined a process to allow us to integrate and track changes while developing our application. This includes using Card numbers on our Trello boards e.g(`AR-8`) and those card numbers are what we have used as the branch name for GitHub (`git branch AR-8`), each commit is also labed with the card number and if another trello card is required as a part of that branch then it is also labeled in the commit message.
+
+## Example Commit Message:
+
+`This is a representation of a single commit, this is not from a current commit message:`
+
+```
+<!-- git commit -->
+---
+AR-12: Created styled components for the tabs in the applications page,
+AR-14: adjusted tab state to filter based on selected tabs
+---
+<!-- end commit -->
+```
 
 [Link to Trello Board.](https://trello.com/b/asm78QlN)
 
-### Early Stage
+![Early Trello Layout](./docs/TrelloEarlyStagesPartA.jpg)
+![Individual Trello Card](./docs/IndividualTrelloCard.jpg)
 
-![Early Trello Layout](./docs/TrelloEarlyStagesPartA.JPG)
-
-### Late Stage
+![Trello Layout ](./docs/AllTrelloCards.jpg)
