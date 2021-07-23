@@ -84,6 +84,7 @@ const NavBar = () => {
         {loggedInUser?
         <>
           <NavItem onClick={() =>{isEmployer? history.push('/employer/profile'):history.push('/seeker/profile')}}>Profile</NavItem>
+          <Line />
           <NavItem onClick={handleLogout}>Log out</NavItem>
 
         </>:
