@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useReducer} from "react";
 import { ThemeProvider } from "styled-components";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import NavBar from "./globalComponents/NavBar";
@@ -7,18 +7,20 @@ import { Container, Styles, theme } from "../src/globalStyles";
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
 import SeekerLogIn from "./pages/SeekerLogIn"
-// import reducer from '../utils/reducer'
-// import { StateContext } from '../utils/stateContext'
+import stateReducer from './utils/stateReducer'
+import { StateContext } from './utils/globalContext'
 const App = () => {
   const initialState = {
 		loggedInUser: null,
+    isEmployer:false,
 		auth: {token: null}
 	}
-  // const [store, dispatch] = useReducer(stateReducer, initialState )
+  const [store, dispatch] = useReducer(stateReducer, initialState )
 
   return (
     <ThemeProvider theme={theme}>
       <Styles /> 
+      <StateContext.Provider value={{store, dispatch}}>
         <BrowserRouter>
         <NavBar />
             <Switch>
@@ -29,8 +31,7 @@ const App = () => {
               {/* <Route exact path="/seeker/singup" component={SeekerSignUP}/> */}
             </Switch>
           </BrowserRouter>
-      {/* <StateContext.Provider value={{store, dispatch}}>
-        </StateContext.Provider> */}
+        </StateContext.Provider>
       {/* <LandingPage />     */}
       {/* The Container and sidebar need to conditionally loaded when a user / employer is logged in */}
       <Container>{/* <SideBar /> */}</Container>
