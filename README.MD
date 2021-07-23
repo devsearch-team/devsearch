@@ -22,19 +22,19 @@ URL: https://github.com/MrAjMann/devSearch
 
 ---
 
-- [Description Of Website](##Description-Of-Website)
-  - [Purpose](###Purpose)
-  - [Features and Functionality](###Features-and-Functionality)
-  - [Target Audience](d)
-  - [Tech Stack](###Tech-Stack)
-- [Dataflow Diagram](##Dataflow-Diagram)
-- [Application Architecture Diagram](##Application-Architecture-Diagram)
-- [User Stories](##User-Stories)
-- [Wireframes](##Wireframes)
-  - [Desktop](###Desktop)
-  - [Tablet](###Tablet)
-  - [Mobile](###Mobile)
-- [Trello Board](##Trello-Board)
+- [Description Of Website](#Description-Of-Website)
+  - [Purpose](#Purpose)
+  - [Features and Functionality](#Features-and-Functionality)
+  - [Target Audience](#Target-Audience)
+  - [Tech Stack](#Tech-Stack)
+- [Dataflow Diagram](#Dataflow-Diagram)
+- [Application Architecture Diagram](#Application-Architecture-Diagram)
+- [User Stories](#User-Stories)
+- [Wireframes](#Wireframes)
+  - [Desktop](#Desktop)
+  - [Tablet](#Tablet)
+  - [Mobile](#Mobile)
+- [Trello Board](#Trello-Board)
 
 ---
 
