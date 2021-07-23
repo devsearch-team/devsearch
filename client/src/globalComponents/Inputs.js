@@ -6,7 +6,8 @@ export const Input = styled.input`
   border-radius: 5px;
   border: none;
   color: ${theme.SecondaryTxt};
-  margin-bottom:1rem;
+  margin-bottom:.5rem;
+  margin-top:.5rem;
   font-size: 18px;
   @media only screen and (max-width: 800px) {
     max-width: 200px;

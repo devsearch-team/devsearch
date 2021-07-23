@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom'
 import { MiddleContainer } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
-import { validEmail } from "../utils/validators"
+import { validEmail,validPassword} from "../utils/validators"
 import {empLogIn} from '../services/authServices'
 import {useGlobalState} from '../utils/globalContext'
 
-export default function LogIn({header,callback}){
+export default function LogIn({header,callback,isEmployer}){
 
     const initialFormState = {
 		email: '',
@@ -17,11 +17,12 @@ export default function LogIn({header,callback}){
 
 	const [formState, setFormState] = useState(initialFormState)
     const [emailError,setEmailError]=useState("")
+    const [passwordError,setPasswordError]=useState("")
 
     const {dispatch,store} = useGlobalState()
     const {loggedInUser}=store
 
-    const formInvalid =!validEmail(formState.email) 
+    const formInvalid =!validEmail(formState.email)| !validPassword(formState.password)
 
     function handleChange(event) {
 		setFormState({
@@ -35,6 +36,7 @@ export default function LogIn({header,callback}){
         
         if(formInvalid){
             setEmailError("Invalid email")
+            setPasswordError("Invalid password")
         }
         else{
             empLogIn(formState)
@@ -50,15 +52,16 @@ export default function LogIn({header,callback}){
     }
 return(
     <MiddleContainer>
-        <Header>Employer Login</Header>
+        <Header>{header}</Header>
         {loggedInUser? <p>logged in user is {loggedInUser}</p>:<></>}
         <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="yourEmail@email.com" ></Input>
         <div style={{color:"red"}}>{emailError}</div>
         <Input type="password"  name="password" value={formState.password} onChange={handleChange} placeholder="password"></Input>
-        <InputButton onClick={handleSubmit}>
+        <div style={{color:"red"}}>{passwordError}</div>
+        <InputButton style={{marginTop:".5rem"}}onClick={handleSubmit}>
               Sign In
         </InputButton>
-        <p style={{marginTop:"2rem"}}>Have an account? <Link to="/seeker/register">register</Link></p>
+        <p style={{marginTop:"2rem"}}>Have an account? <Link to={isEmployer?"employer/register":"/seeker/register"}>register</Link></p>
     </MiddleContainer>
 )
 }
