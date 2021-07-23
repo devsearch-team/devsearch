@@ -1,49 +1,57 @@
-import React,{useState} from "react";
-import styled from "styled-components";
-import {Link} from 'react-router-dom'
-import { MiddleContainer } from "../globalStyles";
-import { InputButton } from "../globalComponents/Buttons";
-import {Input} from "../globalComponents/Inputs"
-import { validEmail } from "../utils/validators"
-export default function EmpLogIn(){
-    const initialFormState = {
-		email: '',
-		password: ''
-	}
+// import React,{useState} from "react";
+// import styled from "styled-components";
+// import {Link} from 'react-router-dom'
+// import { MiddleContainer } from "../globalStyles";
+// import { InputButton } from "../globalComponents/Buttons";
+// import {Input} from "../globalComponents/Inputs"
+// import { validEmail } from "../utils/validators"
+// export default function EmpLogIn(){
+//     const initialFormState = {
+// 		email: '',
+// 		password: ''
+// 	}
 
-	const [formState, setFormState] = useState(initialFormState)
-    const [emailError,setEmailError]=useState("")
+// 	const [formState, setFormState] = useState(initialFormState)
+//     const [emailError,setEmailError]=useState("")
 
-    const formInvalid =!validEmail(formState.email) 
+//     const formInvalid =!validEmail(formState.email) 
 
-    function handleChange(event) {
-		setFormState({
-			...formState,
-			[event.target.name]: event.target.value
-		})
-	}
-    function handleSubmit(event) {
-		event.preventDefault()
-        setEmailError("")
+//     function handleChange(event) {
+// 		setFormState({
+// 			...formState,
+// 			[event.target.name]: event.target.value
+// 		})
+// 	}
+//     function handleSubmit(event) {
+// 		event.preventDefault()
+//         setEmailError("")
         
-        if(formInvalid){
-            setEmailError("Invalid email")
-        }
-    }
-return(
-    <MiddleContainer>
-        <Header>Job Seeker Login</Header>
-        <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="yourEmail@email.com" ></Input>
-        <div style={{color:"red"}}>{emailError}</div>
-        <Input type="password"  name="password" value={formState.password} onChange={handleChange} placeholder="password"></Input>
-        <InputButton onClick={handleSubmit}>
-              Sign In
-        </InputButton>
-        <p style={{marginTop:"2rem"}}>Have an account? <Link to="/seeker/register">register</Link></p>
-    </MiddleContainer>
-)
-}
+//         if(formInvalid){
+//             setEmailError("Invalid email")
+//         }
+//     }
+// return(
+//     <MiddleContainer>
+//         <Header>Job Seeker Login</Header>
+//         <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="yourEmail@email.com" ></Input>
+//         <div style={{color:"red"}}>{emailError}</div>
+//         <Input type="password"  name="password" value={formState.password} onChange={handleChange} placeholder="password"></Input>
+//         <InputButton onClick={handleSubmit}>
+//               Sign In
+//         </InputButton>
+//         <p style={{marginTop:"2rem"}}>Have an account? <Link to="/seeker/register">register</Link></p>
+//     </MiddleContainer>
+// )
+// }
 
-const Header = styled.h1`
-margin-bottom:3rem;
-`
+// const Header = styled.h1`
+// margin-bottom:3rem;
+// `
+
+import LogIn from "../globalComponents/LogIn";
+import {seekerLogIn} from '../services/authServices'
+export default function SeekerLogIn(){
+    return(
+        <LogIn callback={seekerLogIn} header={"Job Seeker Login"}></LogIn>
+    )
+}
