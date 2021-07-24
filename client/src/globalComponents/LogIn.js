@@ -1,14 +1,10 @@
 import React,{useState} from "react";
 import styled from "styled-components";
-import {Link} from 'react-router-dom'
-import { MiddleContainer } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
-import { validEmail,validPassword} from "../utils/validators"
-import {empLogIn} from '../services/authServices'
 import {useGlobalState} from '../utils/globalContext'
 
-export default function LogIn({callback,isEmployer}){
+export default function LogIn({callback,header}){
 
     const initialFormState = {
 		email: '',
@@ -52,8 +48,8 @@ export default function LogIn({callback,isEmployer}){
         }
     }
 return(
-    <MiddleContainer>
-        <Header>{isEmployer?"Employer Login":"Job Seeker Login"}</Header>
+        <>
+        <Header>{header}</Header>
         {loggedInUser? <p>logged in user is {loggedInUser}</p>:<></>}
         <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="youremail@email.com" ></Input>
         <div style={{color:"red"}}>{emailError}</div>
@@ -62,8 +58,8 @@ return(
         <InputButton style={{marginTop:".5rem"}} onClick={handleSubmit} >
               Sign In
         </InputButton>
-        <p style={{marginTop:"2rem"}}>Have an account? <Link to={isEmployer?"/employer/register":"/seeker/register"}>register</Link></p>
-    </MiddleContainer>
+        </>
+    
 )
 }
 
