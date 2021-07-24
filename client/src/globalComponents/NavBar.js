@@ -10,9 +10,10 @@ const NavWrapper = styled.nav`
   height: 95px;
   border-bottom: 1px solid ${(props) => theme.PrimaryBtnBg};
   display: flex;
+  z-index: 25;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
 `;
 const LogoWrapper = styled.div`
