@@ -72,21 +72,21 @@ return(
         <FormItem>
             <Label>{name}</Label>
             <div>
-                <Input type="text"  name="name" value={formState.name} onChange={handleChange} placeholder="youremail@email.com" ></Input>
+                <Input type="text"  name="name" value={formState.name} onChange={handleChange}></Input>
                 <ErrorMessage style={{color:"red"}}>{nameError}</ErrorMessage>
             </div>
         </FormItem>
         <FormItem>
             <Label>Email</Label>
             <div>        
-                <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="youremail@email.com" ></Input>
+                <Input type="text"  name="email" value={formState.email} onChange={handleChange}></Input>
                 <ErrorMessage style={{color:"red"}}>{emailError}</ErrorMessage>
             </div>
         </FormItem>     
         <FormItem>
             <Label>Password</Label>
             <div>
-                <Input type="password"  name="password" value={formState.password} onChange={handleChange} placeholder="password"></Input>
+                <Input type="password"  name="password" value={formState.password} onChange={handleChange}></Input>
                 <ErrorMessage style={{color:"red"}}>{passwordError}</ErrorMessage>
             </div>
         </FormItem>      
