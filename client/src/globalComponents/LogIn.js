@@ -22,7 +22,7 @@ export default function LogIn({header,callback,isEmployer}){
     const {dispatch,store} = useGlobalState()
     const {loggedInUser}=store
 
-    const formInvalid =!validEmail(formState.email)| !validPassword(formState.password)
+   // const formInvalid =!validEmail(formState.email)| !validPassword(formState.password)
 
     function handleChange(event) {
 		setFormState({
@@ -31,20 +31,26 @@ export default function LogIn({header,callback,isEmployer}){
 		})
 	}
     function handleSubmit(event) {
+
 		event.preventDefault()
-        setEmailError("")
-        
-        if(formInvalid){
-            setEmailError("Invalid email")
-            setPasswordError("Invalid password")
-        }
-        else{
+        let emailError=""
+        let passwordError=""
+       if (!formState.email){
+        emailError="Please, enter an email address"
+       }
+       if(!formState.password){
+        passwordError="Please, enter a password"
+       } 
+        setEmailError(emailError)
+        setPasswordError(passwordError)
+    
+        if(!emailError&&!passwordError){
             empLogIn(formState)
-		    .then(({username,jwt,isEmployer}) => {
-			console.log(username, jwt,isEmployer);
-			dispatch({type: 'setLoggedInUser', data: username})
+            .then(({username,jwt,isEmployer}) => {
+            console.log(username, jwt,isEmployer);
+            dispatch({type: 'setLoggedInUser', data: username})
             dispatch({type:'setRole',data: isEmployer})
-			dispatch({type: 'setToken', data: jwt})
+            dispatch({type: 'setToken', data: jwt})
 			
 		})
 		.catch((error) => console.log(error))
@@ -54,11 +60,11 @@ return(
     <MiddleContainer>
         <Header>{header}</Header>
         {loggedInUser? <p>logged in user is {loggedInUser}</p>:<></>}
-        <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="yourEmail@email.com" ></Input>
+        <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="youremail@email.com" ></Input>
         <div style={{color:"red"}}>{emailError}</div>
         <Input type="password"  name="password" value={formState.password} onChange={handleChange} placeholder="password"></Input>
         <div style={{color:"red"}}>{passwordError}</div>
-        <InputButton style={{marginTop:".5rem"}}onClick={handleSubmit}>
+        <InputButton style={{marginTop:".5rem"}} onClick={handleSubmit} >
               Sign In
         </InputButton>
         <p style={{marginTop:"2rem"}}>Have an account? <Link to={isEmployer?"employer/register":"/seeker/register"}>register</Link></p>
