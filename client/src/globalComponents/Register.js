@@ -4,10 +4,9 @@ import { MiddleContainer,Label,ErrorMessage } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
 import { validEmail,validPassword} from "../utils/validators"
-import {empLogIn} from '../services/authServices'
 import {useGlobalState} from '../utils/globalContext'
 
-export default function LogIn({name,header,callback}){
+export default function Register({name,header,callback}){
 
     const initialFormState = {
         name:'',
@@ -56,7 +55,7 @@ export default function LogIn({name,header,callback}){
         setPasswordConfirmationError(passwordConfirmationError)
     
         if( !nameError && !emailError && !passwordError && !passwordConfirmationError ){
-            empLogIn(formState)
+            callback(formState)
             .then(({username,jwt,isEmployer}) => {
             console.log(username, jwt,isEmployer);
             dispatch({type: 'setLoggedInUser', data: username})

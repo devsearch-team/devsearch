@@ -4,9 +4,10 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import NavBar from "./globalComponents/NavBar";
 import { Container, Styles, theme } from "../src/globalStyles";
 // import SideBar from "./globalComponents/SideBar";
-import Register from "./globalComponents/Register"
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
+import EmpRegister from "./pages/EmpRegister"
+import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
 import stateReducer from './utils/stateReducer'
 import { StateContext } from './utils/globalContext'
@@ -27,9 +28,9 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={LandingPage}/>
               <Route exact path="/employer/login" component={EmpLogIn}/>
-              <Route exact path="/employer/register" component={Register}/>
+              <Route exact path="/employer/register" component={EmpRegister}/>
               <Route exact path="/seeker/login" component={SeekerLogIn}/>
-              {/* <Route exact path="/seeker/singup" component={SeekerSignUP}/> */}
+              <Route exact path="/seeker/register" component={SeekerRegister}/>
             </Switch>
           </BrowserRouter>
         </StateContext.Provider>

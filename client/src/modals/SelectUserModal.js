@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-
+import {useHistory} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import { ModalBtn } from "../globalComponents/Buttons";
@@ -116,7 +116,7 @@ const CloseModalButton = styled(MdClose)`
 const SelectUserModal = ({ showSelectUserModal, setSelectUserModal }) => {
   // Adds close functionality to SelectUser Modal
   const modalRef = useRef();
-
+  let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setSelectUserModal(false);
@@ -145,12 +145,12 @@ const SelectUserModal = ({ showSelectUserModal, setSelectUserModal }) => {
             <SecondBackground>
               <EmployerRegisterContent>
                 <Heading>Need help hiring new staff? </Heading>
-                <ModalBtn>Register Now</ModalBtn>
+                <ModalBtn onClick={() => {history.push('/employer/register'); setSelectUserModal(false);}}>Register Now</ModalBtn>
               </EmployerRegisterContent>
             </SecondBackground>
             <JobSeekerRegisterContent>
               <Heading>Need help to find your next career? </Heading>
-              <ModalBtn>Register Now</ModalBtn>
+              <ModalBtn onClick={() => {history.push('/seeker/register'); setSelectUserModal(false);}}>Register Now</ModalBtn>
             </JobSeekerRegisterContent>
 
             <CloseModalButton
