@@ -73,8 +73,9 @@ const NavBar = () => {
   function handleLogout(event){
     event.preventDefault()
 		logOut(loggedInUser)
-		.then(() => dispatch({type: 'setLoggedInUser', data: null}))
-  }
+		.then(() => {dispatch({type: 'setLoggedInUser', data: null})
+                 history.push("/")})
+                }
   return (
     <NavWrapper>
       <LogoWrapper onClick={()=>{history.push("/")}}>
