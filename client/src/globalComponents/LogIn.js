@@ -21,9 +21,6 @@ export default function LogIn({header,callback,isEmployer}){
 
     const {dispatch,store} = useGlobalState()
     const {loggedInUser}=store
-
-   // const formInvalid =!validEmail(formState.email)| !validPassword(formState.password)
-
     function handleChange(event) {
 		setFormState({
 			...formState,
