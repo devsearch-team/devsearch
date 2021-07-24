@@ -14,7 +14,6 @@ export default function LogIn({header,callback,isEmployer}){
 		email: '',
 		password: ''
 	}
-
 	const [formState, setFormState] = useState(initialFormState)
     const [emailError,setEmailError]=useState("")
     const [passwordError,setPasswordError]=useState("")
@@ -42,9 +41,8 @@ export default function LogIn({header,callback,isEmployer}){
         setPasswordError(passwordError)
     
         if(!emailError&&!passwordError){
-            empLogIn(formState)
+            callback(formState)
             .then(({username,jwt,isEmployer}) => {
-            console.log(username, jwt,isEmployer);
             dispatch({type: 'setLoggedInUser', data: username})
             dispatch({type:'setRole',data: isEmployer})
             dispatch({type: 'setToken', data: jwt})
