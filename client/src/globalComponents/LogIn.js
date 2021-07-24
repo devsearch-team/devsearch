@@ -65,4 +65,8 @@ return(
 
 const Header = styled.h1`
 margin-bottom:3rem;
+@media only screen and (max-width: 800px) {
+    margin-bottom:1.5rem;
+    font-size:24px;
+  }
 `

@@ -12,5 +12,6 @@ export const Input = styled.input`
   @media only screen and (max-width: 800px) {
     max-width: 200px;
     margin-bottom: 0.5rem;
+    font-size: 12px;
   }
 `;

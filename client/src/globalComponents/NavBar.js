@@ -77,7 +77,7 @@ const NavBar = () => {
   }
   return (
     <NavWrapper>
-      <LogoWrapper>
+      <LogoWrapper onClick={()=>{history.push("/")}}>
         <Logo>DevSearch.io</Logo>
       </LogoWrapper>
       <NavLinks>
