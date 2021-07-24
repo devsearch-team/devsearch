@@ -8,7 +8,7 @@ import { validEmail,validPassword} from "../utils/validators"
 import {empLogIn} from '../services/authServices'
 import {useGlobalState} from '../utils/globalContext'
 
-export default function LogIn({header,callback,isEmployer}){
+export default function LogIn({callback,isEmployer}){
 
     const initialFormState = {
 		email: '',
@@ -53,7 +53,7 @@ export default function LogIn({header,callback,isEmployer}){
     }
 return(
     <MiddleContainer>
-        <Header>{header}</Header>
+        <Header>{isEmployer?"Employer Login":"Job Seeker Login"}</Header>
         {loggedInUser? <p>logged in user is {loggedInUser}</p>:<></>}
         <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="youremail@email.com" ></Input>
         <div style={{color:"red"}}>{emailError}</div>
@@ -62,7 +62,7 @@ return(
         <InputButton style={{marginTop:".5rem"}} onClick={handleSubmit} >
               Sign In
         </InputButton>
-        <p style={{marginTop:"2rem"}}>Have an account? <Link to={isEmployer?"employer/register":"/seeker/register"}>register</Link></p>
+        <p style={{marginTop:"2rem"}}>Have an account? <Link to={isEmployer?"/employer/register":"/seeker/register"}>register</Link></p>
     </MiddleContainer>
 )
 }
