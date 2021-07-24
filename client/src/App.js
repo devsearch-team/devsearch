@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import NavBar from "./globalComponents/NavBar";
 import { Container, Styles, theme } from "../src/globalStyles";
 // import SideBar from "./globalComponents/SideBar";
+import Register from "./globalComponents/Register"
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
 import SeekerLogIn from "./pages/SeekerLogIn"
@@ -26,7 +27,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={LandingPage}/>
               <Route exact path="/employer/login" component={EmpLogIn}/>
-              {/* <Route exact path="/employer/singup" component={EmpSignUP}/> */}
+              <Route exact path="/employer/register" component={Register}/>
               <Route exact path="/seeker/login" component={SeekerLogIn}/>
               {/* <Route exact path="/seeker/singup" component={SeekerSignUP}/> */}
             </Switch>
