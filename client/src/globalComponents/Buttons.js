@@ -32,4 +32,11 @@ export const InputButton = styled.button`
     font-weight: bold;
     box-shadow: 3px 3px 5px #333;
   }
+  @media only screen and (max-width: 768px) {
+    margin-left: 1.4rem;
+    text-align:center;
+    font-size: 14px;
+    max-width: 80%;
+    // width:320px;
+  }
 `;
