@@ -10,6 +10,10 @@ import EmpLogIn from "./pages/EmpLogIn";
 import SeekerLogIn from "./pages/SeekerLogIn"
  
 const App = () => {
+
+  fetch("/api")
+    .then(res=>res.json())
+    .then(res=>console.log(res));
   return (
     <ThemeProvider theme={theme}>
       <Styles /> 
