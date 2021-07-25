@@ -8,6 +8,7 @@ import { Container, Styles, theme } from "../src/globalStyles";
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
 import SeekerLogIn from "./pages/SeekerLogIn"
+import SeekerJobList from "./pages/SeekerJobList";
  
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             {/* <Route exact path="/employer/singup" component={EmpSignUP}/> */}
             <Route exact path="/seeker/login" component={SeekerLogIn}/>
             {/* <Route exact path="/seeker/singup" component={SeekerSignUP}/> */}
+            <Route exact path="/seeker/jobs" component={SeekerJobList}/>
           </Switch>
         </BrowserRouter>
       {/* <LandingPage />     */}
