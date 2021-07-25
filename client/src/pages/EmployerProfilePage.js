@@ -7,65 +7,52 @@ import {
 } from "../globalComponents/Inputs";
 import { InputButton } from "../globalComponents/Buttons";
 import { theme } from "../globalStyles";
-import RobotArm from "../Assets/robotArm.jpg";
+
 const ProfileContainer = styled.div`
-  position: absolute;
-  top: 25%;
-  margin-left: 7rem;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  width: 60vw;
-  @media only screen and (max-width: 600px) {
-    top: 25%;
-    left: 0%;
-    width: 100%;
-    margin: 0rem 2rem;
-  }
+display:grid;
+grid-area: content;
+margin-top: 15rem;
+margin-left:15rem;
+@media only screen and (max-width: 1200px) {
+  margin-left:15rem;
+  width:100%;
+}
+@media only screen and (max-width: 900px) {
+  margin-left:15rem;
+  width:100%;
+}
+@media only screen and (max-width: 768px) {
+  margin-left:1rem;
+  width:100%;
+}
+
 `;
 
 const Heading = styled.h1`
-  margin: 1rem 0;
-  @media only screen and (max-width: 600px) {
-    font-size: 24px;
-  }
+margin: 1rem 0;
+@media only screen and (max-width: 768px) {
+  font-size: 24px;
+  margin: 1rem 1rem;
+}
 `;
 const SubHeading = styled.h3`
-  margin: 1rem 0;
-  @media only screen and (max-width: 600px) {
-    font-size: 18px;
-  }
+margin: 1rem 0;
+@media only screen and (max-width: 768px) {
+  font-size: 18px;
+  
+}
 `;
 
-const CompanyLogo = styled.div`
-  position: absolute;
-  top: 35%;
-  left: 58%;
-  width: 100%;
-  @media only screen and (max-width: 600px) {
-    top: 15%;
-    left: 10%;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-  }
-`;
-const Logo = styled.img`
-  max-width: 350px;
-  max-height: 150px;
-  object-fit: fill;
-  @media only screen and (max-width: 600px) {
-    object-fit: fill;
-    border-radius: 50%;
-    width: 75px;
-    height: 75px;
-  }
-`;
+
 const FormDiv = styled.div`
-  display: flex;
+display: flex;
   flex-direction: column;
   margin: 1rem 0;
-  width: 80%;
+  width: 100%;
+  @media only screen and (max-width: 768px) {
+    margin: 1rem 1rem;
+    width:100vw;
+  }
 `;
 
 const SideBySideInputContainer = styled.div`
@@ -73,12 +60,14 @@ const SideBySideInputContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr, 1fr;
   grid-template-areas: "left right" "leftLabel rightLabel";
-
-  @media only screen and (max-width: 600px) {
+ 
+  @media only screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width:100%;
+    // max-width: 600px;
   }
+
 `;
 
 const InputLabel = styled.label`
@@ -86,7 +75,7 @@ const InputLabel = styled.label`
   font-size: 14px;
   margin: 5px;
   opacity: 0.5;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     font-size: 10px;
     opacity: 0.5;
   }
@@ -99,18 +88,27 @@ const AboutCompany = styled.textarea`
   border: 1px solid ${theme.Accent};
   resize: none;
   padding: 10px;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
+    width:500px;
+    }
+    @media only screen and (max-width: 800px) {
+      // width: 400px;
+      max-width:80%;
+    }
+  @media only screen and (max-width: 768px) {
     font-size: 14px;
-    width: 250px;
+    // width: 400px;
+    max-width:80%;
+    
     height: 300px;
   }
 `;
 const EmployerProfilePage = () => {
   return (
     <>
-      <CompanyLogo>
-        <Logo src={RobotArm} alt="Company Logo"></Logo>
-      </CompanyLogo>
+      {/* <CompanyLogo> */}
+        {/* <Logo src={RobotArm} alt="Company Logo"></Logo> */}
+      {/* </CompanyLogo> */}
       <ProfileContainer>
         <Heading>Company Profile</Heading>
         <FormDiv>
@@ -153,8 +151,11 @@ const EmployerProfilePage = () => {
             <InputLabel style={{ gridArea: "rightLabel" }}>Country</InputLabel>
           </SideBySideInputContainer>
         </FormDiv>
+        <FormDiv>
         <SubHeading>About Company</SubHeading>
         <AboutCompany placeholder="About your company!!!"></AboutCompany>
+
+        </FormDiv>
         <FormDiv>
           <SubHeading>Social Media</SubHeading>
           <SideBySideInputContainer>

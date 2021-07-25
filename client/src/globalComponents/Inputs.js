@@ -22,9 +22,10 @@ export const ProfileInput = styled.input`
   border: none;
   color: ${theme.SecondaryTxt};
   font-size: 18px;
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     font-size: 14px;
-    max-width: 200px;
+    max-width: 60%;
+    width:400px;
   }
 `;
 
@@ -36,9 +37,14 @@ export const ProfileLongInput = styled.input`
   border: none;
   color: ${theme.SecondaryTxt};
   font-size: 18px;
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 900px) {
+    max-width: 60%;
+    
+    }
+  @media only screen and (max-width: 768px) {
     font-size: 14px;
-    max-width: 200px;
+    max-width: 80%;
+    // width:600px;
   }
 `;
 export const ProfileShortInput = styled.input`
@@ -49,8 +55,13 @@ export const ProfileShortInput = styled.input`
   margin-top: 1rem;
   color: ${theme.SecondaryTxt};
   font-size: 18px;
-  @media only screen and (max-width: 800px) {
+  // @media only screen and (max-width: 800px) {
+  //   font-size: 14px;
+  //   max-width: 160px;
+  // }
+  @media only screen and (max-width: 768px) {
     font-size: 14px;
-    max-width: 150px;
+    max-width: 60%;
+    width:300px;
   }
 `;
