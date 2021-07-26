@@ -30,14 +30,29 @@ export const MiddleContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap-reverse;
 `;
-
+export const Label=styled.label`
+font-size:24px;
+width:106px;
+margin:.5rem;
+@media only screen and (max-width: 800px) {
+  width:62px;
+  font-size:14px
+}
+`
+export const ErrorMessage=styled.div`
+color:red;
+@media only screen and (max-width: 800px) {
+    font-size:12px;
+  }
+`
 export const theme = {
   // Background Colors
   NavBg: "#242E38",
   MainBg: "#424B53",
   accentBg: "#74808C",
   // Tab's & Selected Button Colors
-  PrimaryBtnBg: "#F7B13E",
+  PrimaryBtnBg: "rgb(247, 177, 62)",
+  DisabledPrimaryBtnBg: "rgba(247, 177, 62, 0.85)",
   SecondaryBtnBg: "#E4E4E4",
   // TextColors
   PrimaryTxt: "#FFFFFF",

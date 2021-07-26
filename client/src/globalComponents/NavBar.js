@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 import { theme } from "../globalStyles";
 import LoginModal from "../modals/LoginModal";
 import SelectUserModal from "../modals/SelectUserModal";
-
+import {useGlobalState} from '../utils/globalContext'
+import { logOut } from "../services/authServices";
 const NavWrapper = styled.nav`
   width: 100%;
   // visibility:hidden;
@@ -61,7 +63,13 @@ const Line = styled.div`
 `;
 
 const NavBar = () => {
+
+  let history = useHistory()
+
   const [showLoginModal, setLoginModal] = useState(false);
+
+  const {dispatch,store} = useGlobalState()
+  const {loggedInUser,isEmployer}=store
 
   // This function runs when the Login button is pressed
   const openLoginModal = () => {
@@ -74,17 +82,36 @@ const NavBar = () => {
   const openSelectUserModal = () => {
     setSelectUserModal((prev) => !prev);
   };
+
+  function handleLogout(event){
+    event.preventDefault()
+		logOut(loggedInUser)
+		.then(() => {dispatch({type: 'setLoggedInUser', data: null})
+                 history.push("/")})
+                }
   return (
     <NavWrapper>
+      
       <InnerNavWrapper>
 
-      <LogoWrapper>
-        <Logo> DevSearch.io</Logo>
+      <LogoWrapper onClick={()=>{history.push("/")}}>
+        <Logo>DevSearch.io</Logo>
       </LogoWrapper>
       <NavLinks>
-        <NavItem onClick={openLoginModal}>Login</NavItem>
-        <Line />
-        <NavItem onClick={openSelectUserModal}>Register</NavItem>
+        {loggedInUser?
+        <>
+          <NavItem onClick={() =>{isEmployer? history.push('/employer/profile'):history.push('/seeker/profile')}}>Profile</NavItem>
+          <Line />
+          <NavItem onClick={handleLogout}>Log out</NavItem>
+
+        </>:
+        <>
+          <NavItem onClick={openLoginModal}>Login</NavItem>
+          <Line />
+          <NavItem onClick={openSelectUserModal}>Register</NavItem>
+        </>
+        }
+        
       </NavLinks>
       <LoginModal
         showLoginModal={showLoginModal}

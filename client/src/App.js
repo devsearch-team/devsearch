@@ -1,34 +1,45 @@
-import React from "react";
+import React,{useReducer} from "react";
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import NavBar from "./globalComponents/NavBar";
-
-import {  Styles, theme } from "../src/globalStyles";
+import { Container, Styles, theme } from "../src/globalStyles";
 // import EmployerProfilePage from "../src/pages/EmployerProfilePage";
 // import SideBar from "./globalComponents/SideBar";
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
+import EmpRegister from "./pages/EmpRegister"
+import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
-
+import stateReducer from './utils/stateReducer'
+import { StateContext } from './utils/globalContext'
 const App = () => {
+  const initialState = {
+		loggedInUser: null,
+    isEmployer:false,
+		auth: {token: null}
+	}
+  const [store, dispatch] = useReducer(stateReducer, initialState )
+
   return (
     <ThemeProvider theme={theme}>
-      <Styles />
-      <BrowserRouter> 
-      <NavBar />
-        <Switch> 
-        <Route exact path="/" component={LandingPage}/> 
-        <Route exact path="/employer/login" component={EmpLogIn}/> 
-        {/* <Route exact path="/employer/singup" component={EmpSignUP}/>  */}
-       <Route exact path="/seeker/login" component={SeekerLogIn}/> 
-        {/* <Route exact path="/seeker/singup" component={SeekerSignUP}/>  */}
-    </Switch>
-    </BrowserRouter>
-      {/* <Container>
+      <Styles /> 
+      <StateContext.Provider value={{store, dispatch}}>
+        <BrowserRouter>
+        <NavBar />
+            <Switch>
+              <Route exact path="/" component={LandingPage}/>
+              <Route exact path="/employer/login" component={EmpLogIn}/>
+              <Route exact path="/employer/register" component={EmpRegister}/>
+              <Route exact path="/seeker/login" component={SeekerLogIn}/>
+              <Route exact path="/seeker/register" component={SeekerRegister}/>
+            </Switch>
+          </BrowserRouter>
+          {/* <Container>
         <SideBar />
         <EmployerProfilePage />
         
       </Container> */}
+        </StateContext.Provider>
       {/* <LandingPage />     */}
       {/* The Container and sidebar need to conditionally loaded when a user / employer is logged in */}
     </ThemeProvider>
