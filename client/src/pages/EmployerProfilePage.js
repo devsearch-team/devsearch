@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {useGlobalState} from '../utils/globalContext'
 import {
   ProfileInput,
   ProfileLongInput,
@@ -104,50 +105,58 @@ const AboutCompany = styled.textarea`
   }
 `;
 const EmployerProfilePage = () => {
+
+  
+  const {dispatch,store} = useGlobalState()
+  const {loggedInUser}=store
+
+
   return (
     <>
+    { loggedInUser? 
+    <>
       {/* <CompanyLogo> */}
-        {/* <Logo src={RobotArm} alt="Company Logo"></Logo> */}
+      {/* <Logo src={RobotArm} alt="Company Logo"></Logo> */}
       {/* </CompanyLogo> */}
       <ProfileContainer>
-        <Heading>Company Profile</Heading>
-        <FormDiv>
-          <SubHeading>RoboDev</SubHeading>
-          <ProfileInput placeholder="Email"></ProfileInput>
-          <InputLabel>Email</InputLabel>
-          <ProfileInput placeholder="Phone"></ProfileInput>
-          <InputLabel>Phone</InputLabel>
-          <ProfileInput placeholder="Website"></ProfileInput>
-          <InputLabel>Website</InputLabel>
-        </FormDiv>
-        <FormDiv>
-          <SubHeading>Address</SubHeading>
-          <ProfileLongInput placeholder="Street Address"></ProfileLongInput>
-          <InputLabel>Street Address</InputLabel>
-          <ProfileLongInput placeholder="Street Address Line 2"></ProfileLongInput>
-          <InputLabel>Street Address Line 2</InputLabel>
-          <SideBySideInputContainer>
-            <ProfileShortInput
-              style={{ gridArea: "left" }}
-              placeholder="City"
-            ></ProfileShortInput>
-            <InputLabel style={{ gridArea: "leftLabel" }}>City</InputLabel>
-            <ProfileShortInput
-              style={{ gridArea: "right" }}
-              placeholder="State"
-            ></ProfileShortInput>
-            <InputLabel style={{ gridArea: "rightLabel" }}>State</InputLabel>
-          </SideBySideInputContainer>
-          <SideBySideInputContainer>
+      <Heading>Company Profile</Heading>
+      <FormDiv>
+      <SubHeading>RoboDev</SubHeading>
+      <ProfileInput placeholder="Email"></ProfileInput>
+      <InputLabel>Email</InputLabel>
+      <ProfileInput placeholder="Phone"></ProfileInput>
+      <InputLabel>Phone</InputLabel>
+      <ProfileInput placeholder="Website"></ProfileInput>
+      <InputLabel>Website</InputLabel>
+      </FormDiv>
+      <FormDiv>
+      <SubHeading>Address</SubHeading>
+      <ProfileLongInput placeholder="Street Address"></ProfileLongInput>
+      <InputLabel>Street Address</InputLabel>
+      <ProfileLongInput placeholder="Street Address Line 2"></ProfileLongInput>
+      <InputLabel>Street Address Line 2</InputLabel>
+      <SideBySideInputContainer>
+      <ProfileShortInput
+      style={{ gridArea: "left" }}
+      placeholder="City"
+      ></ProfileShortInput>
+      <InputLabel style={{ gridArea: "leftLabel" }}>City</InputLabel>
+      <ProfileShortInput
+      style={{ gridArea: "right" }}
+      placeholder="State"
+      ></ProfileShortInput>
+      <InputLabel style={{ gridArea: "rightLabel" }}>State</InputLabel>
+      </SideBySideInputContainer>
+      <SideBySideInputContainer>
             <ProfileShortInput
               style={{ gridArea: "left" }}
               placeholder="Postcode"
-            ></ProfileShortInput>
+              ></ProfileShortInput>
             <InputLabel style={{ gridArea: "leftLabel" }}>Postcode</InputLabel>
             <ProfileShortInput
               style={{ gridArea: "right" }}
               placeholder="Country"
-            ></ProfileShortInput>
+              ></ProfileShortInput>
             <InputLabel style={{ gridArea: "rightLabel" }}>Country</InputLabel>
           </SideBySideInputContainer>
         </FormDiv>
@@ -162,12 +171,12 @@ const EmployerProfilePage = () => {
             <ProfileShortInput
               style={{ gridArea: "left" }}
               placeholder="Facebook"
-            ></ProfileShortInput>
+              ></ProfileShortInput>
             <InputLabel style={{ gridArea: "leftLabel" }}>Facebook</InputLabel>
             <ProfileShortInput
               style={{ gridArea: "right" }}
               placeholder="Instagram"
-            ></ProfileShortInput>
+              ></ProfileShortInput>
             <InputLabel style={{ gridArea: "rightLabel" }}>
               Instagram
             </InputLabel>
@@ -176,20 +185,23 @@ const EmployerProfilePage = () => {
             <ProfileShortInput
               style={{ gridArea: "left" }}
               placeholder="Twitter"
-            ></ProfileShortInput>
+              ></ProfileShortInput>
             <InputLabel style={{ gridArea: "leftLabel" }}>Twitter</InputLabel>
             <ProfileShortInput
               style={{ gridArea: "right" }}
               placeholder="Other"
-            ></ProfileShortInput>
+              ></ProfileShortInput>
             <InputLabel style={{ gridArea: "rightLabel" }}>Other</InputLabel>
           </SideBySideInputContainer>
         </FormDiv>
         <InputButton>Save</InputButton>
         <div style={{ margin: "2rem" }}> </div>
-      </ProfileContainer>
-    </>
-  );
-};
-
-export default EmployerProfilePage;
+        </ProfileContainer>
+        </> : <> </>
+      }
+      </>
+        );
+      };
+      
+      export default EmployerProfilePage;
+      
