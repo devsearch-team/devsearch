@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
 import {useGlobalState} from '../utils/globalContext'
+import { validEmail,validPassword} from "../utils/validators"
 
 export default function LogIn({callback,header}){
 
@@ -27,11 +28,11 @@ export default function LogIn({callback,header}){
 		event.preventDefault()
         let emailError=""
         let passwordError=""
-       if (!formState.email){
-        emailError="Please, enter an email address"
+       if (!validEmail(formState.email)){
+        emailError="Please, enter a valid email address"
        }
-       if(!formState.password){
-        passwordError="Please, enter a password"
+       if(!validPassword(formState.password)){
+        passwordError="Please, enter a valid password"
        } 
         setEmailError(emailError)
         setPasswordError(passwordError)
