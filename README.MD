@@ -129,6 +129,7 @@ This application is targeted towards job seekers, and employers looking for empl
 [Link to Diagrams.net Dataflow diagram](https://app.diagrams.net/?src=about#G1QABTrSsEFYEDQD2Q8J1L0cKP8UJmCyHx)
 
 ![data-flow-diagram](docs/data-flow-diagram.png)
+
 ## Application Architecture Diagram
 
 [Link to Diagrams.net Architecture diagram](https://drive.google.com/file/d/1OrWT3w7WxmWrqiDimOpc0sUHPYZAIpKD/view?usp=sharing)
@@ -181,25 +182,221 @@ As a Job Seeker I want to:
 
 ## Wireframes
 
+##### Link to the Wireframes in Figma
+
 [Link to Figma Board.](https://www.figma.com/file/E9KSA9VcggekHrZqaQTocy/DevSearch?node-id=0%3A1)
 
-![All Wireframes](docs/AllWireframes.jpg)
-![High Fidelity MockUps](docs/HighFidelityWireframes.png)
+##### All Wireframes
 
-### Desktop
+![All Wireframes](docs/AllWireframes.jpg)
+
+##### All High Fidelity Wireframes
+
+![High Fidelity MockUps](docs\HighFidelity\HighFidelityWireframes.png)
+
+![Color Chart](docs\Color-Chart.png)
+
+### High Fidelity Wireframes
+
+##### High Fidelity Desktop Landing Page
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Landing-Page-Desktop.png)
+
+##### High Fidelity Tablet Landing Page
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Landing-Page-Tablet.png)
+
+##### High Fidelity Mobile Landing Page
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Landing-Page-Mobile.png)
+
+---
+
+##### High Fidelity Employer Add Job Page
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Employer-Add-Job.png)
+
+##### High Fidelity Login Page Tablet
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Login-Page-Tablet.png)
+
+##### High Fidelity Employer Job Listings Card
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Employer-Job-Listings-Card.png)
+
+##### High Fidelity Mobile Job Seeker Job Lisitings
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Mobile-JobSeeker-JobLists.png)
+
+##### High Fidelity Mobile Apply for Job Page
+
+![High Fidelity Landing Page Mobile](docs/HighFidelity/High-Fidelity-Apply-Job-Page-Mobile.png)
+
+---
+
+### Desktop Low Fidelity
+
+#### Employer
+
+##### All Low Fidelity Desktop Employer Wireframes
 
 ![Employer Desktop Wireframes](docs/AllEmployerDesktop.jpg)
+
+##### Low Fidelity Desktop Employer Application Feedback
+
+![Low Fidelity Desktop Employer Application Feedback](docs/LowFidelityDesktop/Employer-Applications-FeedBack-Desktop.png)
+
+##### Low Fidelity Desktop Employer Offer Interview Modal
+
+![Low Fidelity Desktop Employer Application Offer Interview](docs/LowFidelityDesktop/Employer-Applications-Interviewing-With-Offer-Position-Modal-Desktop.png)
+
+##### Low Fidelity Desktop Employer Offer Interview Modal
+
+![Low Fidelity Desktop Employer Application Offer Interview](docs\LowFidelityDesktop\Employer-Applications-Offer-Interview-Modal-Desktop.png)
+
+##### Low Fidelity Desktop Employer Applications Recieved Empty Page
+
+![Low Fidelity Desktop Employer Applications Recieved Empty Page](docs\LowFidelityDesktop\Employer-Applications-Recieved-Empty-Desktop.png)
+
+##### Low Fidelity Desktop Employer Response for Interview Offer Modal
+
+![Low Fidelity Desktop Employer Application Response for Interview](docs/LowFidelityDesktop/Employer-Applications-Recieved-Response-For-Interview-Modal.png)
+
+##### Low Fidelity Desktop Employer Job Lisitings
+
+![Low Fidelity Desktop Employer Job Lisitings](docs\LowFidelityDesktop\Employer-Job-Listings-Desktop.png)
+
+##### Low Fidelity Desktop Employer Job Lisitings View Position
+
+![Low Fidelity Desktop Employer Job Lisitings View Position](docs\LowFidelityDesktop\Employer-Job-Listings-View-Position-Modal-Desktop.png)
+
+##### Low Fidelity Desktop Employer Profile
+
+![Low Fidelity Desktop Employer Profile](docs\LowFidelityDesktop\Employer-Profile-Desktop.png)
+
+##### Low Fidelity Desktop Employer Login Modal
+
+![Low Fidelity Desktop Employer Login Modal](docs\LowFidelityDesktop\LandingPage-With-Employer-Login-Modal-Desktop.png)
+
+##### Low Fidelity Desktop Employer Sign Up Modal
+
+![Low Fidelity Desktop Employer Sign Up Modal](docs\LowFidelityDesktop\LandingPage-With-Employer-SignUp-Modal-Desktop.png)
+
+##### Low Fidelity Desktop Employer Login Page
+
+![Low Fidelity Desktop Employer Login Page](docs\LowFidelityDesktop\Login-Employer-Desktop.png)
+
+##### Low Fidelity Desktop Employer Registration Page
+
+![Low Fidelity Desktop Employer Registration Page](docs\LowFidelityDesktop\Registration-Employer-Desktop.png)
+
+---
+
+#### JobSeeker
+
+#### Low Fidelity Desktop JobSeeker Applications Page
+
+![JobSeeker Desktop Applications Page](docs\LowFidelityDesktop\Job-Seeker-Applications-Desktop.png)
+
+#### Low Fidelity Desktop JobSeeker Job Lisitings Page
+
+![JobSeeker Desktop Job Lisitings Page](docs\LowFidelityDesktop\Job-Seeker-Job-Lisitings-Desktop.png)
+
+#### Low Fidelity Desktop JobSeeker Profile Page
+
+![JobSeeker Desktop Profile Page](docs\LowFidelityDesktop\Job-Seeker-Profile-Desktop.png)
+
+#### Low Fidelity Desktop JobSeeker Registration Page
+
+![JobSeeker Desktop Registration Page](docs\LowFidelityDesktop\Job-Seeker-Registration-Desktop.png)
+
+#### Low Fidelity Desktop JobSeeker Company Offerd Position Modal
+
+![JobSeeker Desktop Company Offerd Position Modal](docs\LowFidelityDesktop\JobSeeker-Company-Offer-PositionModal.png)
+
+#### Low Fidelity Desktop JobSeeker Company Offerd Interview Modal
+
+![JobSeeker Desktop Company Offerd Interview Modal](docs\LowFidelityDesktop\JobSeeker-Company-Offered-Interview-Modal.png)
+
+#### Low Fidelity Desktop JobSeeker FeedBack Modal
+
+![JobSeeker Desktop FeedBack Modal](docs\LowFidelityDesktop\JobSeeker-FeedBack-Modal-Desktop.png)
+
+#### Low Fidelity Desktop JobSeeker Login
+
+![JobSeeker Desktop Login](docs\LowFidelityDesktop\JobSeeker-Login-Desktop.png)
+
+##### All Low Fidelity Desktop Job Seeker Wireframes
+
 ![JobSeeker Desktop Wireframes](docs/AllJobSeekerDesktop.png)
 
-### Tablet
+---
+
+### Tablet Low Fidelity
+
+<!-- This only has two frames listed as it is basicaly the same as desktop -->
+
+#### Employer
+
+##### All Employer Tablet Wireframes
 
 ![Employer Tablet Wireframes](docs/EmployerTabletWireframes.jpg)
+
+#### Job Seeker
+
+##### All JobSeeker Tablet Wireframes
+
 ![JobSeeker Tablet Wireframes](docs/JobSeekerTabletWireframes.jpg)
 
-### Mobile
+---
+
+### Mobile Low Fidelity
+
+#### Employer
+
+#### All Employer Mobile Wireframes
 
 ![Employer Mobile Wireframes](docs/EmployerMobileWireframes.jpg)
+
+##### Employer Mobile Accepted Applications
+
+![Employer Mobile Accepted Applications](docs\LowFidelityMobile\Employer-Accepted-Mobile.png)
+
+##### Employer Mobile Add New Job
+
+![Employer Mobile Add New Job ](docs\LowFidelityMobile\Employer-Add-New-Job.png)
+
+##### Employer Mobile Menu
+
+![Employer Mobile Menu](docs\LowFidelityMobile\Employer-Mobile-Menu.png)
+
+##### Employer Mobile Profile
+
+![Employer Mobile Profile](docs\LowFidelityMobile\Employer-Profile-Mobile.png)
+
+#### Job Seeker
+
+##### All Job Seeker Mobile Wireframes
+
 ![JobSeeker Mobile Wireframes](docs/JobSeekerMobileWireframes.jpg)
+
+##### Job Seeker Mobile Apply For a Job
+
+![JobSeeker Mobile Apply For a Job](docs\LowFidelityMobile\Job-Seeker-Apply-For-Job-Page-Mobile.png)
+
+##### Job Seeker Mobile Menu
+
+![JobSeeker Mobile Menu](docs\LowFidelityMobile\Job-Seeker-Mobile-Menu.png)
+
+##### Job Seeker Mobile Applications Applied
+
+![JobSeeker Mobile Applications Applied](docs\LowFidelityMobile\JobSeeker-Applications-Applied-Mobile.png)
+
+##### Job Seeker Mobile Job Listings Page
+
+![JobSeeker Mobile Job Listings Page](docs\LowFidelityMobile\JobSeeker-Job-Listings-Page-Mobile.png)
+
+---
 
 ## Trello Board
 
