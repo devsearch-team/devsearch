@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { theme } from "../globalStyles";
 import LoginModal from "../modals/LoginModal";
 import SelectUserModal from "../modals/SelectUserModal";
-
+import NavMobile from "./NavMobile";
 const NavWrapper = styled.nav`
   width: 100%;
   background: ${(props) => theme.NavBg};
@@ -14,6 +14,7 @@ const NavWrapper = styled.nav`
   align-items: center;
   position: sticky;
   top: 0;
+
 `;
 const LogoWrapper = styled.div`
   text-align: center;
@@ -62,6 +63,7 @@ const NavBar = () => {
     setSelectUserModal((prev) => !prev);
   };
   return (
+      
     <NavWrapper>
       <LogoWrapper>
         <Logo> DevSearch.io</Logo>
