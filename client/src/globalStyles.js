@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from "styled-components";
 
 export const Styles = createGlobalStyle`
 *{
+  overflow-X: hidden;
     padding: 0;
     margin: 0;
     box-sizing:0;
@@ -10,13 +11,16 @@ export const Styles = createGlobalStyle`
 }
 body{
     background: ${(props) => props.theme.MainBg};
-    // overflow-x: hidden;
 }
 `;
 
 export const Container = styled.div`
-  width: 80%;
-  margin-left: 30rem;
+  width: 100vw;
+  display:grid;
+  grid-template-columns"0.5fr 3.5fr";
+  grid-areas:
+  "navbar navbar"
+  "sidebar content";
 `;
 export const MiddleContainer = styled.div`
   display: flex;
