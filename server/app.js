@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 4000
 
 app.use(morgan('dev'))
-app.use(express.static('../client/build'))
+//app.use(express.static('../client/build'))
 
 app.use('/api', apiRouter);
 
