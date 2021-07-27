@@ -1,3 +1,9 @@
 {
-  "dependencies": {}
-}
+    "scripts": {
+      "start":"cd server && npm run start",
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "cd client && npm install && npm run build",
+      "postbuild": "cd server && npm install"
+    }
+  }
+  

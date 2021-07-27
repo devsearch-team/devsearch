@@ -20,6 +20,10 @@ const App = () => {
 	}
   const [store, dispatch] = useReducer(stateReducer, initialState )
 
+
+  fetch("/api")
+    .then(res=>res.json())
+    .then(res=>console.log(res));
   return (
     <ThemeProvider theme={theme}>
       <Styles /> 
