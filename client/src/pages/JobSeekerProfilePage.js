@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {useGlobalState} from '../utils/globalContext'
 import {
   ProfileInput,
-  ProfileLongInput,
   ProfileShortInput,
 } from "../globalComponents/Inputs";
 import { InputButton } from "../globalComponents/Buttons";
@@ -81,7 +80,7 @@ const InputLabel = styled.label`
     opacity: 0.5;
   }
 `;
-const AboutCompany = styled.textarea`
+const AboutUser = styled.textarea`
   width: 600px;
   height: 400px;
   background: ${theme.NavBg};
@@ -104,7 +103,7 @@ const AboutCompany = styled.textarea`
     height: 300px;
   }
 `;
-const EmployerProfilePage = () => {
+const JobSeekerProfilePage = () => {
 
   
   const { store} = useGlobalState()
@@ -115,13 +114,10 @@ const EmployerProfilePage = () => {
     <>
     { loggedInUser? 
     <>
-      {/* <CompanyLogo> */}
-      {/* <Logo src={RobotArm} alt="Company Logo"></Logo> */}
-      {/* </CompanyLogo> */}
       <ProfileContainer>
-      <Heading>Company Profile</Heading>
+      <Heading>User Profile</Heading>
       <FormDiv>
-      <SubHeading>RoboDev</SubHeading>
+      <SubHeading>Jo Bloggs</SubHeading>
       <ProfileInput placeholder="Email"></ProfileInput>
       <InputLabel>Email</InputLabel>
       <ProfileInput placeholder="Phone"></ProfileInput>
@@ -130,40 +126,9 @@ const EmployerProfilePage = () => {
       <InputLabel>Website</InputLabel>
       </FormDiv>
       <FormDiv>
-      <SubHeading>Address</SubHeading>
-      <ProfileLongInput placeholder="Street Address"></ProfileLongInput>
-      <InputLabel>Street Address</InputLabel>
-      <ProfileLongInput placeholder="Street Address Line 2"></ProfileLongInput>
-      <InputLabel>Street Address Line 2</InputLabel>
-      <SideBySideInputContainer>
-      <ProfileShortInput
-      style={{ gridArea: "left" }}
-      placeholder="City"
-      ></ProfileShortInput>
-      <InputLabel style={{ gridArea: "leftLabel" }}>City</InputLabel>
-      <ProfileShortInput
-      style={{ gridArea: "right" }}
-      placeholder="State"
-      ></ProfileShortInput>
-      <InputLabel style={{ gridArea: "rightLabel" }}>State</InputLabel>
-      </SideBySideInputContainer>
-      <SideBySideInputContainer>
-            <ProfileShortInput
-              style={{ gridArea: "left" }}
-              placeholder="Postcode"
-              ></ProfileShortInput>
-            <InputLabel style={{ gridArea: "leftLabel" }}>Postcode</InputLabel>
-            <ProfileShortInput
-              style={{ gridArea: "right" }}
-              placeholder="Country"
-              ></ProfileShortInput>
-            <InputLabel style={{ gridArea: "rightLabel" }}>Country</InputLabel>
-          </SideBySideInputContainer>
-        </FormDiv>
-        <FormDiv>
-        <SubHeading>About Company</SubHeading>
-        <AboutCompany placeholder="About your company!!!"></AboutCompany>
 
+        <SubHeading>About You</SubHeading>
+        <AboutUser placeholder="All about you!!!"></AboutUser>
         </FormDiv>
         <FormDiv>
           <SubHeading>Social Media</SubHeading>
@@ -203,5 +168,5 @@ const EmployerProfilePage = () => {
         );
       };
       
-      export default EmployerProfilePage;
+      export default JobSeekerProfilePage;
       
