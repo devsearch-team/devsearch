@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import NavBar from "./globalComponents/NavBar";
 import { Container, Styles, theme } from "../src/globalStyles";
 import EmployerProfilePage from "../src/pages/EmployerProfilePage";
+import JobSeekerProfilePage from "../src/pages/JobSeekerProfilePage";
 import SideBar from "./globalComponents/SideBar";
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
@@ -45,6 +46,7 @@ const App = () => {
            <Container>
               <SideBar /> 
               <Route exact path="/employer/profile" component={EmployerProfilePage}/>
+              <Route exact path="/seeker/profile" component={JobSeekerProfilePage}/>
             </Container>
             </Switch>
           </BrowserRouter>
