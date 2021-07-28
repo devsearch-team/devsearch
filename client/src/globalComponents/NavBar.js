@@ -54,6 +54,7 @@ const NavItem = styled.li`
   font-size: 24px;
   color: white;
   margin: 0 1.5rem;
+  
   &:hover {
     cursor: pointer;
     color: ${(props) => theme.Accent};

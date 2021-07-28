@@ -107,7 +107,7 @@ const AboutCompany = styled.textarea`
 const EmployerProfilePage = () => {
 
   
-  const {dispatch,store} = useGlobalState()
+  const {dispatch , store} = useGlobalState()
   const {loggedInUser}=store
 
 
