@@ -30,4 +30,41 @@ const signIn = function(req,res){
     })
 }
 
-module.exports = {register,signIn}
+// const getEmployer=function(req,res){
+//     var query=Employer.findOne({email: req.body.email}).select({ "name": 1, "_id": 0})
+//     Employer.findOne({email: req.user.email}, (err, employer)=>{
+//         if(err){
+//             res.status(400)
+//             return res.json({error: err.message})
+//         }
+//         res.send(employer)
+//     })  
+// }
+const getEmployer=function(req,res){
+        var query=Employer.findOne({email: req.user.email}).select({ "hash_password": 0})
+        query.exec((err, employer)=>{
+            if(err){
+                res.status(400)
+                return res.json({error: err.message})
+            }
+            res.send(employer)
+        })  
+    }
+
+const updateEmployer=function(req,res){
+    
+}  
+
+    const loginRequired = function(req,res, next){
+        if(req.user){
+            next()
+        }else{
+            return res.status(401).json({message: "Unauthorized operation"})
+        }
+    }
+
+    
+      
+module.exports = {register,signIn,getEmployer,loginRequired}
+
+// 
