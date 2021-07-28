@@ -11,12 +11,13 @@ const register = function(req, res){
             res.status(400)
             return res.json({error: err.message})
         }
-        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, _id: employer.id},process.env.SECRET_KEY) })
+        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, _id: employer.id},process.env.EMPLOYER_SECRET_KEY) })
     })
 
 }
 
 const signIn = function(req,res){
+    console.log("secret key",process.env.EMPLOYER_SECRET_KEY)
     Employer.findOne({email: req.body.email}, (err, employer)=>{
         if(err){
             res.status(400)
@@ -26,20 +27,10 @@ const signIn = function(req,res){
             res.status(400)
             return res.json({message: "Authentication failed"})
         }
-        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, id: employer.id},"secret") })
+        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, id: employer.id},process.env.EMPLOYER_SECRET_KEY) })
     })
 }
 
-// const getEmployer=function(req,res){
-//     var query=Employer.findOne({email: req.body.email}).select({ "name": 1, "_id": 0})
-//     Employer.findOne({email: req.user.email}, (err, employer)=>{
-//         if(err){
-//             res.status(400)
-//             return res.json({error: err.message})
-//         }
-//         res.send(employer)
-//     })  
-// }
 const getEmployer=function(req,res){
         var query=Employer.findOne({email: req.user.email}).select({ "hash_password": 0})
         query.exec((err, employer)=>{
@@ -51,20 +42,30 @@ const getEmployer=function(req,res){
         })  
     }
 
-const updateEmployer=function(req,res){
-    
-}  
+   
 
+const updateEmployer=function(req,res){
+    console.log("req.user.id",req.user.id)
+    Employer.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, employer)=>{
+        if (err){
+            res.status(404)
+            return res.json({error: err.message})
+        }
+        res.status(200)
+        res.send(employer)
+    } ) 
+}
     const loginRequired = function(req,res, next){
         if(req.user){
             next()
         }else{
+            console.log("req.user",req.user)
             return res.status(401).json({message: "Unauthorized operation"})
         }
     }
 
     
       
-module.exports = {register,signIn,getEmployer,loginRequired}
+module.exports = {register,signIn,getEmployer,loginRequired,updateEmployer}
 
 // 

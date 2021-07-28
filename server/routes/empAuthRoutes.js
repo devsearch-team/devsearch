@@ -3,7 +3,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 
-const {register,signIn,getEmployer,loginRequired} = require('../controllers/empAuthController')
+const {register,signIn,getEmployer,loginRequired,updateEmployer} = require('../controllers/empAuthController')
 
 //if the employer is logged in, add user to req 
 router.use((req, res, next) => {
@@ -15,8 +15,7 @@ router.use((req, res, next) => {
             }else{
                 req.user = decode
             }
-            // console.log("req.user",req.user)
-            console.log("req.headers",req.headers)
+             
             next()
         })
     }else{
@@ -29,4 +28,5 @@ router.use((req, res, next) => {
 router.post('/register', register)
 router.post('/signin', signIn)
 router.get('/profile',loginRequired, getEmployer)
+router.put('/profile',loginRequired,updateEmployer)
 module.exports = router
