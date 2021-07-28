@@ -5,7 +5,6 @@ import { theme } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import SelectUserModal from "../modals/SelectUserModal";
 import {} from "../globalComponents/Buttons";
-// import EmployerProfilePage from "./EmployerProfilePage";
 
 export default function LandingPage() {
   // Using state to open a Select User modal when a User Clicks Register

@@ -1,14 +1,23 @@
-import {empLogIn} from '../services/authServices'
+import React from "react";
+import styled from "styled-components";
 import {Link} from 'react-router-dom'
-import LogIn from "../globalComponents/LogIn";
 import { MiddleContainer } from "../globalStyles";
-
+import { InputButton } from "../globalComponents/Buttons";
+import {Input} from "../globalComponents/Inputs"
 export default function EmpLogIn(){
-    return(
-        <MiddleContainer>
-            <LogIn callback={empLogIn} header={"Employer Login"}></LogIn>
-            <p style={{marginTop:"2rem"}}>Have an account? <Link to={"/employer/register"}>register</Link></p>
+return(
+    <MiddleContainer>
+        <Header>Employer Login</Header>
+        <Input type="text" placeHolder="yourEmail@email.com"></Input>
+        <Input type="password" placeHolder="password"></Input>
+        <InputButton>
+              Sign In
+        </InputButton>
+        <p style={{marginTop:"2rem"}}>Have an account? <Link to="/employer/register">register</Link></p>
     </MiddleContainer>
-        
-    )
+)
 }
+
+const Header = styled.h1`
+margin-bottom:3rem;
+`

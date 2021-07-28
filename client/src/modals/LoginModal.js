@@ -58,12 +58,6 @@ const LoginModalWrapper = styled.div`
       opacity: 1;
     }
   }
-  @media only screen and (max-width: 768px) {
-    display:flex;
-    flex-direction:column;
-    width: 100vw;
-    height: 90vh;
-  }
 `;
 
 const SecondBackground = styled.div`
@@ -82,10 +76,6 @@ const SecondBackground = styled.div`
       opacity: 1;
     }
   }
-  @media only screen and (max-width: 768px) {
-    margin-top: 6rem;
-    width:100vw;
-  }
 `;
 const EmployerRegisterContent = styled.div`
   display: flex;
@@ -95,50 +85,22 @@ const EmployerRegisterContent = styled.div`
   margin: 0 3rem;
   width: 100%;
   height: 100%;
-  @media only screen and (max-width: 768px) {  
-    margin: 0 3rem;
-    justify-content: center;
-    align-items: left;
-    width: 100vw;
-  }
-  `;
-
-  const JobSeekerRegisterContent = styled.div`
+`;
+const JobSeekerRegisterContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: right;
-  
   margin: 0 3rem;
   width: 100%;
   height: 100%;
-  @media only screen and (max-width: 768px) {  
-    margin: 0 3rem;
-    justify-content: center;
-    align-items: left;
-    width: 100%;
-    
-  }
 `;
 
 const Heading = styled.h1`
   margin: 1rem 0;
-
   width: 80%;
-  // word-wrap: wrap;
+  word-wrap: wrap;
   font-size: 36px;
-  @media only screen and (max-width: 768px) {  
-    font-size: 24px;
-    text-align:left;
-    // width: 100%;
-  }
-  @media only screen and (max-width: 360px) {  
-
-    text-align:left;
-    width: 100%;
-    
-    font-size: 20px;
-  }
 `;
 
 const CloseModalButton = styled(MdClose)`

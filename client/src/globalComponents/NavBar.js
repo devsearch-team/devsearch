@@ -1,48 +1,28 @@
 import React, { useState } from "react";
-import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 import { theme } from "../globalStyles";
 import LoginModal from "../modals/LoginModal";
 import SelectUserModal from "../modals/SelectUserModal";
 
-
-import {useGlobalState} from '../utils/globalContext'
-import { logOut } from "../services/authServices";
 const NavWrapper = styled.nav`
   width: 100%;
-  // visibility:hidden;
   background: ${(props) => theme.NavBg};
-  display: grid;
-  grid-area:navbar;
-  z-index: 25;
-  // margin-top:10px;
-  border-bottom: 1px solid ${(props) => theme.PrimaryBtnBg};
-  position: fixed;
-  top: 0;
-  `;
-  const InnerNavWrapper = styled.div`
-  // position:fixed;
-  justify-content: space-between;
-  width: 100%;
-  display:flex;
   height: 95px;
+  border-bottom: 1px solid ${(props) => theme.PrimaryBtnBg};
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
 `;
-  
-
-
 const LogoWrapper = styled.div`
   text-align: center;
-  align-items:center;
   margin-left: 10%;
 `;
 const Logo = styled.p`
   font-weight: 400;
   color: #fff;
   font-size: 36px;
-  
   cursor: pointer;
 `;
 const NavLinks = styled.ul`
@@ -54,7 +34,6 @@ const NavItem = styled.li`
   font-size: 24px;
   color: white;
   margin: 0 1.5rem;
-  
   &:hover {
     cursor: pointer;
     color: ${(props) => theme.Accent};
@@ -69,13 +48,7 @@ const Line = styled.div`
 `;
 
 const NavBar = () => {
-
-  let history = useHistory()
-
   const [showLoginModal, setLoginModal] = useState(false);
-
-  const {dispatch,store} = useGlobalState()
-  const {loggedInUser,isEmployer}=store
 
   // This function runs when the Login button is pressed
   const openLoginModal = () => {
@@ -88,47 +61,24 @@ const NavBar = () => {
   const openSelectUserModal = () => {
     setSelectUserModal((prev) => !prev);
   };
-
-  function handleLogout(event){
-    event.preventDefault()
-		logOut(loggedInUser)
-		.then(() => {dispatch({type: 'setLoggedInUser', data: null})
-                 history.push("/")})
-                }
   return (
-      
     <NavWrapper>
-      
-      <InnerNavWrapper>
-
-      <LogoWrapper onClick={()=>{history.push("/")}}>
-        <Logo>DevSearch.io</Logo>
+      <LogoWrapper>
+        <Logo> DevSearch.io</Logo>
       </LogoWrapper>
       <NavLinks>
-        {loggedInUser?
-        <>
-          <NavItem onClick={() =>{isEmployer? history.push('/employer/profile'):history.push('/seeker/profile')}}>Profile</NavItem>
-          <Line />
-          <NavItem onClick={handleLogout}>Log out</NavItem>
-
-        </>:
-        <>
-          <NavItem onClick={openLoginModal}>Login</NavItem>
-          <Line />
-          <NavItem onClick={openSelectUserModal}>Register</NavItem>
-        </>
-        }
-        
+        <NavItem onClick={openLoginModal}>Login</NavItem>
+        <Line />
+        <NavItem onClick={openSelectUserModal}>Register</NavItem>
       </NavLinks>
       <LoginModal
         showLoginModal={showLoginModal}
         setLoginModal={setLoginModal}
-        ></LoginModal>
+      ></LoginModal>
       <SelectUserModal
         showSelectUserModal={showSelectUserModal}
         setSelectUserModal={setSelectUserModal}
-        />
-        </InnerNavWrapper>
+      />
     </NavWrapper>
   );
 };
