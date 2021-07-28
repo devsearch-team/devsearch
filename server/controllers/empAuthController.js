@@ -20,10 +20,12 @@ const signIn = function(req,res){
     console.log("secret key",process.env.EMPLOYER_SECRET_KEY)
     Employer.findOne({email: req.body.email}, (err, employer)=>{
         if(err){
+            console.log("error after sign in")
             res.status(400)
             return res.json({error: err.message})
         }
         if (!employer || !employer.comparePassword(req.body.password) ){
+            console.log("authentication failed after sign in")
             res.status(400)
             return res.json({message: "Authentication failed"})
         }

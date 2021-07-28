@@ -19,7 +19,7 @@ const App = () => {
 		auth: {token: sessionStorage.getItem("token") || null}
 	}
   const [store, dispatch] = useReducer(stateReducer, initialState )
-
+  console.log("session token",sessionStorage.getItem("token"))
   return (
     <ThemeProvider theme={theme}>
       <Styles /> 

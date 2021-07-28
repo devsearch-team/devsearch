@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
@@ -7,6 +8,8 @@ import { validEmail,validPassword} from "../utils/validators"
 
 export default function LogIn({callback,header}){
 
+  let history = useHistory()
+
     const initialFormState = {
 		email: '',
 		password: ''
@@ -14,6 +17,7 @@ export default function LogIn({callback,header}){
 	const [formState, setFormState] = useState(initialFormState)
     const [emailError,setEmailError]=useState("")
     const [passwordError,setPasswordError]=useState("")
+    const [serverError, setServerError] = useState("")
 
     const {dispatch,store} = useGlobalState()
     const {loggedInUser}=store
@@ -39,18 +43,25 @@ export default function LogIn({callback,header}){
     
         if(!emailError&&!passwordError){
             callback(formState)
-            .then(({username,jwt,isEmployer}) => {
-            dispatch({type: 'setLoggedInUser', data: username})
-            dispatch({type:'setRole',data: isEmployer})
-            dispatch({type: 'setToken', data: jwt})
-			
+            .then((user) => {
+              sessionStorage.setItem("username", user.username)
+              sessionStorage.setItem("token", user.jwt)
+              sessionStorage.setItem("isEmployer", user.isEmployer)
+              dispatch({type: 'setLoggedInUser', data: user.username})
+              dispatch({type:'setRole',data: user.isEmployer})
+              dispatch({type: 'setToken', data: user.jwt})
+              return user.isEmployer? history.push("/employer/jobs") : history.push("/seeker/jobs")
 		})
-		.catch((error) => console.log(error))
+		.catch((error) =>{ 
+      console.log("err from catch",error.message)
+      setServerError(error.message)
+      })
         }
     }
 return(
         <>
         <Header>{header}</Header>
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
         {loggedInUser? <p>logged in user is {loggedInUser}</p>:<></>}
         <Input type="text"  name="email" value={formState.email} onChange={handleChange} placeholder="youremail@email.com" ></Input>
         <div style={{color:"red"}}>{emailError}</div>

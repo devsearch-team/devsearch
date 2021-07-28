@@ -20,7 +20,7 @@ router.use((req, res, next) => {
         })
     }else{
         req.user = undefined
-        console.log("req.headers",req.headers)
+        //console.log("req.headers",req.headers)
         next()
     }
 })
