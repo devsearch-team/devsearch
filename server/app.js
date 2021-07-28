@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const jwt = require('jsonwebtoken')
+const cors = require('cors')
 require('dotenv').config()
 
 const employerAuthRouter=require('./routes/empAuthRoutes')
@@ -31,6 +32,7 @@ mongoose.connect(dbConn,
     }
 )
 
+app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 //app.use(express.static('../client/build'))

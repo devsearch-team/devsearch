@@ -14,16 +14,12 @@ import stateReducer from './utils/stateReducer'
 import { StateContext } from './utils/globalContext'
 const App = () => {
   const initialState = {
-		loggedInUser: null,
+		loggedInUser: sessionStorage.getItem("username") || null,
     isEmployer:false,
-		auth: {token: null}
+		auth: {token: sessionStorage.getItem("token") || null}
 	}
   const [store, dispatch] = useReducer(stateReducer, initialState )
 
-
-  fetch("/api")
-    .then(res=>res.json())
-    .then(res=>console.log(res));
   return (
     <ThemeProvider theme={theme}>
       <Styles /> 
