@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { logOut } from "../services/authServices";
 import { useGlobalState } from '../utils/globalContext'
-// import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
 import { ModalBtn } from './Buttons'
 import LoginModal from "../modals/LoginModal";
@@ -54,7 +54,8 @@ transition: all 0.8s ease-out;
 box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
 background: ${(props) => {
     const id = parseInt(props.id)
-    return id === props.activeButton
+    const active= parseInt(activeButton)
+    return id === active
       ? theme.PrimaryBtnBg
       : theme.SecondaryBtnBg;
   }};
@@ -71,17 +72,17 @@ text-decoration:none;
 display:flex;
 align-items:center;
 justify-content:center;
+cursor:pointer;
 
 padding: 1rem;
-
 color: ${(props) => {
-    const id = parseInt(props.id)
+  const id = parseInt(props.id)
 
-    return id === props.activeButton
+  return id === parseInt(activeButton)
 
-      ? theme.PrimaryTxt
-      : theme.SecondaryTxt;
-  }};
+    ? theme.PrimaryTxt
+    : theme.SecondaryTxt;
+}};
 `;
 // const NavButton = styled.button`
 // display:flex;
@@ -161,41 +162,41 @@ const NavMobile = () => {
       {loggedInUser ?
         isEmployer ?
           <NavMenu onClick={handleClick} click={click}>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={1}>
-              <NavLinks activeButton={activeButton}
+              <NavLinks 
                 id={1} to="/">Profile</NavLinks>
             </NavItem>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={2}>
-              <NavLinks activeButton={activeButton}
-                id={2} href="http://localhost:3000/">Job Listings</NavLinks>
+              <NavLinks 
+                id={2} href="javascript:void(0)">Job Listings</NavLinks>
             </NavItem>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={3}>
-              <NavLinks activeButton={activeButton}
+              <NavLinks 
                 id={3} to="/">Applications</NavLinks>
             </NavItem>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={4}>
               <NavLinks to="/">Add New Job</NavLinks>
             </NavItem>
             <ModalBtn onClick={handleLogout}>Logout</ModalBtn>
           </NavMenu>
           : <NavMenu onClick={handleClick} click={click}>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={1}>
-              <NavLinks activeButton={activeButton}
+              <NavLinks 
                 id={1} to="/">Profile</NavLinks>
             </NavItem>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={2}>
-              <NavLinks activeButton={activeButton}
+              <NavLinks 
                 id={2} href="http://localhost:3000/">Job Listings</NavLinks>
             </NavItem>
-            <NavItem onClick={handleIdChange} activeButton={activeButton}
+            <NavItem onClick={handleIdChange} 
               id={3}>
-              <NavLinks activeButton={activeButton}
+              <NavLinks 
                 id={3} to="/">Applications</NavLinks>
             </NavItem>
             <ModalBtn onClick={handleLogout}>Logout</ModalBtn>

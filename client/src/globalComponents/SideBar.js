@@ -98,13 +98,15 @@ const SideBarButton = styled.button`
   box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
   background: ${(props) => {
     const id = parseInt(props.id)
-    return id === props.activeButton
+    const active=parseInt(props.activeButton)
+    return id === active
     ? theme.PrimaryBtnBg
       : theme.SecondaryBtnBg;
   }};
   color: ${(props) => {
     const id = parseInt(props.id)
-    return id === props.activeButton
+    const active=parseInt(props.activeButton)
+    return id === active
       ? theme.PrimaryTxt
       : theme.SecondaryTxt;
   }};
