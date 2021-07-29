@@ -1,6 +1,6 @@
 import React,{useReducer, useEffect, useState} from "react";
 import { ThemeProvider } from "styled-components";
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom'
 import NavBar from "./globalComponents/NavBar";
 import { Container, Styles, theme } from "../src/globalStyles";
 import EmployerProfilePage from "../src/pages/EmployerProfilePage";
@@ -18,11 +18,12 @@ import { StateContext } from './utils/globalContext'
 
 const App = () => {
   const initialState = {
-		loggedInUser: null,
-    isEmployer:false,
-		auth: {token: null}
+		loggedInUser: localStorage.getItem("username") || null,
+    isEmployer:localStorage.getItem("isEmployer"),
+		auth: {token: localStorage.getItem("token") || null}
 	}
   const [store, dispatch] = useReducer(stateReducer, initialState )
+  const {loggedInUser,isEmployer}=store
   const [width, setWidth] = useState(window.innerWidth);
   
   const breakpoint = 768;
@@ -38,7 +39,13 @@ const App = () => {
         <BrowserRouter>
         { width < breakpoint ? <NavMobile /> : <NavBar />}
             <Switch>
-              <Route exact path="/" component={LandingPage}/>
+              <Route exact path="/" >
+                {loggedInUser?
+                  isEmployer? <Redirect to="/employer/profile"/>
+                  :<Redirect to="/seeker/profile"/>
+                :<Redirect to="/landing"/>}    
+              </Route>
+              <Route exact path="/landing" component={LandingPage}/>
               <Route exact path="/employer/login" component={EmpLogIn}/>
               <Route exact path="/employer/register" component={EmpRegister}/>
               <Route exact path="/seeker/login" component={SeekerLogIn}/>

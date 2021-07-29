@@ -92,8 +92,14 @@ const NavBar = () => {
   function handleLogout(event){
     event.preventDefault()
 		logOut(loggedInUser)
-		.then(() => {dispatch({type: 'setLoggedInUser', data: null})
-                 history.push("/")})
+		.then(() => {
+      dispatch({type: 'setLoggedInUser', data: null})
+      dispatch({//action object
+        type: "setToken",
+        data: null
+    })
+    localStorage.clear()
+      history.push("/")})
                 }
   return (
       
