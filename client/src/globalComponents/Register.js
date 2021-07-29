@@ -65,9 +65,9 @@ export default function Register({name,header,callback}){
                     setServerError(user.error)
                 }else{
                    // console.log(user.username, user.jwt,user.isEmployer);
-                    sessionStorage.setItem("username", user.username)
-                    sessionStorage.setItem("token", user.jwt)
-                    sessionStorage.setItem("isEmployer", user.isEmployer)
+                    localStorage.setItem("username", user.username)
+                    localStorage.setItem("token", user.jwt)
+                    localStorage.setItem("isEmployer", user.isEmployer)
                     dispatch({type: 'setLoggedInUser', data: user.username})
                      // dispatch({type: 'setLoggedInUser', data: username?username:companyname})
                     dispatch({type:'setRole',data: user.isEmployer})
