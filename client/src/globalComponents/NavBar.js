@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { theme } from "../globalStyles";
 import LoginModal from "../modals/LoginModal";
 import SelectUserModal from "../modals/SelectUserModal";
+
+
 import {useGlobalState} from '../utils/globalContext'
 import { logOut } from "../services/authServices";
 const NavWrapper = styled.nav`
@@ -25,8 +27,11 @@ const NavWrapper = styled.nav`
   display:flex;
   height: 95px;
   align-items: center;
+  position: sticky;
+  top: 0;
+`;
   
-  `;
+
 
 const LogoWrapper = styled.div`
   text-align: center;
@@ -49,6 +54,7 @@ const NavItem = styled.li`
   font-size: 24px;
   color: white;
   margin: 0 1.5rem;
+  
   &:hover {
     cursor: pointer;
     color: ${(props) => theme.Accent};
@@ -96,6 +102,7 @@ const NavBar = () => {
       history.push("/")})
                 }
   return (
+      
     <NavWrapper>
       
       <InnerNavWrapper>

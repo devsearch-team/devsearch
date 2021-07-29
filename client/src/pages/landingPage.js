@@ -5,7 +5,7 @@ import { theme } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import SelectUserModal from "../modals/SelectUserModal";
 import {} from "../globalComponents/Buttons";
-import EmployerProfilePage from "./EmployerProfilePage";
+// import EmployerProfilePage from "./EmployerProfilePage";
 
 export default function LandingPage() {
   // Using state to open a Select User modal when a User Clicks Register
@@ -51,16 +51,31 @@ const Container = styled.div`
   height: 90vh;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap-reverse;
+  @media only screen and (max-width: 960px) {
+    flex-direction: column-reverse;
+    width: 100%;
+    // height: 100%;
+    margin: 3rem 2rem;
+  }
+  @media only screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    width: 80%;
+    // height: 100%;
+    margin: 1rem 2rem;
+  }
 `;
 const Header = styled.h1`
   font-size: 45px;
   font-family: roboto;
   color: ${(props) => theme.PrimaryTxt};
   margin: 0.5rem 0;
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 960px) {
+    font-size: 20px;
+    text-align: left;
+  }
+  @media only screen and (max-width: 768px) {
     font-size: 18px;
-    margin: 0.5rem 0;
+    text-align: left;
   }
 `;
 const Text = styled.p`
@@ -68,22 +83,30 @@ const Text = styled.p`
   color: ${(props) => theme.PrimaryTxt};
   max-width: 550px;
   margin: 1rem 0;
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 960px) {
+    font-size: 16px;
+    text-align: left;
+  }
+  @media only screen and (max-width: 768px) {
+    text-align: left;
     font-size: 14px;
   }
 `;
 const Image = styled.img`
   max-width: 450px;
-  @media only screen and (max-width: 800px) {
-    max-width: 170px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
   }
 `;
 const LeftSection = styled.div`
   max-width: 680px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const RightSection = styled.div`
   margin-bottom: 3rem;
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     margin-bottom: 1rem;
   }
 `;
@@ -95,8 +118,10 @@ const Input = styled.input`
   color: ${(props) => theme.SecondaryTxt};
   margin-right: 0.5rem;
   font-size: 18px;
-  @media only screen and (max-width: 800px) {
-    max-width: 200px;
+  @media only screen and (max-width: 768px) {
+    max-width: 100%;
+    font-size: 14px;
+
     margin-bottom: 0.5rem;
   }
 `;
@@ -104,10 +129,15 @@ const Input = styled.input`
 const FormDiv = styled.div`
   display: flex;
   margin-top: 5.5rem;
-  flex-wrap: wrap;
-
-  @media only screen and (max-width: 800px) {
-    max-width: 200px;
-    margin-top: 2rem;
+  @media only screen and (max-width: 960px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 1rem;
   }
 `;

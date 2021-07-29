@@ -127,7 +127,7 @@ const EmployerProfilePage = () => {
 const [resMessage, setResMessage]=useState("")
 const [formState, setFormState] = useState(initialFormState)
 
-const { dispatch, store } = useGlobalState()
+const {store } = useGlobalState()
 const { loggedInUser } = store
 
 useEffect(()=>{
