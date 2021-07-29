@@ -98,7 +98,7 @@ const NavBar = () => {
         type: "setToken",
         data: null
     })
-    sessionStorage.clear()
+    localStorage.clear()
       history.push("/")})
                 }
   return (

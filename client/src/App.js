@@ -18,9 +18,9 @@ import { StateContext } from './utils/globalContext'
 
 const App = () => {
   const initialState = {
-		loggedInUser: sessionStorage.getItem("username") || null,
-    isEmployer:sessionStorage.getItem("isEmployer"),
-		auth: {token: sessionStorage.getItem("token") || null}
+		loggedInUser: localStorage.getItem("username") || null,
+    isEmployer:localStorage.getItem("isEmployer"),
+		auth: {token: localStorage.getItem("token") || null}
 	}
   const [store, dispatch] = useReducer(stateReducer, initialState )
   const {loggedInUser,isEmployer}=store

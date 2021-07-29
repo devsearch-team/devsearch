@@ -44,9 +44,9 @@ export default function LogIn({callback,header}){
         if(!emailError&&!passwordError){
             callback(formState)
             .then((user) => {
-              sessionStorage.setItem("username", user.username)
-              sessionStorage.setItem("token", user.jwt)
-              sessionStorage.setItem("isEmployer", user.isEmployer)
+              localStorage.setItem("username", user.username)
+              localStorage.setItem("token", user.jwt)
+              localStorage.setItem("isEmployer", user.isEmployer)
               dispatch({type: 'setLoggedInUser', data: user.username})
               dispatch({type:'setRole',data: user.isEmployer})
               dispatch({type: 'setToken', data: user.jwt})

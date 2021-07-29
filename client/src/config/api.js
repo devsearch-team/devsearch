@@ -14,7 +14,7 @@ import axios from 'axios'
 })
 
 devSearchApi.interceptors.request.use(req => {
-    const token = sessionStorage.getItem("token")
+    const token = localStorage.getItem("token")
     console.log("interceptor token: ", token)
     if (token) {
         req.headers["Authorization"] = `Bearer ${token}`
