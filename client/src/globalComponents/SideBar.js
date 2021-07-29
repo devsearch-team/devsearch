@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import profilePhoto from "../Assets/robotArm.jpg";
 import { theme } from "../globalStyles";
-
+import { Link } from "react-router-dom";
 const SideBarContainer = styled.div`
 position fixed;
 width: 300px;
@@ -25,36 +25,36 @@ width:230px;
 }
 `;
 const ContentWrapper = styled.div`
-display:grid;
-top:20%;
-position:fixed;
-grid-area: sidebar;
+  display: grid;
+  top: 20%;
+  position: fixed;
+  grid-area: sidebar;
   width: 300px;
   @media only screen and (max-width: 1400px) {
-    width:250px
+    width: 250px;
   }
   @media only screen and (max-width: 1200px) {
-    width:230px;
+    width: 230px;
     max-width: 60%;
-    }
+  }
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
 const LogoWrapper = styled.div`
   margin-left: 2rem;
-  
+
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
 const CompanyName = styled.h4`
   margin-top: 15px;
- 
+
   font-size: 24px;
   @media only screen and (max-width: 1200px) {
     font-size: 18px;
-    }
+  }
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -72,7 +72,7 @@ const Logo = styled.img`
 const ButtonWrapper = styled.div`
   width: 300px;
   z-index: 3;
-  
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -80,35 +80,36 @@ const ButtonWrapper = styled.div`
   align-items: left;
   margin-top: 7rem;
   @media only screen and (max-width: 1400px) {
-    width:230px
+    width: 230px;
   }
   @media only screen and (max-width: 1200px) {
-    width:200px
+    width: 200px;
   }
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
-const SideBarButton = styled.button`
+const SideBarButton = styled(Link)`
   cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   // width: 220px;
   height: 50px;
-  text-align:center;
+  text-align: center;
+
   font-weight: bold;
   box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
   background: ${(props) => {
-    const id = parseInt(props.id)
-    const active=parseInt(props.activeButton)
-    return id === active
-    ? theme.PrimaryBtnBg
-      : theme.SecondaryBtnBg;
+    const id = parseInt(props.id);
+    const active = parseInt(props.activebutton);
+    return id === active ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
   }};
   color: ${(props) => {
-    const id = parseInt(props.id)
-    const active=parseInt(props.activeButton)
-    return id === active
-      ? theme.PrimaryTxt
-      : theme.SecondaryTxt;
+    const id = parseInt(props.id);
+    const active = parseInt(props.activebutton);
+    return id === active ? theme.PrimaryTxt : theme.SecondaryTxt;
   }};
   border: none;
   font-size: 24px;
@@ -119,14 +120,15 @@ const SideBarButton = styled.button`
   @media only screen and (max-width: 1200px) {
     font-size: 16px;
   }
-  
+
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
 
 const SideBar = () => {
-  const [activeButton, setActiveButton] = useState(1);
+  //  activebutton is used to controll what button is active, the reason for all lowercase is due to a warning when using uppercase letters on DOM elements
+  const [activebutton, setActiveButton] = useState(1);
 
   const handleClick = (e) => {
     setActiveButton(e.target.id);
@@ -142,36 +144,42 @@ const SideBar = () => {
         </LogoWrapper>
         <ButtonWrapper className="ButtonWrapper">
           <SideBarButton
-            activeButton={activeButton}
+            activebutton={activebutton}
             id={1}
             onClick={handleClick}
-            >
+            to="/employer/profile"
+          >
             Profile
           </SideBarButton>
+
           <SideBarButton
-            activeButton={activeButton}
+            to="/employer/applications"
+            activebutton={activebutton}
             id={2}
             onClick={handleClick}
-            >
+          >
             Applications
           </SideBarButton>
+
           <SideBarButton
-            activeButton={activeButton}
+            activebutton={activebutton}
             id={3}
             onClick={handleClick}
-            >
+            to="/employer/jobs"
+          >
             Job Listings
           </SideBarButton>
+
           <SideBarButton
-            activeButton={activeButton}
+            activebutton={activebutton}
             id={4}
             onClick={handleClick}
-            >
+            to="/employer/newjob"
+          >
             Add New Job
           </SideBarButton>
         </ButtonWrapper>
       </ContentWrapper>
-            
     </>
   );
 };

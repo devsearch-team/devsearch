@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useGlobalState } from "../utils/globalContext";
 import Card from "../globalComponents/Cards";
 
 const ListingContainer = styled.div`
@@ -30,20 +30,38 @@ const CardContainer = styled.div`
 `;
 
 const EmployerJobListings = () => {
+  const { store } = useGlobalState();
+  const { isEmployer } = store;
   return (
     <>
-      <ListingContainer>
-        <CardContainer>
-          <Card jobTitle="Job Title" date={Date.now()} company="Company Name" />
-          <Card
-            jobTitle="2 Job Title"
-            date={Date.now()}
-            company="Company Name"
-          />
-          <Card jobTitle="Job Title" date={Date.now()} company="Company Name" />
-          <Card jobTitle="Job Title" date={Date.now()} company="Company Name" />
-        </CardContainer>
-      </ListingContainer>
+      {isEmployer ? (
+        <ListingContainer>
+          <CardContainer>
+            <Card
+              jobTitle="Job Title"
+              date={Date.now()}
+              company="Company Name"
+            />
+            <Card
+              jobTitle="2 Job Title"
+              date={Date.now()}
+              company="Company Name"
+            />
+            <Card
+              jobTitle="Job Title"
+              date={Date.now()}
+              company="Company Name"
+            />
+            <Card
+              jobTitle="Job Title"
+              date={Date.now()}
+              company="Company Name"
+            />
+          </CardContainer>
+        </ListingContainer>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
