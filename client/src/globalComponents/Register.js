@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import styled from "styled-components";
+import {useHistory} from 'react-router-dom'
 import { MiddleContainer,Label,ErrorMessage } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import {Input} from "../globalComponents/Inputs"
@@ -7,6 +8,9 @@ import { validEmail,validPassword} from "../utils/validators"
 import {useGlobalState} from '../utils/globalContext'
 
 export default function Register({name,header,callback}){
+
+    
+    let history = useHistory()
 
     const initialFormState = {
         name:'',
@@ -20,9 +24,10 @@ export default function Register({name,header,callback}){
     const [passwordError,setPasswordError]=useState("")
     const [nameError,setnameError]=useState("")
     const [passwordConfirmationError,setPasswordConfirmationError]=useState("")
-
+    const [serverError, setServerError] = useState("")
     const {dispatch,store} = useGlobalState()
-    const {loggedInUser}=store
+    const {loggedInUser,auth}=store
+
     function handleChange(event) {
 		setFormState({
 			...formState,
@@ -30,7 +35,6 @@ export default function Register({name,header,callback}){
 		})
 	}
     function handleSubmit(event) {
-
 		event.preventDefault()
         let emailError=""
         let passwordError=""
@@ -56,17 +60,30 @@ export default function Register({name,header,callback}){
     
         if( !nameError && !emailError && !passwordError && !passwordConfirmationError ){
             callback(formState)
-            .then(({username,jwt,isEmployer}) => {
-            console.log(username, jwt,isEmployer);
-            dispatch({type: 'setLoggedInUser', data: username})
-            dispatch({type:'setRole',data: isEmployer})
-            dispatch({type: 'setToken', data: jwt})	
+            .then((user) => {
+                if(user.error){
+                    setServerError(user.error)
+                }else{
+                   // console.log(user.username, user.jwt,user.isEmployer);
+                    sessionStorage.setItem("username", user.username)
+                    sessionStorage.setItem("token", user.jwt)
+                    sessionStorage.setItem("isEmployer", user.isEmployer)
+                    dispatch({type: 'setLoggedInUser', data: user.username})
+                     // dispatch({type: 'setLoggedInUser', data: username?username:companyname})
+                    dispatch({type:'setRole',data: user.isEmployer})
+                    dispatch({type: 'setToken', data: user.jwt})	
+                    return user.isEmployer? history.push("/employer/profile") : history.push("/seeker/profile")
+                }
+                
 		    })
-		.catch((error) => console.log(error))
+		.catch((error) =>{ 
+            setServerError(error.message)
+        })
         }
     }
 return(
     <MiddleContainer>
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
         <Header>{header}</Header>
         {loggedInUser? <p>logged in user is {loggedInUser}</p>:<></>}
         <FormItem>
