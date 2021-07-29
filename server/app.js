@@ -8,6 +8,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const employerAuthRouter=require('./routes/empAuthRoutes')
+const seekerAuthRouter=require('./routes/seekerAuthRoutes')
 const apiRouter = require("./api/api.js");
 
 //define the global variables
@@ -58,6 +59,7 @@ app.use(morgan('dev'))
 // })
 
 app.use("/employer/auth", employerAuthRouter)
+app.use("/seeker", seekerAuthRouter)
 app.use('/api', apiRouter);
 
 

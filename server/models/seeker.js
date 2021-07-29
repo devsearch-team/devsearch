@@ -35,7 +35,7 @@ const Seeker=new Schema({
     other:{ type: String}
 })
 
-Employer.methods.comparePassword = function(password){
+Seeker.methods.comparePassword = function(password){
     return bcrypt.compareSync(password, this.hash_password)
 }
 module.exports=mongoose.model('Seeker',Seeker)
