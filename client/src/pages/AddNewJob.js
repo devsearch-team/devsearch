@@ -181,62 +181,62 @@ const BtnContainer = styled.div`
   }
 `;
 const AddNewJob = () => {
-  //   const { store } = useGlobalState();
-  //   const { loggedInUser } = store;
+  const { store } = useGlobalState();
+  const { loggedInUser } = store;
 
   return (
     <>
-      {/* {loggedInUser ? ( */}
-      <>
-        <AddJobContainer>
-          <CompanyLogo>
-            <Logo src={RobotArm} alt="Company Logo"></Logo>
-          </CompanyLogo>
-          <Heading>Position Title</Heading>
-          <FormDiv>
-            <TextBoxContainer>
-              <InputField placeholder="Location"></InputField>
-            </TextBoxContainer>
-            <TextBoxContainer>
-              <ShortInput placeholder="Minimum Pay Rate"></ShortInput>
-            </TextBoxContainer>
-            <TextBoxContainer>
-              <ShortInput placeholder="Maximum Pay Rate"></ShortInput>
-            </TextBoxContainer>
-            <TextBoxContainer>
-              <InputField placeholder="Category"></InputField>
-            </TextBoxContainer>
-          </FormDiv>
+      {loggedInUser ? (
+        <>
+          <AddJobContainer>
+            <CompanyLogo>
+              <Logo src={RobotArm} alt="Company Logo"></Logo>
+            </CompanyLogo>
+            <Heading>Position Title</Heading>
+            <FormDiv>
+              <TextBoxContainer>
+                <InputField placeholder="Location"></InputField>
+              </TextBoxContainer>
+              <TextBoxContainer>
+                <ShortInput placeholder="Minimum Pay Rate"></ShortInput>
+              </TextBoxContainer>
+              <TextBoxContainer>
+                <ShortInput placeholder="Maximum Pay Rate"></ShortInput>
+              </TextBoxContainer>
+              <TextBoxContainer>
+                <InputField placeholder="Category"></InputField>
+              </TextBoxContainer>
+            </FormDiv>
 
-          <FormDiv>
-            <SubHeading>About Company</SubHeading>
-            <DescContainer placeholder="About your company!!!"></DescContainer>
-          </FormDiv>
-          <FormDiv>
-            <SubHeading>Role Description</SubHeading>
-            <DescContainer placeholder="Describe the role!!!"></DescContainer>
-          </FormDiv>
-          <FormDiv>
-            <SubHeading>Role Requirements</SubHeading>
-            <DescContainer placeholder="Describe the role!!!"></DescContainer>
-          </FormDiv>
-          <BtnContainer>
-            <InputButton>Save</InputButton>
-            <InputButton
-              style={{
-                background: theme.SecondaryBtnBg,
-                color: theme.SecondaryTxt,
-              }}
-            >
-              Cancel
-            </InputButton>
-          </BtnContainer>
-          <div style={{ margin: "2rem" }}> </div>
-        </AddJobContainer>
-      </>
-      {/* ) : (
+            <FormDiv>
+              <SubHeading>About Company</SubHeading>
+              <DescContainer placeholder="About your company!!!"></DescContainer>
+            </FormDiv>
+            <FormDiv>
+              <SubHeading>Role Description</SubHeading>
+              <DescContainer placeholder="Describe the role!!!"></DescContainer>
+            </FormDiv>
+            <FormDiv>
+              <SubHeading>Role Requirements</SubHeading>
+              <DescContainer placeholder="Describe the role!!!"></DescContainer>
+            </FormDiv>
+            <BtnContainer>
+              <InputButton>Save</InputButton>
+              <InputButton
+                style={{
+                  background: theme.SecondaryBtnBg,
+                  color: theme.SecondaryTxt,
+                }}
+              >
+                Cancel
+              </InputButton>
+            </BtnContainer>
+            <div style={{ margin: "2rem" }}> </div>
+          </AddJobContainer>
+        </>
+      ) : (
         <> </>
-      )} */}
+      )}
     </>
   );
 };
