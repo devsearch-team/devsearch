@@ -6,13 +6,10 @@ import { Link } from "react-router-dom";
 const SideBarContainer = styled.div`
 position fixed;
 width: 300px;
-// top:10%;
-// left: 0;
 display:grid;
 grid-area: sidebar;
 z-index: -1;
 background: #242E38;
-
 height: 100vh;
 @media only screen and (max-width: 1400px) {
   width:250px
@@ -43,14 +40,13 @@ const ContentWrapper = styled.div`
 `;
 const LogoWrapper = styled.div`
   margin-left: 2rem;
-
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
 const CompanyName = styled.h4`
   margin-top: 15px;
-
+  margin-left: 1rem;
   font-size: 24px;
   @media only screen and (max-width: 1200px) {
     font-size: 18px;
@@ -61,6 +57,7 @@ const CompanyName = styled.h4`
 `;
 const Logo = styled.img`
   object-fit: cover;
+  margin-left: 1rem;
   border-radius: 50%;
   width: 87px;
   height: 87px;
@@ -68,17 +65,16 @@ const Logo = styled.img`
     display: none;
   }
 `;
-
 const ButtonWrapper = styled.div`
-  width: 300px;
+  width: 250px;
   z-index: 3;
-
+  margin-left: 1.5rem;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  margin-top: 7rem;
+  margin-top: 3rem;
   @media only screen and (max-width: 1400px) {
     width: 230px;
   }
@@ -94,49 +90,49 @@ const SideBarButton = styled(Link)`
   text-decoration: none;
   display: flex;
   justify-content: center;
+  border-radius: 5px;
   align-items: center;
   // width: 220px;
-  height: 50px;
+  height: 100px;
   text-align: center;
-
   font-weight: bold;
-  box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
+  // box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
   background: ${(props) => {
     const id = parseInt(props.id);
     const active = parseInt(props.activebutton);
-    return id === active ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
+    return id === active ? theme.PrimaryBtnBg : theme.TransparentBtnBg;
   }};
   color: ${(props) => {
     const id = parseInt(props.id);
     const active = parseInt(props.activebutton);
-    return id === active ? theme.PrimaryTxt : theme.SecondaryTxt;
+    return id === active ? theme.PrimaryTxt : theme.MainBg;
   }};
-  border: none;
+  border: 1px solid ${theme.Accent};
   font-size: 24px;
   margin: 1rem;
+  &:hover {
+    background: ${theme.PrimaryBtnBg};
+    color: ${theme.PrimaryTxt};
+  }
   @media only screen and (max-width: 1400px) {
     font-size: 18px;
   }
   @media only screen and (max-width: 1200px) {
     font-size: 16px;
   }
-
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
-
 const SideBar = () => {
   //  activebutton is used to controll what button is active, the reason for all lowercase is due to a warning when using uppercase letters on DOM elements
   const [activebutton, setActiveButton] = useState(1);
-
   const handleClick = (e) => {
     setActiveButton(e.target.id);
   };
   return (
     <>
       <SideBarContainer className="SideBarContainer"></SideBarContainer>
-
       <ContentWrapper className="ContentWrapper">
         <LogoWrapper>
           <Logo src={profilePhoto} />
@@ -151,7 +147,6 @@ const SideBar = () => {
           >
             Profile
           </SideBarButton>
-
           <SideBarButton
             to="/employer/applications"
             activebutton={activebutton}
@@ -160,7 +155,6 @@ const SideBar = () => {
           >
             Applications
           </SideBarButton>
-
           <SideBarButton
             activebutton={activebutton}
             id={3}
@@ -169,7 +163,6 @@ const SideBar = () => {
           >
             Job Listings
           </SideBarButton>
-
           <SideBarButton
             activebutton={activebutton}
             id={4}
@@ -183,5 +176,4 @@ const SideBar = () => {
     </>
   );
 };
-
 export default SideBar;

@@ -6,6 +6,7 @@ import { Container, Styles, theme } from "../src/globalStyles";
 import EmployerProfilePage from "../src/pages/EmployerProfilePage";
 import EmployerJobListings from "../src/pages/EmployerJobListings";
 import JobSeekerProfilePage from "../src/pages/JobSeekerProfilePage";
+import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
 import SideBar from "./globalComponents/SideBar";
 import LandingPage from "./pages/landingPage";
 import EmpLogIn from "./pages/EmpLogIn";
@@ -51,6 +52,7 @@ const App = () => {
                 path="/employer/profile"
                 component={EmployerProfilePage}
               />
+
               <Route exact path="/employer/newjob" component={AddNewJob} />
               <Route
                 exact
@@ -61,6 +63,11 @@ const App = () => {
                 exact
                 path="/seeker/profile"
                 component={JobSeekerProfilePage}
+              />
+              <Route
+                exact
+                path="/seeker/jobs"
+                component={JobSeekerJobListings}
               />
             </Container>
           </Switch>
