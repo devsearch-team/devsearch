@@ -33,6 +33,31 @@ const signIn = function(req,res){
     })
 }
 
+const getSeeker=function(req,res){
+    var query=Seeker.findOne({email: req.user.email}).select({ "hash_password": 0})
+    query.exec((err, seeker)=>{
+        if(err){
+            res.status(400)
+            return res.json({error: err.message})
+        }
+        res.send(seeker)
+    })  
+}
+
+
+
+const updateSeeker=function(req,res){
+console.log("req.user.id",req.user.id)
+Seeker.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, seeker)=>{
+    if (err){
+        res.status(404)
+        return res.json({error: err.message})
+    }
+    res.status(200)
+    res.send(seeker)
+} ) 
+}
+
 const loginRequired = function(req,res, next){
     if(req.user){
         next()
@@ -42,4 +67,4 @@ const loginRequired = function(req,res, next){
     }
 }
 
-module.exports = {register,signIn,loginRequired}
+module.exports = {register,signIn,updateSeeker,getSeeker,loginRequired}

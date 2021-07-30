@@ -3,7 +3,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 
-const {register,signIn,getEmployer,loginRequired,updateEmployer} = require('../controllers/seekerAuthController')
+const {register,signIn,getSeeker,loginRequired,updateSeeker} = require('../controllers/seekerAuthController')
 
 //if the employer is logged in, add user to req 
 router.use((req, res, next) => {
@@ -26,6 +26,6 @@ router.use((req, res, next) => {
 
 router.post('/auth/register', register)
 router.post('/auth/signin', signIn)
-// router.get('/profile',loginRequired, getEmployer)
-// router.put('/profile',loginRequired,updateEmployer)
+router.get('/profile',loginRequired, getSeeker)
+router.put('/profile',loginRequired,updateSeeker)
 module.exports = router
