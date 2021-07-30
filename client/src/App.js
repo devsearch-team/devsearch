@@ -11,6 +11,9 @@ import EmpLogIn from "./pages/EmpLogIn";
 import EmpRegister from "./pages/EmpRegister"
 import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
+import AddNewJob from "./pages/AddNewJob";
+import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
+import EmployerJobListings from "../src/pages/EmployerJobListings";
 import NavMobile from "./globalComponents/NavMobile";
 import stateReducer from './utils/stateReducer'
 import { StateContext } from './utils/globalContext'
@@ -54,6 +57,9 @@ const App = () => {
               <SideBar /> 
               <Route exact path="/employer/profile" component={EmployerProfilePage}/>
               <Route exact path="/seeker/profile" component={JobSeekerProfilePage}/>
+              <Route exact path="/employer/newjob" component={AddNewJob} />
+              <Route exact path="/employer/jobs" component={EmployerJobListings}/>
+              <Route exact path="/seeker/jobs" component={JobSeekerJobListings}/>
             </Container>
             </Switch>
           </BrowserRouter>
