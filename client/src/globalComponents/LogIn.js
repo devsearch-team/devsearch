@@ -50,7 +50,7 @@ export default function LogIn({callback,header}){
               dispatch({type: 'setLoggedInUser', data: user.username})
               dispatch({type:'setRole',data: user.isEmployer})
               dispatch({type: 'setToken', data: user.jwt})
-              return user.isEmployer? history.push("/employer/jobs") : history.push("/seeker/jobs")
+              return user.isEmployer? history.push("/employer/profile") : history.push("/seeker/profile")
 		})
 		.catch((error) =>{ 
       console.log("err from catch",error.message)
