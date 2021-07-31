@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { logOut } from "../services/authServices";
 import { useGlobalState } from "../utils/globalContext";
-//  import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { ModalBtn } from "./Buttons";
 import LoginModal from "../modals/LoginModal";
@@ -13,30 +13,34 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const MobileContainer = styled.div`
   max-width: 768px;
   width: 100%;
-
   border-bottom: 1px solid ${(props) => theme.PrimaryBtnBg};
   background: ${(props) => theme.NavBg};
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 8vh;
-`;
-
-const MobileIcon = styled.div`
+  `;
+  
+  const MobileIcon = styled.div`
   display: block;
   transform: translate(-50%, 10%);
   font-size: 1.8rem;
   cursor: pointer;
-`;
-
-const NavMenu = styled.ul`
+  `;
+  const UserName = styled.h1`
+  font-weight:600;
+  font-size: 24px;
+  margin-top:-3rem;
+  margin-bottom:1rem;
+  `;
+  const NavMenu = styled.div`
   z-index: 25;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: red solid 2px;
+  
   width: 100vw;
   height: 100vh;
   border-top: 1px solid ${(props) => theme.PrimaryBtnBg};
@@ -48,48 +52,43 @@ const NavMenu = styled.ul`
   background: ${(props) => theme.NavBg};
 `;
 
-const NavItem = styled.li`
+
+  const NavLinks = styled(Link)`
+  border: 1px solid ${theme.Accent};
+  text-decoration: none;
+  width: 200px;
+  height:55px;
+  margin:0.5rem 0rem;
   transition: all 0.8s ease-out;
   box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
-  background: ${(props) => {
-    const id = parseInt(props.id);
-    const active = parseInt(props.activeButton);
-    return id === active ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
-  }};
-
-  width: 400px;
-  border: none;
-  font-size: 24px;
-  margin: 2rem;
-`;
-
-const NavLinks = styled.a`
-  text-decoration: none;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-  padding: 1rem;
+  background: ${(props) => {
+    const id = parseInt(props.id);
+    const active = parseInt(props.activebutton);
+    return id === active ? theme.PrimaryBtnBg : theme.TransparentBtnBg;
+  }};
   color: ${(props) => {
     const id = parseInt(props.id);
-
-    return id === parseInt(props.activeButton)
+    const active = parseInt(props.activebutton);
+    return id === active
       ? theme.PrimaryTxt
-      : theme.SecondaryTxt;
+      : theme.SecondaryFadedTxt;
   }};
+  padding: 1rem;
+  @media only screen and (max-height: 600px){
+    width: 150px;
+    height:45px;
+  }
+  @media only screen and (max-height: 550px){
+    width: 150px;
+    height:40px;
+  }
 `;
-// const NavButton = styled.button`
-// display:flex;
-// align-items:center;
-// justify-content:center;
-// margin: 2rem;
-// height:50px;
-// font-size:18px;
-// font-weight:500;
-// width:200px;
-// background:${(props) => theme.PrimaryBtnBg};
-// `;
+
 
 const Logo = styled.h1`
   margin-left: 2rem;
@@ -112,7 +111,7 @@ const NavMobile = () => {
   // Opens The Mobile Nav Menu
   const [click, setClick] = useState(false);
   // Tracks what button has been selected for highlighting purposes
-  const [activeButton, setActiveButton] = useState(1);
+  const [activebutton, setActiveButton] = useState(1);
 
   // This function runs when the Login button is pressed
   const openLoginModal = () => {
@@ -133,7 +132,7 @@ const NavMobile = () => {
   const closeMobileMenu = () => setClick(false);
 
   const handleIdChange = (e) => {
-    console.log(activeButton);
+    console.log(activebutton);
     setActiveButton(e.target.id);
   };
   //
@@ -153,48 +152,51 @@ const NavMobile = () => {
       </MobileIcon>
       {loggedInUser ? (
         isEmployer ? (
+          // Employer
+          
           <NavMenu onClick={handleClick} click={click}>
-            <NavItem onClick={handleIdChange} id={1}>
-              <NavLinks id={1} to="/">
+            <UserName>{loggedInUser}</UserName>  
+              <NavLinks onClick={handleIdChange} id={1}  to="/employer/profile" activebutton={activebutton}>
                 Profile
               </NavLinks>
-            </NavItem>
-            <NavItem onClick={handleIdChange} id={2}>
-              <NavLinks id={2} href="javascript:void(0)">
+           
+            
+              <NavLinks onClick={handleIdChange} id={2}  to="/employer/jobs" activebutton={activebutton}>
                 Job Listings
               </NavLinks>
-            </NavItem>
-            <NavItem onClick={handleIdChange} id={3}>
-              <NavLinks id={3} to="/">
+            
+            
+              <NavLinks onClick={handleIdChange} id={3} to="/employer/applications" activebutton={activebutton}>
                 Applications
               </NavLinks>
-            </NavItem>
-            <NavItem onClick={handleIdChange} id={4}>
-              <NavLinks to="/">Add New Job</NavLinks>
-            </NavItem>
+            
+            
+              <NavLinks  onClick={handleIdChange} id={4} to="/employer/newjob" activebutton={activebutton}>Add New Job</NavLinks>
+            
             <ModalBtn onClick={handleLogout}>Logout</ModalBtn>
           </NavMenu>
         ) : (
+          // Job Seeker
           <NavMenu onClick={handleClick} click={click}>
-            <NavItem onClick={handleIdChange} id={1}>
-              <NavLinks id={1} to="/">
+            <UserName>{loggedInUser}</UserName> 
+              <NavLinks onClick={handleIdChange} id={1} to="/seeker/profile" activebutton={activebutton}>
                 Profile
               </NavLinks>
-            </NavItem>
-            <NavItem onClick={handleIdChange} id={2}>
-              <NavLinks id={2} href="http://localhost:3000/">
+            
+            
+              <NavLinks onClick={handleIdChange} id={2} to="/seeker/jobs" activebutton={activebutton}>
                 Job Listings
               </NavLinks>
-            </NavItem>
-            <NavItem onClick={handleIdChange} id={3}>
-              <NavLinks id={3} to="/">
+            
+              <NavLinks onClick={handleIdChange} id={3} to="/seeker/applications" activebutton={activebutton}>
                 Applications
               </NavLinks>
-            </NavItem>
+            
             <ModalBtn onClick={handleLogout}>Logout</ModalBtn>
           </NavMenu>
         )
       ) : (
+        // Not Logged In
         <NavMenu onClick={handleClick} click={click}>
           <LoginModal
             showLoginModal={showLoginModal}

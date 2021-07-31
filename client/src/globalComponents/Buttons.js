@@ -16,6 +16,20 @@ export const ModalBtn = styled.button`
   &:hover {
     box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
   }
+  @media only screen and (max-width: 768px ){
+    width:200px;
+    font-size:18px;
+    margin-top:0.5rem;
+    margin-bottom:2rem;
+    height:40px;
+  }
+  @media only screen and (max-height: 600px ){
+    width:180px;
+    font-size:16px;
+    margin-top:0.5rem;
+    margin-bottom:2rem;
+    height:40px;
+  }
 `;
 
 export const InputButton = styled.button`
