@@ -55,6 +55,18 @@ export async function seekerSignUp(data) {
 	// }
 }
 
+export async function getSeeker(){
+	const res= await devSearchApi.get("/Seeker/profile")
+	console.log("res",res.data)
+	return res.data	
+}
+
+export async function updateSeeker(data){
+	const res= await devSearchApi.put("/seeker/profile",data)
+	console.log("res",res)
+	return res.data
+}
+
 export async function logOut(data) {
 	return data.userName
 }
