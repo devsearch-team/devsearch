@@ -2,32 +2,33 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../globalStyles";
 
-const jobSeekerStatusTabs = [
+const JobSeekerStatusTabs = [
   {
     name: "Applied",
-    id: 1,
+    id: 0,
   },
   {
     name: "Interview Offered",
-    id: 2,
+    id: 1,
   },
   {
     name: "Interviewing",
-    id: 3,
+    id: 2,
   },
   {
     name: "Offers Recieved",
-    id: 4,
+    id: 3,
   },
   {
     name: "Hired",
-    id: 5,
+    id: 4,
   },
   {
     name: "Rejected",
-    id: 6,
+    id: 5,
   },
 ];
+
 const EmployerStatusTabs = [
   {
     name: "Recieved",
@@ -111,11 +112,10 @@ const Tab = styled.button`
   font-size: 18px;
 
   background: ${(props) => {
-    console.log(props.id);
     console.log("active tab", props.activeTab);
-    return props.id === props.activeTab
-      ? theme.PrimaryBtnBg
-      : theme.SecondaryBtnBg;
+    const id = parseInt(props.id);
+
+    return id === props.activeTab ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
   }};
   color: ${(props) => theme.PrimaryTxt};
   cursor: pointer;
