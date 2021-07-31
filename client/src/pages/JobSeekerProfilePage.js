@@ -109,6 +109,7 @@ const JobSeekerProfilePage = () => {
   const initialFormState = {
     name:'',
     email:'',
+    resumeFile:'',
     phone: '',
     website:'',
     about:'',
@@ -119,6 +120,16 @@ const JobSeekerProfilePage = () => {
 }
 const [resMessage, setResMessage]=useState("")
 const [formState, setFormState] = useState(initialFormState)
+
+const [fileData, setFileData] = useState();
+
+  const [file, setFile] = useState("");
+
+  const handleFileChange = ({ target }) => {
+    setFormState({...formState, ["resumeFile"]: target.files[0]});
+    setFile(target.value);
+    console.log(target.files[0])
+  };
 
   const { store} = useGlobalState()
   const {loggedInUser}=store
@@ -131,6 +142,8 @@ const [formState, setFormState] = useState(initialFormState)
   },[])
   
   function handleChange(event) {
+    console.log("formState",formState)
+    console.log("file value",file)
     setFormState({
         ...formState,
         [event.target.name]: event.target.value
@@ -159,6 +172,7 @@ const [formState, setFormState] = useState(initialFormState)
         <InputLabel>Phone</InputLabel>
         <ProfileInput placeholder="Website" name="website" value={formState.website} onChange={handleChange}></ProfileInput>
         <InputLabel>Website</InputLabel>
+        <ProfileInput type="file"  value={file} name="file" accept=".pdf" onChange={handleFileChange} placeholder="upload file"/>
       </FormDiv>
       <FormDiv>
 
