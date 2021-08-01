@@ -121,7 +121,7 @@ const JobSeekerProfilePage = () => {
 const [resMessage, setResMessage]=useState("")
 const [formState, setFormState] = useState(initialFormState)
 
-const [fileData, setFileData] = useState();
+
 
   const [file, setFile] = useState("");
 
@@ -132,7 +132,8 @@ const [fileData, setFileData] = useState();
   };
 
   const { store} = useGlobalState()
-  const {loggedInUser}=store
+  const {loggedInUser,isEmployer}=store
+  console.log("isEmployer",isEmployer)
 
   useEffect(()=>{
     getSeeker().then((data)=>{
@@ -150,7 +151,13 @@ const [fileData, setFileData] = useState();
       })
     }
   function handleSubmit(event){
-    updateSeeker(formState)
+    
+    var form_data = new FormData();
+    for ( var key in formState ) {
+      form_data.append(key, formState[key]);
+    }
+    //console.log("submit formState",formState)
+    updateSeeker(form_data)
     .then(setResMessage("Your profile is successfully updated"))
     .catch((error) =>{ 
       setResMessage(error.message)

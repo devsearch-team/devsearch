@@ -35,6 +35,7 @@ mongoose.connect(dbConn,
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({extended: true, limit: "10mb" }))
 app.use(morgan('dev'))
 //app.use(express.static('../client/build'))
 

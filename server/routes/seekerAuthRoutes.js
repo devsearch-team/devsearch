@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const router = express.Router()
+const parser = require("../middleware/S3.config");
 
 const {register,signIn,getSeeker,loginRequired,updateSeeker} = require('../controllers/seekerAuthController')
 
@@ -27,5 +28,5 @@ router.use((req, res, next) => {
 router.post('/auth/register', register)
 router.post('/auth/signin', signIn)
 router.get('/profile',loginRequired, getSeeker)
-router.put('/profile',loginRequired,updateSeeker)
+router.put('/profile',parser.single("resumeFile"),updateSeeker)
 module.exports = router

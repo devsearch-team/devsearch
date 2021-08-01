@@ -26,7 +26,7 @@ const Seeker=new Schema({
     about:{
          type: String
         },
-    resume:{
+    resumeFile:{
         type: String
     },
     facebook:{type:String},
