@@ -2,8 +2,9 @@ const mongoose=require('mongoose')
 const Schema=mongoose.Schema
 const normalize=require('normalize-mongoose')
 const bcrypt = require('bcrypt')
-
+const Employer = require('../models/employer')
 const Job=new Schema({
+    Employer: {type: Schema.Types.ObjectId, ref: 'Employer'},
     title:{
         type: String,
         required: true
@@ -13,7 +14,6 @@ const Job=new Schema({
     },
     minPay:{
         type: String,
-        required: true
     },
     maxPay:{
         type: String
@@ -25,9 +25,18 @@ const Job=new Schema({
          type: String
         },
     description:{
-        type: String
+        type: String,
+        required: true
     },
     requirements:{type:String},
+    created_at: {
+        type: Date,
+        required: true
+    },
+    modified_at: {
+        type: Date,
+        required: true
+    }
 })
 
 

@@ -9,6 +9,7 @@ require('dotenv').config()
 
 const employerAuthRouter=require('./routes/empAuthRoutes')
 const seekerAuthRouter=require('./routes/seekerAuthRoutes')
+const jobsRouter=require('./routes/jobsRoutes')
 const apiRouter = require("./api/api.js");
 
 //define the global variables
@@ -66,6 +67,7 @@ app.use(morgan('dev'))
 
 app.use("/employer/auth", employerAuthRouter)
 app.use("/seeker", seekerAuthRouter)
+app.use("/jobs", jobsRouter)
 app.use('/api', apiRouter);
 
 
