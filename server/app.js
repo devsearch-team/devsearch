@@ -8,6 +8,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const employerAuthRouter=require('./routes/empAuthRoutes')
+const seekerAuthRouter=require('./routes/seekerAuthRoutes')
 const apiRouter = require("./api/api.js");
 
 //define the global variables
@@ -34,6 +35,7 @@ mongoose.connect(dbConn,
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({extended: true, limit: "10mb" }))
 app.use(morgan('dev'))
 //app.use(express.static('../client/build'))
 
@@ -58,6 +60,7 @@ app.use(morgan('dev'))
 // })
 
 app.use("/employer/auth", employerAuthRouter)
+app.use("/seeker", seekerAuthRouter)
 app.use('/api', apiRouter);
 
 
