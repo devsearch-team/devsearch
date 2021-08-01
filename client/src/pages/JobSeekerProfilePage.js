@@ -180,7 +180,7 @@ const [formState, setFormState] = useState(initialFormState)
         <InputLabel>Phone</InputLabel>
         <ProfileInput placeholder="Website" name="website" value={formState.website} onChange={handleChange}></ProfileInput>
         <InputLabel>Website</InputLabel>
-        <a href={formState.resumeFile} target="blank" >Your resume</a>
+        {formState.resumeFile? <a href={formState.resumeFile} target="blank" >Your resume</a>: <p>No resume uploaded yet</p>}
         <ProfileInput type="file"  value={file} name="file" accept=".pdf" onChange={handleFileChange} placeholder="upload file"/>
       </FormDiv>
       <FormDiv>
