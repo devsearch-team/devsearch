@@ -4,7 +4,7 @@ const normalize=require('normalize-mongoose')
 const bcrypt = require('bcrypt')
 const Employer = require('../models/employer')
 const Job=new Schema({
-    Employer: {type: Schema.Types.ObjectId, ref: 'Employer'},
+    employer: {type: Schema.Types.ObjectId, ref: 'Employer'},
     title:{
         type: String,
         required: true

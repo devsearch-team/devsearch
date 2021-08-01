@@ -16,7 +16,7 @@ const getJobById = function (id){
 const addJob = function (req) {
     // console.log("add job req.body",req.body)
     let date = Date.now()
-    // req.body.username = req.user.username
+    req.body.employer = req.user.id
     req.body.created_at = date
     req.body.modified_at = date
     return Job(req.body)
