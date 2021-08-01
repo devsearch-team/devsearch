@@ -16,6 +16,8 @@ const app = express();
 const port = process.env.PORT || 4000
 const dbConn = process.env.MONGODB_URI
 
+console.log("MongoDB URL:", dbConn);
+
 
 mongoose.connect(dbConn,
     {
@@ -29,6 +31,9 @@ mongoose.connect(dbConn,
             console.log("No database connection", err)
         } else {
             console.log("Connected to the database")
+            app.listen(port, () => {
+                console.log(`devsearch server is running on port http://localhost:${port}`)
+            })
         }
     }
 )
@@ -65,7 +70,4 @@ app.use('/api', apiRouter);
 
 
 
-app.listen(port, () => {
-    console.log(`devsearch server is running on port http://localhost:${port}`)
-}
-)
+

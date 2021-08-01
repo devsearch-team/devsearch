@@ -47,9 +47,10 @@ const getSeeker=function(req,res){
 
 
 const updateSeeker=function(req,res){
- //console.log("req",req.)
- console.log("req.file",req.file)
-Seeker.findByIdAndUpdate(req.user.id, {...req.body,["resumeFile"]:req.file.location},{new: true}).exec((err, seeker)=>{
+    // console.log("req.body",req.body)
+    // console.log("req.file",req.file)
+    req.file && ( req.body.resumeFile=req.file.location)
+    Seeker.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, seeker)=>{
     if (err){
         res.status(404)
         return res.json({error: err.message})
