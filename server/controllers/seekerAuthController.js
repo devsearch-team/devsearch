@@ -60,13 +60,13 @@ const updateSeeker=function(req,res){
 } ) 
 }
 
-const loginRequired = function(req,res, next){
-    if(req.user){
-        next()
-    }else{
-        console.log("req.user",req.user)
-        return res.status(401).json({message: "Unauthorized operation"})
-    }
-}
+// const loginRequired = function(req,res, next){
+//     if(req.user){
+//         next()
+//     }else{
+//         console.log("req.user",req.user)
+//         return res.status(401).json({message: "Unauthorized operation"})
+//     }
+// }
 
-module.exports = {register,signIn,updateSeeker,getSeeker,loginRequired}
+module.exports = {register,signIn,updateSeeker,getSeeker}
