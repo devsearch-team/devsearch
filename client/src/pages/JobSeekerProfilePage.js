@@ -8,6 +8,7 @@ import {
 } from "../globalComponents/Inputs";
 import { InputButton } from "../globalComponents/Buttons";
 import { theme } from "../globalStyles";
+import { Link } from "react-router-dom";
 
 const ProfileContainer = styled.div`
 display:grid;
@@ -179,6 +180,7 @@ const [formState, setFormState] = useState(initialFormState)
         <InputLabel>Phone</InputLabel>
         <ProfileInput placeholder="Website" name="website" value={formState.website} onChange={handleChange}></ProfileInput>
         <InputLabel>Website</InputLabel>
+        <a href={formState.resumeFile} target="blank" >Your resume</a>
         <ProfileInput type="file"  value={file} name="file" accept=".pdf" onChange={handleFileChange} placeholder="upload file"/>
       </FormDiv>
       <FormDiv>
