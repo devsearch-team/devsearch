@@ -17,7 +17,7 @@ const Job=new Schema({
         type: String
     },
     category:{
-        type: String
+        type: Schema.Types.ObjectId, ref: 'Category'
     },
     description:{
         type: String,
