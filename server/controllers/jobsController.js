@@ -1,8 +1,18 @@
 const Job = require('../models/job')
-const {getAllJobs, addJob,updateJob,getJobById} = require('../utils/jobsUtils')
+const {getAllJobs, addJob,updateJob,getJobById,getEmployerJobs} = require('../utils/jobsUtils')
 
 const getJobs = function (req, res){
     getAllJobs(req).exec((err, jobs)=>{
+        if (err){
+            res.status(500)
+            return res.json({error: err.message})
+        } 
+        res.send(jobs)
+    })
+}
+
+const getJobsByEmployer=function(req,res){
+    getEmployerJobs(req).exec((err, jobs)=>{
         if (err){
             res.status(500)
             return res.json({error: err.message})
@@ -48,4 +58,4 @@ const getJob = function (req, res){
 }
 
 
-module.exports = {getJobs, newJob, getJob, changeJob}
+module.exports = {getJobs, newJob, getJob, changeJob,getJobsByEmployer}
