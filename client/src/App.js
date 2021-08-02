@@ -12,8 +12,10 @@ import EmpRegister from "./pages/EmpRegister"
 import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
 import AddNewJob from "./pages/AddNewJob";
+
 import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
 // import SeekerViewJob from "../src/pages/SeekerViewJob";
+
 import EmployerJobListings from "../src/pages/EmployerJobListings";
 import NavMobile from "./globalComponents/NavMobile";
 import stateReducer from './utils/stateReducer'
@@ -61,6 +63,7 @@ console.log("store isEmployer",isEmployer)
               <Route exact path="/employer/newjob" component={AddNewJob} />
               <Route exact path="/employer/jobs" component={EmployerJobListings}/>
               <Route exact path="/seeker/jobs" component={JobSeekerJobListings}/>
+              {/* <Route  path="/seeker/job/1" component={SeekerViewJob}/> */}
               {/* <Route  path="/seeker/job/1" component={SeekerViewJob}/> */}
             </Container>
             </Switch>
