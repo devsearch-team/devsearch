@@ -29,7 +29,6 @@ const Job=new Schema({
     },
     modified_at: {
         type: Date,
-        required: true
     }
 })
 
