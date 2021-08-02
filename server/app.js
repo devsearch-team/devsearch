@@ -9,12 +9,15 @@ require('dotenv').config()
 
 const employerAuthRouter=require('./routes/empAuthRoutes')
 const seekerAuthRouter=require('./routes/seekerAuthRoutes')
+const jobsRouter=require('./routes/jobsRoutes')
 const apiRouter = require("./api/api.js");
 
 //define the global variables
 const app = express();
 const port = process.env.PORT || 4000
 const dbConn = process.env.MONGODB_URI
+
+console.log("MongoDB URL:", dbConn);
 
 
 mongoose.connect(dbConn,
@@ -29,6 +32,9 @@ mongoose.connect(dbConn,
             console.log("No database connection", err)
         } else {
             console.log("Connected to the database")
+            app.listen(port, () => {
+                console.log(`devsearch server is running on port http://localhost:${port}`)
+            })
         }
     }
 )
@@ -61,11 +67,9 @@ app.use(morgan('dev'))
 
 app.use("/employer/auth", employerAuthRouter)
 app.use("/seeker", seekerAuthRouter)
+app.use("/jobs", jobsRouter)
 app.use('/api', apiRouter);
 
 
 
-app.listen(port, () => {
-    console.log(`devsearch server is running on port http://localhost:${port}`)
-}
-)
+
