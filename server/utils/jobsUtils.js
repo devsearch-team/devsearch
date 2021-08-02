@@ -5,12 +5,12 @@ const getAllJobs = function (req) {
     const limit = parseInt(req.query.limit, 10) || 10
     const jobs = Job.find()
             .skip(page * limit)
-            .limit(limit)
+            .limit(limit).populate("employer")
     return jobs
 }
 
 const getJobById = function (id){
-    return Job.findById(id)
+    return Job.findById(id).populate("employer")
 }
 
 const addJob = function (req) {
@@ -24,6 +24,11 @@ const addJob = function (req) {
 
 const updateJob = function (req) {
     req.body.modified_at = Date.now()
-    return Job.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    filter={_id: req.params.id, employer: req.user.id}
+    return Job.findOneAndUpdate(filter, req.body, { new: true })
+}
+
+const checkEmpOwnership=(req, res, next) => {
+    
 }
 module.exports = { getAllJobs, addJob,updateJob,getJobById }

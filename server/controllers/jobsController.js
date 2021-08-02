@@ -27,6 +27,8 @@ const changeJob = function(req,res){
         if (err){
             res.status(404)
             return res.json({error: err.message})
+        }else if(!job){
+            return res.status(404).json({error:"Record not found"})
         }
         res.status(200)
         res.send(job)
@@ -39,8 +41,11 @@ const getJob = function (req, res){
             res.status(404)
             return res.json({error: err.message})
         } 
+        console.log("company name ",job.employer.name)
+        // {...job, companyName: job.employer.name}
         res.send(job)
     })
 }
+
 
 module.exports = {getJobs, newJob, getJob, changeJob}
