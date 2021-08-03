@@ -12,6 +12,7 @@ import EmpRegister from "./pages/EmpRegister"
 import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
 import AddNewJob from "./pages/AddNewJob";
+
 import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
 import SeekerViewJob from "../src/pages/SeekerViewJob";
 import EmployerJobListings from "../src/pages/EmployerJobListings";

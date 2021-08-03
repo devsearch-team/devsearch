@@ -286,6 +286,8 @@ width:100%;
 // `;
 
 const SeekerViewJob = () => {
+  
+  // const wysiwyg = wysiwyg
     let date = new Date();
     let hour = date.getHours();
 

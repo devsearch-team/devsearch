@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from "styled-components";
 
 export const Styles = createGlobalStyle`
 *{
-  overflow-X: hidden;
+  overflow-x: hidden;
     padding: 0;
     margin: 0;
     box-sizing:0;
