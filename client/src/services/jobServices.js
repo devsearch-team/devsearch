@@ -23,3 +23,8 @@ export async function getEmployerJobs(){
     // console.log("message", res)
     return res
 }
+
+export async function createJob(data){
+    const res = await devSearchApi.post('/jobs/',data)
+    return res
+}

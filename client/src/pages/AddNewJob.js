@@ -1,6 +1,6 @@
-import React, {useState,useEffect} from "react";
-import {useParams} from 'react-router-dom'
-import {getJob,updateJob} from "../services/jobServices"
+import React, {useState,useEffect,useRef} from "react";
+import {useParams,useHistory} from 'react-router-dom'
+import {getJob,updateJob,createJob} from "../services/jobServices"
 // import ReactHtmlParser from "react-html-parser";
 import './myeditor.css'
 import { Editor } from '@tinymce/tinymce-react';
@@ -189,8 +189,11 @@ const BtnContainer = styled.div`
 const AddNewJob = () => {
   const { store } = useGlobalState();
   const { loggedInUser } = store;
-  const {id}=useParams()
+  let {id}=useParams()
+  let history= useHistory()
+  const editorRef = useRef(null);
   const initialFormState = {
+    title:"",
     location: '',
     minPay: '',
     maxPay: '',
@@ -207,7 +210,7 @@ const AddNewJob = () => {
     });
   }
 
-  // const [wysiwyg, setWysiwyg] = useState("");
+  const [wysiwyg, setWysiwyg] = useState("");
   
   const handleEditorChange = event => {
     setFormState({...formState, 'description': event.target.getContent()})
@@ -220,8 +223,13 @@ const AddNewJob = () => {
 			.then((job) => {
 				console.log(job)
 				setFormState(job.data)
+        setWysiwyg(job.data.description)
+        // editorRef.current.setContent(job.data.description)
 			})
+      
 		}
+  console.log( "editor",editorRef.current)
+
 	},[id])
  
   function handleSubmit(){
@@ -229,7 +237,9 @@ const AddNewJob = () => {
 
     if(id) {
 			updateJob( {id: id, ...formState})
-			.then((data) => {console.log("data updated",data)
+			.then((data) => {
+        console.log("data updated",data)
+        
 			}).catch(
         (error) =>{ 
           console.log("err from catch",error.message)
@@ -237,6 +247,14 @@ const AddNewJob = () => {
           }
       )
 		}
+    else{
+      createJob(formState)
+      .then((data)=>{
+        console.log("new added job",data)
+        history.push("/employer/jobs")
+      })
+      .catch()
+    }
   }
 
   return (
@@ -248,7 +266,7 @@ const AddNewJob = () => {
             <CompanyLogo>
               <Logo src={RobotArm} alt="Company Logo"></Logo>
             </CompanyLogo>
-            <Heading> Position Title</Heading>
+            <InputField name='title' value={formState.title} onChange={handleChange} placeholder="Position title"></InputField>
             <FormDiv>
               <TextBoxContainer>
                 <InputField name='location' value={formState.location} onChange={handleChange} placeholder="Location"></InputField>
@@ -270,7 +288,7 @@ const AddNewJob = () => {
               <SubHeading>Role Description</SubHeading>
               {/* <DescContainer placeholder="About your company!!!"></DescContainer> */}
               <DescContainer style={{height:'600px', width:'600px'}}>
-              <Editor   name='description'  apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
+              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
                     auto_focus:false,
                     resize:'both',
                     height:600,
