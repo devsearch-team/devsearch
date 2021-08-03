@@ -32,15 +32,20 @@ const Heading = styled.h1`
 `;
 
 const JobSeekerJobListings = () => {
-  const [jobList, setJobList] = useState([]);
 
+  const [jobList, setJobList] = useState([]);
+  const [serverError, setServerError] = useState("")
   useEffect(() => {
     getJobs()
-      .then((data) => {
+      .then((res) => {
         // console.log(data);
-        setJobList(data.data);
+       
+        setJobList(res.data);
       })
-      .catch();
+      .catch((error) =>{ 
+        // console.log("err from catch",error.message)
+        setServerError(error.message)
+        })
   }, []);
 
   // console.log("jobs", jobList.data);

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "../globalStyles";
 import RobotArm from "../Assets/robotArm.jpg";
 import { Link } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -193,7 +194,7 @@ export default function JobCard({ job }) {
         {/* <Category>Developers/Programmers</Category> */}
       </CompanyInfoContainer>
       <JobInfoContainer>
-        <JobInfo>{job.description}</JobInfo>
+        <JobInfo>{ReactHtmlParser(job.description)}</JobInfo>
       </JobInfoContainer>
     </CardContainer>
   );

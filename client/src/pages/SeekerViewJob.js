@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { getJob } from '../services/jobServices';
 import { theme } from "../globalStyles";
 import RobotArm from "../Assets/robotArm.jpg";
+import ReactHtmlParser from "react-html-parser";
+
 const ViewJobContainer = styled.div`
 display:grid;
 grid-area: content;
@@ -331,9 +333,9 @@ const SeekerViewJob = () => {
             <SubHeading>About {job.employer.name}</SubHeading>
             {job.employer.about}
             </>
-          }
-        
-        {job.description}
+          }   
+        <Heading>Description</Heading>
+        {ReactHtmlParser(job.description)}
         </JobInfo>
         
         </JobInfoContainer>
