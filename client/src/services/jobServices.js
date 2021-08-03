@@ -26,5 +26,6 @@ export async function getEmployerJobs(){
 
 export async function createJob(data){
     const res = await devSearchApi.post('/jobs/',data)
+    console.log("new added job",data)
     return res
 }

@@ -202,6 +202,7 @@ const AddNewJob = () => {
   }
   const [formState, setFormState] = useState(initialFormState);
   const [serverError, setServerError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
   
   function handleChange(event) {
     setFormState({
@@ -238,8 +239,8 @@ const AddNewJob = () => {
     if(id) {
 			updateJob( {id: id, ...formState})
 			.then((data) => {
-        console.log("data updated",data)
-        
+        //console.log("data updated",data)
+        setSuccessMessage("Your listing has neen updated")
 			}).catch(
         (error) =>{ 
           console.log("err from catch",error.message)
@@ -253,7 +254,10 @@ const AddNewJob = () => {
         console.log("new added job",data)
         history.push("/employer/jobs")
       })
-      .catch()
+      .catch((error) =>{ 
+        console.log("err from catch",error.message)
+        setServerError(error.message)
+        })
     }
   }
 
@@ -262,10 +266,11 @@ const AddNewJob = () => {
       {loggedInUser ? (
         <>
           <AddJobContainer>
-        {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CompanyLogo>
               <Logo src={RobotArm} alt="Company Logo"></Logo>
             </CompanyLogo>
+              {serverError && <p style={{color:"red"}}>{serverError}</p>}
+              {successMessage&&<p>{successMessage}</p>}
             <InputField name='title' value={formState.title} onChange={handleChange} placeholder="Position title"></InputField>
             <FormDiv>
               <TextBoxContainer>
