@@ -19,13 +19,14 @@ export async function updateJob(data){
 }
 
 export async function getEmployerJobs(){
-    const res = await devSearchApi.get("/myjobs")
+    const res = await devSearchApi.get("/jobs/myjobs")
     // console.log("message", res)
     return res
 }
 
 export async function createJob(data){
     const res = await devSearchApi.post('/jobs/',data)
-    console.log("new added job",data)
+    // console.log("new added job",data)
     return res
 }
+

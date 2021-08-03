@@ -255,7 +255,7 @@ const AddNewJob = () => {
         history.push("/employer/jobs")
       })
       .catch((error) =>{ 
-        console.log("err from catch",error.message)
+        //console.log("err from catch",error.message)
         setServerError(error.message)
         })
     }

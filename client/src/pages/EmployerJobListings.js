@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
+import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
 import Card from "../globalComponents/Cards";
 
@@ -32,31 +33,35 @@ const CardContainer = styled.div`
 const EmployerJobListings = () => {
   const { store } = useGlobalState();
   const { isEmployer } = store;
+  const [jobList, setJobList] = useState([]);
+  const [serverError, setServerError] = useState("")
+
+
+  useEffect(() => {
+    getEmployerJobs()
+      .then((data) => {
+        console.log(data);
+        setJobList(data.data);
+      })
+      .catch((error) =>{ 
+        // console.log("err from catch",error.message)
+        setServerError(error.message)
+        });
+  }, []);
+
   return (
     <>
       {isEmployer ? (
         <ListingContainer>
           <CardContainer>
+            {jobList.map((job,index)=>   
             <Card
-              jobTitle="Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-            <Card
-              jobTitle="2 Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-            <Card
-              jobTitle="Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-            <Card
-              jobTitle="Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
+              key={index}
+              jobId={job._id}
+              jobTitle={job.title}
+              date={job.created_at}
+              company={job.employer.name}
+            />)}  
           </CardContainer>
         </ListingContainer>
       ) : (
