@@ -31,6 +31,7 @@ const Job=new Schema({
         type: Date,
     }
 })
+Job.index({'$**': 'text'});
 
 
 module.exports=mongoose.model('Job',Job)
