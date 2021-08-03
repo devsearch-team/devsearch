@@ -3,6 +3,8 @@
 const Job = require('./models/job')
 const mongoose = require('mongoose')
 const Employer = require('./models/employer')
+const sample =require('lodash.sample') 
+
 require('dotenv').config()
 
 const dbConn = process.env.MONGODB_URI
@@ -21,12 +23,20 @@ err => {
 })
 
 		
-function seedJobs(){
+async function seedJobs(){
     const quantity = 20
 		let jobs = []
-		for (let i = 0; i < quantity; i++) { 
-			const randomEmployer =  Employer.findOne()
+        // var randomEmployer 
+        //     Employer.findOne().exec((err,emp)=>{
+        //         randomEmployer=emp
+        //         console.log("randomEmployer",randomEmployer)
+        //         res.send(emp)
+        //     })
+        const users=await Employer.find()	
+        const randomEmployer=await sample(users)
+        console.log("randomEmployer",randomEmployer)
 
+		for (let i = 0; i < quantity; i++) {          
 			if (randomEmployer) {
 				jobs.push(
 					new Job({
