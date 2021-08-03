@@ -173,7 +173,7 @@ const JobInfo = styled.p`
     font-size: 12px;
   }
 `;
-export default function JobCard() {
+export default function JobCard({job}) {
   let date = new Date();
   let hour = date.getHours();
   return (
@@ -182,13 +182,14 @@ export default function JobCard() {
         <Logo src={RobotArm} alt="Company Logo"></Logo>
       </CompanyLogo>
       <Header>
-        <JobTitleLink to="/">Front End Developer</JobTitleLink>
-        <TimeSincePost>{hour}h ago</TimeSincePost>
+        <JobTitleLink to="/">{job.title}</JobTitleLink>
+        <TimeSincePost>{job.created_at}</TimeSincePost>
       </Header>
       <CompanyInfoContainer>
-        <CompanyName>RoboCorp</CompanyName>
-        <Location>Brisbane</Location>
-        <Salary>$85,000 to $100,000</Salary>
+        <CompanyName>{job.employer.name}</CompanyName>
+        <Location>{job.location}</Location>
+        <Salary>{job.minPay} </Salary>
+        <Salary>{job.maxPay} </Salary>
         <Category>Developers/Programmers</Category>
       </CompanyInfoContainer>
       <JobInfoContainer>
