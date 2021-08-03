@@ -12,6 +12,11 @@ export async function getJob(id){
     // console.log("message", res)
     return res
 }
+export async function updateJob(data){
+    const res = await devSearchApi.put(`/jobs/${data.id}`,data)
+    // console.log("message", res)
+    return res
+}
 
 export async function getEmployerJobs(){
     const res = await devSearchApi.get("/myjobs")

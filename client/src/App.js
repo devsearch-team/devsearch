@@ -59,7 +59,8 @@ console.log("store isEmployer",isEmployer)
               <SideBar /> 
               <Route exact path="/employer/profile" component={EmployerProfilePage}/>
               <Route exact path="/seeker/profile" component={JobSeekerProfilePage}/>
-              <Route exact path="/employer/newjob" component={AddNewJob} />
+              <Route exact path="/employer/jobs/newjob" component={AddNewJob} />
+              <Route exact path="/employer/jobs/update/:id" component={AddNewJob} />
               <Route exact path="/employer/jobs" component={EmployerJobListings}/>
               <Route exact path="/seeker/jobs" component={JobSeekerJobListings}/>
               <Route  path="/seeker/jobs/:id" component={SeekerViewJob}/>

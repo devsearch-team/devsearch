@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
+import {useParams} from 'react-router-dom'
+import {getJob,updateJob} from "../services/jobServices"
 // import ReactHtmlParser from "react-html-parser";
 import './myeditor.css'
 import { Editor } from '@tinymce/tinymce-react';
@@ -187,7 +189,7 @@ const BtnContainer = styled.div`
 const AddNewJob = () => {
   const { store } = useGlobalState();
   const { loggedInUser } = store;
-
+  const {id}=useParams()
   const initialFormState = {
     location: '',
     minPay: '',
@@ -195,9 +197,8 @@ const AddNewJob = () => {
     category:'',
     description:'',
   }
- 
-
   const [formState, setFormState] = useState(initialFormState);
+  const [serverError, setServerError] = useState("")
   
   function handleChange(event) {
     setFormState({
@@ -213,12 +214,37 @@ const AddNewJob = () => {
     // setWysiwyg(event.target.getContent());
     // console.log(wysiwyg);
   };
+  useEffect(() => {
+		if(id) {
+			getJob(id)
+			.then((job) => {
+				console.log(job)
+				setFormState(job.data)
+			})
+		}
+	},[id])
+ 
+  function handleSubmit(){
+    console.log("inside handle submit")
+
+    if(id) {
+			updateJob( {id: id, ...formState})
+			.then((data) => {console.log("data updated",data)
+			}).catch(
+        (error) =>{ 
+          console.log("err from catch",error.message)
+          setServerError(error.message)
+          }
+      )
+		}
+  }
 
   return (
     <>
       {loggedInUser ? (
         <>
           <AddJobContainer>
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CompanyLogo>
               <Logo src={RobotArm} alt="Company Logo"></Logo>
             </CompanyLogo>
@@ -275,7 +301,7 @@ const AddNewJob = () => {
               {/* </div> */}
             </FormDiv>
             <BtnContainer>
-              <InputButton>Save</InputButton>
+              <InputButton onClick={()=>{handleSubmit()}}>{id ? 'Update' : 'Create'}</InputButton>
               <InputButton
                 style={{
                   background: theme.SecondaryBtnBg,
