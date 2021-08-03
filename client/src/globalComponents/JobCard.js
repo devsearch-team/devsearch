@@ -85,7 +85,7 @@ const CompanyInfoContainer = styled.div`
   margin-bottom: 0.3rem;
 
   width: 60%;
-  height: 35%;
+  height: 45%;
   @media only screen and (max-width: 1080px) {
     margin: 0.2rem 0rem;
   }
@@ -151,16 +151,16 @@ const Salary = styled.p`
     font-size: 12px;
   }
 `;
-const Category = styled.p`
-  font-weight: 550;
-  margin: 0.5rem 1rem;
-  color: ${theme.PrimaryTxt};
-  font-size: 14px;
-  @media only screen and (max-width: 1080px) {
-    margin: 0.3rem 1rem;
-    font-size: 12px;
-  }
-`;
+// const Category = styled.p`
+//   font-weight: 550;
+//   margin: 0.5rem 1rem;
+//   color: ${theme.PrimaryTxt};
+//   font-size: 14px;
+//   @media only screen and (max-width: 1080px) {
+//     margin: 0.3rem 1rem;
+//     font-size: 12px;
+//   }
+// `;
 const JobInfo = styled.p`
   font-weight: 300;
   margin: 0.4rem 1rem;
@@ -173,7 +173,7 @@ const JobInfo = styled.p`
     font-size: 12px;
   }
 `;
-export default function JobCard() {
+export default function JobCard({ job }) {
   let date = new Date();
   let hour = date.getHours();
   return (
@@ -182,25 +182,18 @@ export default function JobCard() {
         <Logo src={RobotArm} alt="Company Logo"></Logo>
       </CompanyLogo>
       <Header>
-        <JobTitleLink to="/">Front End Developer</JobTitleLink>
-        <TimeSincePost>{hour}h ago</TimeSincePost>
+        <JobTitleLink to={`/seeker/jobs/${job._id}`} >{job.title}</JobTitleLink>
+        <TimeSincePost>{job.created_at}</TimeSincePost>
       </Header>
       <CompanyInfoContainer>
-        <CompanyName>RoboCorp</CompanyName>
-        <Location>Brisbane</Location>
-        <Salary>$85,000 to $100,000</Salary>
-        <Category>Developers/Programmers</Category>
+        <CompanyName>{job.employer.name}</CompanyName>
+        <Location>{job.location}</Location>
+        {job.minPay && <Salary>Min Pay: {job.minPay} </Salary>}
+        {job.maxPay && <Salary>Max Pay:{job.maxPay} </Salary>}
+        {/* <Category>Developers/Programmers</Category> */}
       </CompanyInfoContainer>
       <JobInfoContainer>
-        <JobInfo>
-          - Systems and processes set up to support work from home and remote
-          work
-        </JobInfo>
-        <JobInfo>- On the job training and development</JobInfo>
-        <JobInfo>
-          - Interesting and complex projects requiring a broad range of skill
-          sets
-        </JobInfo>
+        <JobInfo>{job.description}</JobInfo>
       </JobInfoContainer>
     </CardContainer>
   );

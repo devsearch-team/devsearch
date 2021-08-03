@@ -1,7 +1,7 @@
-import React from 'react'
-// import ReactHtmlParser from "react-html-parser";
-
+import React,{useEffect, useState} from 'react'
+import {useParams} from 'react-router-dom'
 import styled from "styled-components";
+import { getJob } from '../services/jobServices';
 import { theme } from "../globalStyles";
 import RobotArm from "../Assets/robotArm.jpg";
 const ViewJobContainer = styled.div`
@@ -126,6 +126,52 @@ const Heading = styled.h4`
     width: 100%;
   }
 `;
+const SubHeading = styled.h6`
+  margin: 0.5rem 0rem;
+  color: ${theme.PrimaryTxt};
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  @media only screen and (max-width: 1080px) {
+    margin: 0.3rem 0rem;
+    font-size: 20px;
+  }
+  @media only screen and (max-width: 900px) {
+    margin: 0.2rem 0;
+    font-size: 18px;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 16px;
+    width: 100%;
+    margin:0.4rem 0;
+  }
+  @media only screen and (max-width: 460px) {
+    font-size: 16px;
+  }
+`;
+// const MinorSubHeading = styled.h6`
+//   margin: 1rem 0rem;
+//   color: ${theme.PrimaryBtnBg};
+//   text-decoration: none;
+//   font-weight: 600;
+//   font-size: 14px;
+//   @media only screen and (max-width: 1080px) {
+//     margin: 0.3rem 0rem;
+//     font-size: 16px;
+//   }
+//   @media only screen and (max-width: 900px) {
+//     margin: 0.2rem 0;
+//     font-size: 14px;
+//   }
+//   @media only screen and (max-width: 768px) {
+//     font-size: 14px;
+//     width: 100%;
+//     margin:0.4rem 0;
+//   }
+//   @media only screen and (max-width: 460px) {
+//     font-size: 12px;
+//   }
+// `;
 
 
 const CompanyInfoContainer = styled.div`
@@ -188,53 +234,112 @@ const Salary = styled.p`
     font-size: 10px;
   }
 `;
-const Category = styled.p`
-  font-weight: 550;
-  margin: 0.5rem 1rem;
-  color: ${theme.PrimaryTxt};
-  font-size: 14px;
-  @media only screen and (max-width: 1080px) {
-    margin: 0.3rem 1rem;
-    font-size: 12px;
-  }
-  @media only screen and (max-width: 460px) {
-    font-size: 10px;
-  }
-`;
+// const Category = styled.p`
+//   font-weight: 550;
+//   margin: 0.5rem 1rem;
+//   color: ${theme.PrimaryTxt};
+//   font-size: 14px;
+//   @media only screen and (max-width: 1080px) {
+//     margin: 0.3rem 1rem;
+//     font-size: 12px;
+//   }
+//   @media only screen and (max-width: 460px) {
+//     font-size: 10px;
+//   }
+// `;
 const JobInfo = styled.div`
 width:100%;
 
 `;
+// const AboutCompany = styled.p`
+//   font-weight: 300;
+//   margin: 0.4rem 1rem;
+//   line-height:1.5;
+//   color: ${theme.SecondaryFadedTxt};
+//   width:100%;
+//   //   opacity: 0.7;
+//   font-size: 14px;
+//   @media only screen and (max-width: 1080px) {
+//     margin: 0.3rem 1rem;
+//     font-size: 12px;
+// }
+// @media only screen and (max-width: 460px) {
+//       margin: 0.1rem 1rem;
+//     font-size: 10px;
+//   }
+// `;
+// const RoleDescription = styled.p`
+//   font-weight: 300;
+//   margin: 0.4rem 1rem;
+//   line-height:1.5;
+//   color: ${theme.SecondaryFadedTxt};
+//   width:100%;
+//   //   opacity: 0.7;
+//   font-size: 14px;
+//   @media only screen and (max-width: 1080px) {
+//     margin: 0.3rem 1rem;
+//     font-size: 12px;
+//   }
+//   @media only screen and (max-width: 460px) {
+//     font-size: 10px;
+//   }
+// `;
 
 const SeekerViewJob = () => {
   
   // const wysiwyg = wysiwyg
     let date = new Date();
     let hour = date.getHours();
-    return (
-        <ViewJobContainer>
-        <JobInfoContainer>
-            <CompanyLogo>
-                <Logo src={RobotArm} alt="Company Logo"></Logo>
-             </CompanyLogo>
-             <Header>
-             <Heading>Front End Developer</Heading>
-                <TimeSincePost>{hour}h ago</TimeSincePost>
-             </Header>
-             <CompanyInfoContainer>
-                 <CompanyName>RoboCorp</CompanyName>
-                 <Location>Brisbane</Location>
-                 <Salary>$85,000 to $100,000</Salary>
-                 <Category>Developers/Programmers</Category>
-             </CompanyInfoContainer>
-            
-        <JobInfo >
-        {/* {ReactHtmlParser(wysiwyg)} */}
-        </JobInfo>
-      
-        </JobInfoContainer>
-        </ViewJobContainer>
-    )
-}
 
-export default SeekerViewJob
+    const [job, setJob] = useState("")
+    let {id} = useParams()
+  // console.log("id", id)
+    useEffect(() => {
+      getJob(id)
+        .then((data) => {
+          // console.log("data",data);
+          console.log(data.data.employer.name)
+          setJob(data.data);
+        })
+        .catch();
+    }, []);
+
+    return (
+      
+      <ViewJobContainer>
+        
+      { job &&
+        <JobInfoContainer>
+        <CompanyLogo>
+        <Logo src={RobotArm} alt="Company Logo"></Logo>
+        </CompanyLogo>
+        <Header>
+        <Heading>{job.title}</Heading>
+        <TimeSincePost>{job.created_at}</TimeSincePost>
+        </Header>
+        <CompanyInfoContainer>
+        <CompanyName>{job.employer.name}</CompanyName>
+        <Location>{job.location}</Location>
+        {job.minPay && <Salary>Min Pay: {job.minPay} </Salary>}
+        {job.maxPay && <Salary>Max Pay:{job.maxPay} </Salary>}
+        {/* <Category>Developers/Programmers</Category> */}
+        </CompanyInfoContainer>
+        
+        <JobInfo>
+          {
+            job.employer.about && <>
+            <SubHeading>About {job.employer.name}</SubHeading>
+            {job.employer.about}
+            </>
+          }
+        
+        {job.description}
+        </JobInfo>
+        
+        </JobInfoContainer>
+      }
+        </ViewJobContainer>
+        )
+      }
+      
+      export default SeekerViewJob
