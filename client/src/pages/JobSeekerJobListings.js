@@ -32,38 +32,33 @@ const Heading = styled.h1`
 `;
 
 const JobSeekerJobListings = () => {
-  const [jobList, setJobList] = useState("");
+  const [jobList, setJobList] = useState([]);
 
   useEffect(() => {
     getJobs()
       .then((data) => {
-        console.log(data);
-        setJobList(data);
+        // console.log(data);
+        setJobList(data.data);
       })
       .catch();
   }, []);
 
+  // console.log("jobs", jobList.data);
   // if (jobList.length > 0) {
   return (
     <>
-      {jobList ? (
-        jobList.data.map((job, index) => {
-          console.log("jobs", job);
-
-          return (
-            <ListingContainer>
-              <Heading>Job Listings</Heading>
-              <div key={index}>
-                <p>{job.title}</p>
-              </div>
-              {console.log("jobList", jobList.data)}
-              <JobCard job={job} />
-            </ListingContainer>
-          );
-        })
+      <ListingContainer>
+        <Heading>Job Listings</Heading>
+        {console.log(jobList)}
+        {jobList.map((job, index) => (
+          <JobCard job={job} key={index} />
+        ))}
+      </ListingContainer>
+      {/* {jobList ? (
+       
       ) : (
         <><Heading>No Jobs Yet</Heading></>
-      )}
+      )} */}
     </>
   );
   // }else {
