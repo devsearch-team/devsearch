@@ -26,13 +26,19 @@ const getAllJobs = function (req) {
     return jobs
 }
 
-const getEmployerJobs = function (req) {
+const getEmployerJobs = async function (req) {
     const page = parseInt(req.query.page, 10) || 0
     const limit = parseInt(req.query.limit, 10) || 10
-    const jobs = Job.find({ employer: req.user.id })
+    const filter =  { employer: req.user.id };
+    
+    const jobs = await Job.find(filter)
         .skip(page * limit)
         .limit(limit)
-    return jobs
+        .exec();
+
+    const JobsNo = await Job.countDocuments(filter).exec()
+      const totalPages=Math.ceil(JobsNo/10)
+    return {jobs, totalPages}
 }
 
 const getJobById = function (id) {

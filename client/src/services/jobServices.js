@@ -18,8 +18,8 @@ export async function updateJob(data){
     return res
 }
 
-export async function getEmployerJobs(){
-    const res = await devSearchApi.get("/jobs/myjobs")
+export async function getEmployerJobs(page){
+    const res = await devSearchApi.get(`/jobs/myjobs?page=${page}`)
     // console.log("message", res)
     return res
 }

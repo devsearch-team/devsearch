@@ -37,9 +37,10 @@ const JobSeekerJobListings = () => {
   const [serverError, setServerError] = useState("")
   useEffect(() => {
     getJobs()
-      .then((data) => {
+      .then((res) => {
         // console.log(data);
-        setJobList(data.data);
+       
+        setJobList(res.data);
       })
       .catch((error) =>{ 
         // console.log("err from catch",error.message)
