@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+import React, {useState,useEffect,useRef} from "react";
+import {useParams,useHistory} from 'react-router-dom'
+import {getJob,updateJob,createJob} from "../services/jobServices"
 // import ReactHtmlParser from "react-html-parser";
 import './myeditor.css'
 import { Editor } from '@tinymce/tinymce-react';
@@ -187,17 +189,20 @@ const BtnContainer = styled.div`
 const AddNewJob = () => {
   const { store } = useGlobalState();
   const { loggedInUser } = store;
-
+  let {id}=useParams()
+  let history= useHistory()
+  const editorRef = useRef(null);
   const initialFormState = {
+    title:"",
     location: '',
     minPay: '',
     maxPay: '',
     category:'',
     description:'',
   }
- 
-
   const [formState, setFormState] = useState(initialFormState);
+  const [serverError, setServerError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
   
   function handleChange(event) {
     setFormState({
@@ -206,13 +211,55 @@ const AddNewJob = () => {
     });
   }
 
-  // const [wysiwyg, setWysiwyg] = useState("");
+  const [wysiwyg, setWysiwyg] = useState("");
   
   const handleEditorChange = event => {
     setFormState({...formState, 'description': event.target.getContent()})
     // setWysiwyg(event.target.getContent());
     // console.log(wysiwyg);
   };
+  useEffect(() => {
+		if(id) {
+			getJob(id)
+			.then((job) => {
+				console.log(job)
+				setFormState(job.data)
+        setWysiwyg(job.data.description)
+        // editorRef.current.setContent(job.data.description)
+			})
+      
+		}
+  console.log( "editor",editorRef.current)
+
+	},[id])
+ 
+  function handleSubmit(){
+    console.log("inside handle submit")
+
+    if(id) {
+			updateJob( {id: id, ...formState})
+			.then((data) => {
+        //console.log("data updated",data)
+        setSuccessMessage("Your listing has neen updated")
+			}).catch(
+        (error) =>{ 
+          console.log("err from catch",error.message)
+          setServerError(error.message)
+          }
+      )
+		}
+    else{
+      createJob(formState)
+      .then((data)=>{
+        console.log("new added job",data)
+        history.push("/employer/jobs")
+      })
+      .catch((error) =>{ 
+        //console.log("err from catch",error.message)
+        setServerError(error.message)
+        })
+    }
+  }
 
   return (
     <>
@@ -222,7 +269,9 @@ const AddNewJob = () => {
             <CompanyLogo>
               <Logo src={RobotArm} alt="Company Logo"></Logo>
             </CompanyLogo>
-            <Heading> Position Title</Heading>
+              {serverError && <p style={{color:"red"}}>{serverError}</p>}
+              {successMessage&&<p>{successMessage}</p>}
+            <InputField name='title' value={formState.title} onChange={handleChange} placeholder="Position title"></InputField>
             <FormDiv>
               <TextBoxContainer>
                 <InputField name='location' value={formState.location} onChange={handleChange} placeholder="Location"></InputField>
@@ -244,7 +293,7 @@ const AddNewJob = () => {
               <SubHeading>Role Description</SubHeading>
               {/* <DescContainer placeholder="About your company!!!"></DescContainer> */}
               <DescContainer style={{height:'600px', width:'600px'}}>
-              <Editor   name='description'  apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
+              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
                     auto_focus:false,
                     resize:'both',
                     height:600,
@@ -275,7 +324,7 @@ const AddNewJob = () => {
               {/* </div> */}
             </FormDiv>
             <BtnContainer>
-              <InputButton>Save</InputButton>
+              <InputButton onClick={()=>{handleSubmit()}}>{id ? 'Update' : 'Create'}</InputButton>
               <InputButton
                 style={{
                   background: theme.SecondaryBtnBg,

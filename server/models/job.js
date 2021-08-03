@@ -17,7 +17,8 @@ const Job=new Schema({
         type: String
     },
     category:{
-        type: Schema.Types.ObjectId, ref: 'Category'
+        type:String
+        // Schema.Types.ObjectId, ref: 'Category'
     },
     description:{
         type: String,
@@ -33,5 +34,15 @@ const Job=new Schema({
 })
 Job.index({'$**': 'text'});
 
-
+Job.pre('save', (next) => {
+    if(this.description){
+        this.description = this.description.strip();
+    }
+    next();
+  })
+Job.pre('update', (next) => {
+        this.description = this.description.strip();
+        next();
+    
+})  
 module.exports=mongoose.model('Job',Job)

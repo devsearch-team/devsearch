@@ -167,7 +167,7 @@ const SideBar = () => {
             activebutton={activebutton}
             id={4}
             onClick={handleClick}
-            to="/employer/newjob"
+            to="/employer/jobs/newjob"
           >
             Add New Job
           </SideBarButton>

@@ -11,14 +11,15 @@ const getJobs = function (req, res){
     })
 }
 
-const getJobsByEmployer=function(req,res){
-    getEmployerJobs(req).exec((err, jobs)=>{
-        if (err){
-            res.status(500)
-            return res.json({error: err.message})
-        } 
-        res.send(jobs)
-    })
+const getJobsByEmployer=async function(req,res){
+    try{
+        const {jobs, totalPages} = await getEmployerJobs(req)
+        res.send({jobs, totalPages});
+    }
+    catch(err){
+        res.status(500)
+        return res.json({error: err.message})
+    }
 }
 
 const newJob = function (req, res){

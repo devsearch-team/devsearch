@@ -1,7 +1,9 @@
-import React from "react";
+import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
+import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
 import Card from "../globalComponents/Cards";
+import { InputButton } from "../globalComponents/Buttons";
 
 const ListingContainer = styled.div`
   display: grid;
@@ -32,33 +34,46 @@ const CardContainer = styled.div`
 const EmployerJobListings = () => {
   const { store } = useGlobalState();
   const { isEmployer } = store;
+  const [jobList, setJobList] = useState([]);
+  const [serverError, setServerError] = useState("")
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true)
+    getEmployerJobs(page)
+      .then((res) => {
+        console.log("my jobs",res)
+        setJobList([...jobList, ...res.data.jobs])
+        setTotalPages(res.data.totalPages)
+        setLoading(false)
+      })
+      .catch((error) =>{ 
+        // console.log("err from catch",error.message)
+        setServerError(error.message)
+        });
+  }, [page]);
+
   return (
     <>
       {isEmployer ? (
-        <ListingContainer>
-          <CardContainer>
-            <Card
-              jobTitle="Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-            <Card
-              jobTitle="2 Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-            <Card
-              jobTitle="Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-            <Card
-              jobTitle="Job Title"
-              date={Date.now()}
-              company="Company Name"
-            />
-          </CardContainer>
-        </ListingContainer>
+        <>
+        total pages:{totalPages}   page:{page}
+          <ListingContainer>
+            <CardContainer>
+              {jobList.map((job,index)=>   
+              <Card
+                key={index}
+                jobId={job._id}
+                jobTitle={job.title}
+                date={job.created_at}
+                company={job.employer.name}
+              />)}  
+            </CardContainer>
+          {(totalPages-1) != page && <InputButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</InputButton>}
+
+          </ListingContainer>
+        </>  
       ) : (
         <></>
       )}
