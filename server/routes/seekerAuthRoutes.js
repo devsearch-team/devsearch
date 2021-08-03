@@ -2,14 +2,14 @@ const express = require('express')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const router = express.Router()
-const {empLoginRequired}=require('../middleware/authentications')
-const {register,signIn,getEmployer,updateEmployer} = require('../controllers/empAuthController')
+const parser = require("../middleware/S3.config");
+const {seekerLoginRequired}=require('../middleware/authentications')
+const {register,signIn,getSeeker,updateSeeker} = require('../controllers/seekerAuthController')
 
 //if the employer is logged in, add user to req 
 // router.use((req, res, next) => {
-
 //     if(req.headers && req.headers.authorization){
-//         jwt.verify(req.headers.authorization.split(' ')[1],process.env.EMPLOYER_SECRET_KEY,(err, decode)=>{
+//         jwt.verify(req.headers.authorization.split(' ')[1],process.env.SEEKER_SECRET_KEY,(err, decode)=>{
 //             if (err) {
 //                 req.user = undefined
 //             }else{
@@ -25,8 +25,8 @@ const {register,signIn,getEmployer,updateEmployer} = require('../controllers/emp
 //     }
 // })
 
-router.post('/register', register)
-router.post('/signin', signIn)
-router.get('/profile',empLoginRequired, getEmployer)
-router.put('/profile',empLoginRequired,updateEmployer)
+router.post('/auth/register', register)
+router.post('/auth/signin', signIn)
+router.get('/profile',seekerLoginRequired, getSeeker)
+router.put('/profile',parser.single("resumeFile"),updateSeeker)
 module.exports = router

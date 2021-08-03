@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "../globalStyles";
 import { FaChevronRight } from "react-icons/fa";
 import RobotArm from "../Assets/robotArm.jpg";
+import {useHistory} from 'react-router-dom'
 
 const CardSmall = styled.div`
   display: flex;
@@ -68,7 +69,8 @@ const CardBtn = styled.button`
   }
 `;
 
-export default function Card({ jobTitle, company, date }) {
+export default function Card({ jobTitle, company, date,jobId }) {
+  let history= useHistory()
   return (
     <CardSmall>
       <CardLeft>
@@ -80,7 +82,7 @@ export default function Card({ jobTitle, company, date }) {
         <CardText>{company}</CardText>
       </CardLeft>
       <CardRight>
-        <CardBtn>
+        <CardBtn onClick={()=>{history.push(`/employer/jobs/update/${jobId}`)}}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
       </CardRight>

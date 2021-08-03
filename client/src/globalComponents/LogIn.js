@@ -44,6 +44,7 @@ export default function LogIn({callback,header}){
         if(!emailError&&!passwordError){
             callback(formState)
             .then((user) => {
+              console.log("logIn component user",user)
               localStorage.setItem("username", user.username)
               localStorage.setItem("token", user.jwt)
               localStorage.setItem("isEmployer", user.isEmployer)

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import { getJobs } from "../services/jobServices";
 import JobCard from "../globalComponents/JobCard";
 
 const ListingContainer = styled.div`
@@ -30,14 +32,43 @@ const Heading = styled.h1`
 `;
 
 const JobSeekerJobListings = () => {
+
+  const [jobList, setJobList] = useState([]);
+  const [serverError, setServerError] = useState("")
+  useEffect(() => {
+    getJobs()
+      .then((res) => {
+        // console.log(data);
+       
+        setJobList(res.data);
+      })
+      .catch((error) =>{ 
+        // console.log("err from catch",error.message)
+        setServerError(error.message)
+        })
+  }, []);
+
+  // console.log("jobs", jobList.data);
+  // if (jobList.length > 0) {
   return (
-    <ListingContainer>
-      <Heading>Job Listings</Heading>
-      <JobCard />
-      <JobCard />
-      <JobCard />
-    </ListingContainer>
+    <>
+      <ListingContainer>
+        <Heading>Job Listings</Heading>
+        {console.log(jobList)}
+        {jobList.map((job, index) => (
+          <JobCard job={job} key={index} />
+        ))}
+      </ListingContainer>
+      {/* {jobList ? (
+       
+      ) : (
+        <><Heading>No Jobs Yet</Heading></>
+      )} */}
+    </>
   );
+  // }else {
+  // return (<h3 style={{color:"#fff"}}>Not Jobs Yet</h3>)
+  // }
 };
 
 export default JobSeekerJobListings;

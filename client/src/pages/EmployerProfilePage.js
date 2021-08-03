@@ -82,6 +82,10 @@ const InputLabel = styled.label`
     opacity: 0.5;
   }
 `;
+const Email = styled.h5`
+font-weight:500;
+font-size:16px;
+`;
 const AboutCompany = styled.textarea`
   width: 600px;
   height: 400px;
@@ -128,8 +132,8 @@ const [resMessage, setResMessage]=useState("")
 const [formState, setFormState] = useState(initialFormState)
 
 const {store } = useGlobalState()
-const { loggedInUser } = store
-
+const { loggedInUser,isEmployer } = store
+console.log("isEmployer",isEmployer)
 useEffect(()=>{
   getEmployer().then((data)=>{
     setFormState(data)
@@ -163,8 +167,9 @@ function handleSubmit(event){
             <Heading>Company Profile</Heading>
             <FormDiv>
               <SubHeading>{formState.name}</SubHeading>
-              <ProfileInput value={formState.email} placeholder="Email"></ProfileInput>
-              <InputLabel>Email</InputLabel>
+              {/* <ProfileInput value={formState.email} placeholder="Email"></ProfileInput> */}
+              <Email value={formState.email} Emaillaceholder="Email">{formState.email}</Email>
+              {/* <InputLabel>Email</InputLabel> */}
               <ProfileInput placeholder="Phone" name="phone" value={formState.phone} onChange={handleChange}></ProfileInput>
               <InputLabel type="text">Phone</InputLabel>
               <ProfileInput placeholder="Website" name="website" value={formState.website} onChange={handleChange}></ProfileInput>

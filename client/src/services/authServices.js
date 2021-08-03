@@ -33,19 +33,39 @@ export async function updateEmployer(data){
 }
 
 export async function seekerLogIn(data) {
-	return {
-		username: "Test",
-        isEmployer:false,
-		jwt: "token"
-	}
+	console.log("inside seeker login service")
+	const res= await devSearchApi.post("/seeker/auth/signin",data)
+	console.log("res",res)
+	return {...res.data,isEmployer:false}
+	// return {
+	// 	username: "Test",
+    //     isEmployer:false,
+	// 	jwt: "token"
+	// }
 }
 
 export async function seekerSignUp(data) {
-	return {
-		username: "Test",
-        isEmployer:false,
-		jwt: "token"
-	}
+	const res= await devSearchApi.post("/seeker/auth/register",data)
+	console.log("res",res)
+	return {...res.data,isEmployer:false}
+	// return {
+	// 	username: "Test",
+    //     isEmployer:false,
+	// 	jwt: "token"
+	// }
+}
+
+export async function getSeeker(){
+	const res= await devSearchApi.get("/seeker/profile")
+	console.log("res",res.data)
+	return res.data	
+}
+
+export async function updateSeeker(data){
+	console.log("axios", data.resumeFile);
+	const res= await devSearchApi.put("/seeker/profile",data)
+	console.log("res",res)
+	return res.data
 }
 
 export async function logOut(data) {

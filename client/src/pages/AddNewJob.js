@@ -1,4 +1,9 @@
-import React from "react";
+import React, {useState,useEffect,useRef} from "react";
+import {useParams,useHistory} from 'react-router-dom'
+import {getJob,updateJob,createJob} from "../services/jobServices"
+// import ReactHtmlParser from "react-html-parser";
+import './myeditor.css'
+import { Editor } from '@tinymce/tinymce-react';
 import styled from "styled-components";
 import RobotArm from "../Assets/robotArm.jpg";
 import { useGlobalState } from "../utils/globalContext";
@@ -146,14 +151,14 @@ const ShortInput = styled.input`
 //     opacity: 0.5;
 //   }
 // `;
-const DescContainer = styled.textarea`
-  width: 600px;
-  height: 400px;
+const DescContainer = styled.div`
+  width: 100%;
+  height: 100%;
   background: ${theme.NavBg};
   font-size: 18px;
   border: 1px solid ${theme.Accent};
-  resize: none;
-  padding: 10px;
+  // resize: none;
+  
   @media only screen and (max-width: 900px) {
     width: 500px;
   }
@@ -180,9 +185,81 @@ const BtnContainer = styled.div`
     width: 100%;
   }
 `;
+
 const AddNewJob = () => {
   const { store } = useGlobalState();
   const { loggedInUser } = store;
+  let {id}=useParams()
+  let history= useHistory()
+  const editorRef = useRef(null);
+  const initialFormState = {
+    title:"",
+    location: '',
+    minPay: '',
+    maxPay: '',
+    category:'',
+    description:'',
+  }
+  const [formState, setFormState] = useState(initialFormState);
+  const [serverError, setServerError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  
+  function handleChange(event) {
+    setFormState({
+      ...formState,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  const [wysiwyg, setWysiwyg] = useState("");
+  
+  const handleEditorChange = event => {
+    setFormState({...formState, 'description': event.target.getContent()})
+    // setWysiwyg(event.target.getContent());
+    // console.log(wysiwyg);
+  };
+  useEffect(() => {
+		if(id) {
+			getJob(id)
+			.then((job) => {
+				console.log(job)
+				setFormState(job.data)
+        setWysiwyg(job.data.description)
+        // editorRef.current.setContent(job.data.description)
+			})
+      
+		}
+  console.log( "editor",editorRef.current)
+
+	},[id])
+ 
+  function handleSubmit(){
+    console.log("inside handle submit")
+
+    if(id) {
+			updateJob( {id: id, ...formState})
+			.then((data) => {
+        //console.log("data updated",data)
+        setSuccessMessage("Your listing has neen updated")
+			}).catch(
+        (error) =>{ 
+          console.log("err from catch",error.message)
+          setServerError(error.message)
+          }
+      )
+		}
+    else{
+      createJob(formState)
+      .then((data)=>{
+        console.log("new added job",data)
+        history.push("/employer/jobs")
+      })
+      .catch((error) =>{ 
+        //console.log("err from catch",error.message)
+        setServerError(error.message)
+        })
+    }
+  }
 
   return (
     <>
@@ -192,36 +269,62 @@ const AddNewJob = () => {
             <CompanyLogo>
               <Logo src={RobotArm} alt="Company Logo"></Logo>
             </CompanyLogo>
-            <Heading>Position Title</Heading>
+              {serverError && <p style={{color:"red"}}>{serverError}</p>}
+              {successMessage&&<p>{successMessage}</p>}
+            <InputField name='title' value={formState.title} onChange={handleChange} placeholder="Position title"></InputField>
             <FormDiv>
               <TextBoxContainer>
-                <InputField placeholder="Location"></InputField>
+                <InputField name='location' value={formState.location} onChange={handleChange} placeholder="Location"></InputField>
               </TextBoxContainer>
               <TextBoxContainer>
-                <ShortInput placeholder="Minimum Pay Rate"></ShortInput>
+                <ShortInput name='minPay' value={formState.minPay} onChange={handleChange} placeholder="Minimum Pay Rate"></ShortInput>
               </TextBoxContainer>
               <TextBoxContainer>
-                <ShortInput placeholder="Maximum Pay Rate"></ShortInput>
+                <ShortInput name='maxPay' value={formState.maxPay} onChange={handleChange} placeholder="Maximum Pay Rate"></ShortInput>
               </TextBoxContainer>
               <TextBoxContainer>
-                <InputField placeholder="Category"></InputField>
+                <select name='category' value={formState.category}   onChange={handleChange} style={{color:'#000', width:'300px', height:'40px'}} placeholder="Category">
+                  <option style={{color:'#000'}} value="Web Development">Web Development</option>
+                  <option style={{color:'#000'}} value="DevOps">DevOps</option>
+                </select>
               </TextBoxContainer>
-            </FormDiv>
-
-            <FormDiv>
-              <SubHeading>About Company</SubHeading>
-              <DescContainer placeholder="About your company!!!"></DescContainer>
             </FormDiv>
             <FormDiv>
               <SubHeading>Role Description</SubHeading>
-              <DescContainer placeholder="Describe the role!!!"></DescContainer>
-            </FormDiv>
-            <FormDiv>
-              <SubHeading>Role Requirements</SubHeading>
-              <DescContainer placeholder="Describe the role!!!"></DescContainer>
+              {/* <DescContainer placeholder="About your company!!!"></DescContainer> */}
+              <DescContainer style={{height:'600px', width:'600px'}}>
+              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
+                    auto_focus:false,
+                    resize:'both',
+                    height:600,
+                    placeholder:"Please note we will automaticaly include the About Your Company section from your profile in this job listing",
+                    editor_css: 'myeditor.css',   
+                    selector: '#textarea',
+                    inline_boundaries: true,
+                    branding: false,
+                    statusbar:false,
+                    menubar: false,
+                    plugins: [
+                      '  lists ',
+                    ],
+                    toolbar: '  fontselect fontsizeselect ' +
+                    'bold italic  | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist  | ' ,
+                    fontsize_formats: "10pt 12pt 14pt 16pt 18pt 24pt 36pt",
+                    content_style: 'body { font-family:Roboto;  color:#000; border:none; }'
+                    
+                  }}
+                  
+                  onChange={handleEditorChange}
+                  /> 
+              </DescContainer>
+              {/* <div  style={{height:'200px',color:'#000' }}> */}
+              {/* {ReactHtmlParser(wysiwyg)} */}
+              {/* {ReactHtmlParser(formState.description)} */}
+              {/* </div> */}
             </FormDiv>
             <BtnContainer>
-              <InputButton>Save</InputButton>
+              <InputButton onClick={()=>{handleSubmit()}}>{id ? 'Update' : 'Create'}</InputButton>
               <InputButton
                 style={{
                   background: theme.SecondaryBtnBg,
@@ -236,8 +339,8 @@ const AddNewJob = () => {
         </>
       ) : (
         <> </>
-      )}
-    </>
+        )}
+        </>
   );
 };
 

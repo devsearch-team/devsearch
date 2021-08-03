@@ -25,7 +25,7 @@ export default function Register({ name, header, callback }) {
     useState("");
   const [serverError, setServerError] = useState("");
   const { dispatch, store } = useGlobalState();
-  const { loggedInUser, auth } = store;
+  const { loggedInUser} = store;
 
   function handleChange(event) {
     setFormState({

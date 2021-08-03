@@ -1,0 +1,25 @@
+
+.tox:not([dir=rtl]) {
+  outline: none; 
+   border: none;
+  overflow-x: visible;
+  width:100%;
+  height:100%;
+  
+}
+
+.tox .tox-tbtn--bespoke .tox-tbtn__select-label {
+  width: 40px ;
+}
+.tox-tiered-menu{
+  background:none;
+}
+.tox-collection__item-label {
+  
+  padding:100px;
+  
+    
+ }
+ .mce-container.mce-panel.mce-floatpanel.mce-menu.mce-animate.mce-fixed.mce-menu-align.mce-in div.mce-container-body.mce-stack-layout {
+  height: 200px !important;
+}
