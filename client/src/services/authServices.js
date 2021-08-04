@@ -2,7 +2,7 @@ import devSearchApi from "../config/api"
 export async function empLogIn(data) {
 	const res= await devSearchApi.post("/employer/auth/signin",data)
 	console.log("res",res)
-	return {...res.data,isEmployer:true}
+	return {...res.data,isEmployer:"true"}
 	// return {
 	// 	username: "Test",
     //     isEmployer:true,
@@ -12,7 +12,7 @@ export async function empLogIn(data) {
 export async function empSignUp(data) {
 	const res= await devSearchApi.post("/employer/auth/register",data)
 	console.log("res",res)
-	return {...res.data,isEmployer:true}
+	return {...res.data,isEmployer:"true"}
 	// return {
 	// 	username: "Test",
     //     isEmployer:true,
@@ -36,7 +36,7 @@ export async function seekerLogIn(data) {
 	console.log("inside seeker login service")
 	const res= await devSearchApi.post("/seeker/auth/signin",data)
 	console.log("res",res)
-	return {...res.data,isEmployer:false}
+	return {...res.data,isEmployer:"false"}
 	// return {
 	// 	username: "Test",
     //     isEmployer:false,
@@ -47,7 +47,7 @@ export async function seekerLogIn(data) {
 export async function seekerSignUp(data) {
 	const res= await devSearchApi.post("/seeker/auth/register",data)
 	console.log("res",res)
-	return {...res.data,isEmployer:false}
+	return {...res.data,isEmployer:"false"}
 	// return {
 	// 	username: "Test",
     //     isEmployer:false,
