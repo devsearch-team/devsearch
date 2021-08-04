@@ -54,6 +54,7 @@ const JobSeekerJobListings = () => {
     <>
       <ListingContainer>
         <Heading>Job Listings</Heading>
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
         {console.log(jobList)}
         {jobList.map((job, index) => (
           <JobCard job={job} key={index} />

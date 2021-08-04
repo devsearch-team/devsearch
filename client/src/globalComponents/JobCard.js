@@ -175,8 +175,8 @@ const JobInfo = styled.p`
   }
 `;
 export default function JobCard({ job }) {
-  let date = new Date();
-  let hour = date.getHours();
+  //let date = new Date();
+  //let hour = date.getHours();
   return (
     <CardContainer>
       <CompanyLogo>
