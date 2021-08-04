@@ -52,7 +52,7 @@ const EmployerJobListings = () => {
         // console.log("err from catch",error.message)
         setServerError(error.message)
         });
-  }, [page]);
+  }, [page,jobList]);
 
   return (
     <>
@@ -60,6 +60,7 @@ const EmployerJobListings = () => {
         <>
         total pages:{totalPages}   page:{page}
           <ListingContainer>
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CardContainer>
               {jobList.map((job,index)=>   
               <Card
@@ -70,7 +71,7 @@ const EmployerJobListings = () => {
                 company={job.employer.name}
               />)}  
             </CardContainer>
-          {(totalPages-1) != page && <InputButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</InputButton>}
+          {!(totalPages-1 <= page) && <InputButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</InputButton>}
 
           </ListingContainer>
         </>  
