@@ -128,8 +128,7 @@ const SideBarButton = styled(Link)`
 const SideBar = () => {
   const {  store } = useGlobalState();
   const { loggedInUser, isEmployer } = store;
-
-
+  console.log("side bar isEmployer",isEmployer)
   //  activebutton is used to controll what button is active, the reason for all lowercase is due to a warning when using uppercase letters on DOM elements
   const [activebutton, setActiveButton] = useState(1);
   const handleClick = (e) => {
@@ -137,6 +136,7 @@ const SideBar = () => {
   };
   return (
     <>
+    {console.log(typeof isEmployer)}
     {loggedInUser ? (
         (isEmployer==="true") ? (
         // Employer

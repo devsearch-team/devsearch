@@ -65,6 +65,7 @@ const EmployerJobListings = () => {
         <>
         total pages:{totalPages}   page:{page}
           <ListingContainer>
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CardContainer>
               {jobList.map((job,index)=>   
               <Card
@@ -75,9 +76,7 @@ const EmployerJobListings = () => {
                 company={job.employer.name}
               />)}  
             </CardContainer>
-            <BtnContainer>
-          {(totalPages-1) != page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
-            </BtnContainer>
+          {!(totalPages-1 <= page) && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
 
           </ListingContainer>
         </>  

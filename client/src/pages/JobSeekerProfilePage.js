@@ -8,7 +8,7 @@ import {
 } from "../globalComponents/Inputs";
 import { InputButton } from "../globalComponents/Buttons";
 import { theme } from "../globalStyles";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 const ProfileContainer = styled.div`
 display:grid;
@@ -127,7 +127,7 @@ const [formState, setFormState] = useState(initialFormState)
   const [file, setFile] = useState("");
 
   const handleFileChange = ({ target }) => {
-    setFormState({...formState, resumeFile: target.files[0]});
+    setFormState({...formState, "resumeFile": target.files[0]});
     setFile(target.value);
     console.log(target.files[0])
   };

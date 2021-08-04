@@ -2,7 +2,7 @@ import axios from 'axios'
 
  const setApiUrl = () => {
     if (process.env.NODE_ENV === "production") {
-      return ""
+      return process.env.REACT_APP_API_URL
     }
   
     if (process.env.NODE_ENV === "development") {
