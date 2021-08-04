@@ -18,11 +18,25 @@ err => {
     if (err){
         console.log("No database connection", err)
     } else {
+        await seedEmp()
         seedJobs()
     }
 })
 
-		
+async function seedEmp(){
+   let employer=new Job({
+    name: `IT solutions company`,
+    hashed_password: bcrypt.hashSync("123Ro=", 10),
+    email: randomEmployer._id,
+    city: "Brisbane",
+    state:"QLD",
+    minPay:"70000",
+    about: "We are an IT solutions company"
+    })
+    employer.save()
+    
+
+}		
 async function seedJobs(){
     const quantity = 20
 		let jobs = []
