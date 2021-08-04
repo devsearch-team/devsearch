@@ -178,7 +178,7 @@ const [formState, setFormState] = useState(initialFormState)
       {resMessage && <p>{resMessage}</p>}
       <Heading>User Profile</Heading>
       <FormDiv>
-        <SubHeading>Jo Bloggs</SubHeading>
+        <SubHeading>{formState.name}</SubHeading>
         <ProfileInput value={formState.email}  placeholder="Email"></ProfileInput>
         <InputLabel>Email</InputLabel>
         <ProfileInput placeholder="Phone" name="phone" value={formState.phone} onChange={handleChange}></ProfileInput>

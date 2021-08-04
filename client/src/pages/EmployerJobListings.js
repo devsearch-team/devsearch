@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
 import Card from "../globalComponents/Cards";
-import { InputButton } from "../globalComponents/Buttons";
+import { ShowMoreButton } from "../globalComponents/Buttons";
 
 const ListingContainer = styled.div`
   display: grid;
@@ -29,6 +29,11 @@ const CardContainer = styled.div`
   flex-direction: row;
   max-width: 80%;
   flex-wrap: wrap;
+`;
+const BtnContainer = styled.div`
+display: flex;
+justify-content:center;
+width:80%;
 `;
 
 const EmployerJobListings = () => {
@@ -71,7 +76,7 @@ const EmployerJobListings = () => {
                 company={job.employer.name}
               />)}  
             </CardContainer>
-          {!(totalPages-1 <= page) && <InputButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</InputButton>}
+          {!(totalPages-1 <= page) && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
 
           </ListingContainer>
         </>  
