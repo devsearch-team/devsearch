@@ -20,6 +20,7 @@ const ListingContainer = styled.div`
     width: 100%;
   }
   @media only screen and (max-width: 768px) {
+    margin-top: 5rem;
     margin-left: 1rem;
     width: 100%;
   }
