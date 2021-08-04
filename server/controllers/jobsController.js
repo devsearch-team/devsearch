@@ -1,14 +1,23 @@
 const Job = require('../models/job')
 const {getAllJobs, addJob,updateJob,getJobById,getEmployerJobs} = require('../utils/jobsUtils')
 
-const getJobs = function (req, res){
-    getAllJobs(req).exec((err, jobs)=>{
-        if (err){
-            res.status(500)
+const getJobs = async function (req, res){
+    try{
+        const {jobs, totalPages}= await getAllJobs(req)
+        console.log("totalPages",totalPages)
+        res.send({jobs, totalPages})}
+    catch(err){
+        res.status(500)
             return res.json({error: err.message})
-        } 
-        res.send(jobs)
-    })
+    }    
+
+    // .exec((err, jobs)=>{
+    //     if (err){
+    //         res.status(500)
+    //         return res.json({error: err.message})
+    //     } 
+    //     res.send(jobs)
+    // })
 }
 
 const getJobsByEmployer=async function(req,res){

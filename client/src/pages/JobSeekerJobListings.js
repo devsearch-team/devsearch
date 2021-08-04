@@ -40,7 +40,7 @@ const JobSeekerJobListings = () => {
       .then((res) => {
         // console.log(data);
        
-        setJobList(res.data);
+        setJobList(res.data.jobs);
       })
       .catch((error) =>{ 
         // console.log("err from catch",error.message)
