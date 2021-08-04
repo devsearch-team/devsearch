@@ -12,13 +12,10 @@ import EmpRegister from "./pages/EmpRegister"
 import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
 import AddNewJob from "./pages/AddNewJob";
-<<<<<<< HEAD
-import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
-=======
-
+import EmpApplications from './pages/EmpApplications'
+import SeekerApplications from './pages/SeekerApplications'
 import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
 import SeekerViewJob from "../src/pages/SeekerViewJob";
->>>>>>> development
 import EmployerJobListings from "../src/pages/EmployerJobListings";
 import NavMobile from "./globalComponents/NavMobile";
 import stateReducer from './utils/stateReducer'
@@ -36,7 +33,7 @@ const App = () => {
   const [width, setWidth] = useState(window.innerWidth);
   
   const breakpoint = 768;
-console.log("store isEmployer",isEmployer)
+  console.log("store isEmployer",isEmployer)  
   useEffect(()=> {
     const handleWindowResize = () => setWidth(window.innerWidth)
     window.addEventListener("resize", handleWindowResize);
@@ -63,6 +60,8 @@ console.log("store isEmployer",isEmployer)
               <SideBar /> 
               <Route exact path="/employer/profile" component={EmployerProfilePage}/>
               <Route exact path="/seeker/profile" component={JobSeekerProfilePage}/>
+              <Route exact path="/employer/applications" component={EmpApplications}/>
+              <Route exact path="/seeker/applications" component={SeekerApplications}/>
               <Route exact path="/employer/jobs/newjob" component={AddNewJob} />
               <Route exact path="/employer/jobs/update/:id" component={AddNewJob} />
               <Route exact path="/employer/jobs" component={EmployerJobListings}/>

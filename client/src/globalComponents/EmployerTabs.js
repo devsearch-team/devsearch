@@ -2,32 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../globalStyles";
 
-const JobSeekerStatusTabs = [
-  {
-    name: "Applied",
-    id: 0,
-  },
-  {
-    name: "Interview Offered",
-    id: 1,
-  },
-  {
-    name: "Interviewing",
-    id: 2,
-  },
-  {
-    name: "Offers Recieved",
-    id: 3,
-  },
-  {
-    name: "Hired",
-    id: 4,
-  },
-  {
-    name: "Rejected",
-    id: 5,
-  },
-];
+
 
 const EmployerStatusTabs = [
   {
@@ -56,20 +31,20 @@ const EmployerStatusTabs = [
   },
 ];
 
-const Tabs = () => {
+ const EmployerTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTab = (e) => {
-    // if (EmployerStatusTabs.id === e.target.id) {
-    //   console.log(EmployerStatusTabs.id);
-    //   setActiveTab(false);
-    // } else {
-    //   console.log(EmployerStatusTabs.id);
-    // }
+    if (EmployerStatusTabs.id === e.target.id) {
+      console.log(EmployerStatusTabs.id);
+      setActiveTab(false);
+    } else {
+      console.log(EmployerStatusTabs.id);
+    }
     setActiveTab(e.target.id);
     // console.log(e.target.id);
   };
-  //   console.log("ActiveTab", activeTab);
+    console.log("ActiveTab", activeTab);
 
   return (
     <TabsContainer>
@@ -90,15 +65,18 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default EmployerTabs;
+
+
+
+
+
 
 const TabsContainer = styled.div`
-position:absolute;
-top:25%;
-margin-left: 7rem;
 display: flex;
 width:80%;
 height 100px;
+margin:1rem 0;
 `;
 
 const Tab = styled.button`
@@ -112,12 +90,18 @@ const Tab = styled.button`
   font-size: 18px;
 
   background: ${(props) => {
-    console.log("active tab", props.activeTab);
+    // console.log("active tab", props.activeTab);
     const id = parseInt(props.id);
 
     return id === props.activeTab ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
   }};
-  color: ${(props) => theme.PrimaryTxt};
+  color: ${(props) => {
+    // console.log("active tab", props.activeTab);
+    const id = parseInt(props.id);
+
+    return id === props.activeTab ? theme.PrimaryTxt : theme.SecondaryTxt;
+  }};
+
   cursor: pointer;
   &:hover {
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);

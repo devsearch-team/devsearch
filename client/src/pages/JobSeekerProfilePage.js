@@ -127,13 +127,13 @@ const [formState, setFormState] = useState(initialFormState)
   const [file, setFile] = useState("");
 
   const handleFileChange = ({ target }) => {
-    setFormState({...formState, ["resumeFile"]: target.files[0]});
+    setFormState({...formState, resumeFile: target.files[0]});
     setFile(target.value);
     console.log(target.files[0])
   };
 
   const { store} = useGlobalState()
-  const {loggedInUser,isEmployer}=store
+  const {isEmployer}=store
   console.log("isEmployer",isEmployer)
 
   useEffect(()=>{
@@ -167,13 +167,15 @@ const [formState, setFormState] = useState(initialFormState)
 
   return (
     <>
-    { loggedInUser? 
+    
+    { (isEmployer === "false")? 
+
     <>
       <ProfileContainer>
       {resMessage && <p>{resMessage}</p>}
       <Heading>User Profile</Heading>
       <FormDiv>
-        <SubHeading>Jo Bloggs</SubHeading>
+        <SubHeading>{formState.name}</SubHeading>
         <ProfileInput value={formState.email}  placeholder="Email"></ProfileInput>
         <InputLabel>Email</InputLabel>
         <ProfileInput placeholder="Phone" name="phone" value={formState.phone} onChange={handleChange}></ProfileInput>

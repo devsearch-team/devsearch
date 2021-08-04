@@ -65,3 +65,24 @@ export const InputButton = styled.button`
     width: 100%;
   }
 `;
+
+export const ShowMoreButton = styled.button`
+  width: 150px;
+  // height: 30px;
+  // padding
+  border: none;
+  margin:3rem -1rem;
+  background:none;
+  align-items:center;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  
+  color: ${(props) => theme.Accent};
+  cursor: pointer;
+  &:hover {
+    font-size: 20px;
+    font-weight: bold;
+    // box-shadow: 3px 3px 5px #333;
+  }
+`;
