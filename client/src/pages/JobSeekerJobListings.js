@@ -44,7 +44,7 @@ const JobSeekerJobListings = () => {
     setLoading(true)
     getJobs(page)
       .then((res) => {
-        setJobList([...jobList, ...res.data.jobs])
+        setJobList(jobList => [...jobList, ...res.data.jobs])
         setTotalPages(res.data.totalPages)
         setLoading(false)
       })

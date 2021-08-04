@@ -44,7 +44,7 @@ const EmployerJobListings = () => {
     getEmployerJobs(page)
       .then((res) => {
         console.log("my jobs",res)
-        setJobList([...jobList, ...res.data.jobs])
+        setJobList(jobList => [...jobList, ...res.data.jobs])
         setTotalPages(res.data.totalPages)
         setLoading(false)
       })
