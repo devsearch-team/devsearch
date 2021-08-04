@@ -1,6 +1,6 @@
 const Job = require('../models/job')
 
-const getAllJobs = function (req) {
+const getAllJobs = async function (req) {
     const page = parseInt(req.query.page, 10) || 0
     const limit = parseInt(req.query.limit, 10) || 10
 
@@ -19,11 +19,12 @@ const getAllJobs = function (req) {
     console.log(findArgs);
 
 
-    const jobs = Job.find(findArgs)
+    const jobs = await Job.find(findArgs)
         .skip(page * limit)
         .limit(limit).populate("employer")
-
-    return jobs
+        const JobsNo = await Job.countDocuments(findArgs).exec()
+        const totalPages=Math.ceil(JobsNo/10)
+    return {jobs, totalPages}
 }
 
 const getEmployerJobs = async function (req) {

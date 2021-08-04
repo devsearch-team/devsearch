@@ -1,8 +1,8 @@
 import devSearchApi from "../config/api"
 
 
-export async function getJobs(){
-    const res = await devSearchApi.get("/jobs")
+export async function getJobs(page){
+    const res = await devSearchApi.get(`/jobs?page=${page}`)
     // console.log('res', res)
     return res
 }
