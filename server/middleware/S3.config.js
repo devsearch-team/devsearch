@@ -16,6 +16,7 @@ const storage=multerS3({
     bucket: 'dev-search',
     acl: 'public-read',
     key: function (req, file, cb) {
+        console.log("the user is",req.user)
         console.log("File about to upload to AWS S3", file);
         cb(null, `${req.user.id}/${file.originalname}`);
     }

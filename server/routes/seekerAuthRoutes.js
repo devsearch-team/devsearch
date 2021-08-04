@@ -28,5 +28,5 @@ const {register,signIn,getSeeker,updateSeeker} = require('../controllers/seekerA
 router.post('/auth/register', register)
 router.post('/auth/signin', signIn)
 router.get('/profile',seekerLoginRequired, getSeeker)
-router.put('/profile',parser.single("resumeFile"),updateSeeker)
+router.put('/profile',seekerLoginRequired,parser.single("resumeFile"),updateSeeker)
 module.exports = router
