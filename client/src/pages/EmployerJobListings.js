@@ -52,7 +52,7 @@ const EmployerJobListings = () => {
         // console.log("err from catch",error.message)
         setServerError(error.message)
         });
-  }, [page,jobList]);
+  }, [page]);
 
   return (
     <>

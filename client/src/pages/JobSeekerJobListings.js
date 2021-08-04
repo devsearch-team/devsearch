@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { getJobs } from "../services/jobServices";
 import JobCard from "../globalComponents/JobCard";
+import { InputButton } from "../globalComponents/Buttons";
 
 const ListingContainer = styled.div`
   display: grid;
@@ -35,18 +36,23 @@ const JobSeekerJobListings = () => {
 
   const [jobList, setJobList] = useState([]);
   const [serverError, setServerError] = useState("")
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    getJobs()
+    setLoading(true)
+    getJobs(page)
       .then((res) => {
-        // console.log(data);
-       
-        setJobList(res.data.jobs);
+        setJobList([...jobList, ...res.data.jobs])
+        setTotalPages(res.data.totalPages)
+        setLoading(false)
       })
       .catch((error) =>{ 
         // console.log("err from catch",error.message)
         setServerError(error.message)
         })
-  }, []);
+  }, [page]);
 
   // console.log("jobs", jobList.data);
   // if (jobList.length > 0) {
@@ -59,6 +65,7 @@ const JobSeekerJobListings = () => {
         {jobList.map((job, index) => (
           <JobCard job={job} key={index} />
         ))}
+          {!(totalPages-1 <= page) && <InputButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</InputButton>}
       </ListingContainer>
       {/* {jobList ? (
        
