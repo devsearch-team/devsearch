@@ -290,8 +290,8 @@ width:100%;
 const SeekerViewJob = () => {
   
   // const wysiwyg = wysiwyg
-    let date = new Date();
-    let hour = date.getHours();
+    // let date = new Date();
+    // let hour = date.getHours();
 
     const [job, setJob] = useState("")
     let {id} = useParams()
@@ -304,7 +304,7 @@ const SeekerViewJob = () => {
           setJob(data.data);
         })
         .catch();
-    }, []);
+    }, [id]);
 
     return (
       

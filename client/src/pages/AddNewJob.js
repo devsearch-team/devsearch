@@ -41,13 +41,13 @@ const Logo = styled.img`
   object-fit: cover;
   width: 100%;
 `;
-const Heading = styled.h1`
-  margin: 1rem 0;
-  @media only screen and (max-width: 768px) {
-    font-size: 24px;
-    margin: 1rem 1rem;
-  }
-`;
+// const Heading = styled.h1`
+//   margin: 1rem 0;
+//   @media only screen and (max-width: 768px) {
+//     font-size: 24px;
+//     margin: 1rem 1rem;
+//   }
+// `;
 const SubHeading = styled.h3`
   margin: 1rem 0;
   @media only screen and (max-width: 768px) {

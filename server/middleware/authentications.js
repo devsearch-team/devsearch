@@ -25,7 +25,7 @@ const seekerLoginRequired=(req, res, next) => {
             }else{
                 req.user = decode
             }
-             
+             console.log("inside seeker login required user is",req.user)
             next()
         })
     }else{

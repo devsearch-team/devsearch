@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useGlobalState } from "../utils/globalContext";
 import styled from "styled-components";
 import profilePhoto from "../Assets/robotArm.jpg";
 import { theme } from "../globalStyles";
@@ -44,10 +45,10 @@ const LogoWrapper = styled.div`
     display: none;
   }
 `;
-const CompanyName = styled.h4`
+const Heading = styled.h4`
   margin-top: 15px;
   margin-left: 1rem;
-  font-size: 24px;
+  font-size: 22px;
   @media only screen and (max-width: 1200px) {
     font-size: 18px;
   }
@@ -125,6 +126,9 @@ const SideBarButton = styled(Link)`
   }
 `;
 const SideBar = () => {
+  const {  store } = useGlobalState();
+  const { loggedInUser, isEmployer } = store;
+  console.log("side bar isEmployer",isEmployer)
   //  activebutton is used to controll what button is active, the reason for all lowercase is due to a warning when using uppercase letters on DOM elements
   const [activebutton, setActiveButton] = useState(1);
   const handleClick = (e) => {
@@ -132,11 +136,16 @@ const SideBar = () => {
   };
   return (
     <>
+    {console.log(typeof isEmployer)}
+    {loggedInUser ? (
+        (isEmployer==="true") ? (
+        // Employer
+          <>
       <SideBarContainer className="SideBarContainer"></SideBarContainer>
       <ContentWrapper className="ContentWrapper">
         <LogoWrapper>
           <Logo src={profilePhoto} />
-          <CompanyName>Company Name</CompanyName>
+          <Heading>{loggedInUser}</Heading>
         </LogoWrapper>
         <ButtonWrapper className="ButtonWrapper">
           <SideBarButton
@@ -173,7 +182,53 @@ const SideBar = () => {
           </SideBarButton>
         </ButtonWrapper>
       </ContentWrapper>
-    </>
+      </>
+        ) : (
+             //  JobSeeker
+       <>
+      <SideBarContainer className="SideBarContainer"></SideBarContainer>
+      <ContentWrapper className="ContentWrapper">
+        <LogoWrapper>
+          <Logo src={profilePhoto} />
+          <Heading>Company Name</Heading>
+        </LogoWrapper>
+        <ButtonWrapper className="ButtonWrapper">
+          <SideBarButton
+            activebutton={activebutton}
+            id={1}
+            onClick={handleClick}
+            to="/seeker/profile"
+          >
+            Profile
+          </SideBarButton>
+          <SideBarButton
+            to="/seeker/applications"
+            activebutton={activebutton}
+            id={2}
+            onClick={handleClick}
+          >
+            Applications
+          </SideBarButton>
+          <SideBarButton
+            activebutton={activebutton}
+            id={3}
+            onClick={handleClick}
+            to="/seeker/jobs"
+          >
+            Job Listings
+          </SideBarButton>
+        </ButtonWrapper>
+      </ContentWrapper>
+      </>
+             
+           )
+        ) : (
+           
+           //  Not Logged In
+           <></>
+           )}
+           
+  </>
   );
 };
 export default SideBar;
