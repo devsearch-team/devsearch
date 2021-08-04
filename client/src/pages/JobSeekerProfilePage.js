@@ -159,7 +159,11 @@ const [formState, setFormState] = useState(initialFormState)
     }
     //console.log("submit formState",formState)
     updateSeeker(form_data)
-    .then(setResMessage("Your profile is successfully updated"))
+    .then((data)=>
+      { setFormState(data)
+        console.log("job seeker profile",data)
+        setResMessage("Your profile is successfully updated")}
+    )
     .catch((error) =>{ 
       setResMessage(error.message)
     })
@@ -167,9 +171,8 @@ const [formState, setFormState] = useState(initialFormState)
 
   return (
     <>
-    
-    { (isEmployer === "false")? 
-
+    {console.log("return isEmployer",( isEmployer)) }
+    {(isEmployer==="false")? 
     <>
       <ProfileContainer>
       {resMessage && <p>{resMessage}</p>}

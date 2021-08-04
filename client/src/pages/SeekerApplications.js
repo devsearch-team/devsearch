@@ -61,36 +61,27 @@ const SeekerApplications = () => {
     // }, [page]);
 
     return (
-        <>
-
+        <>  
         
-           { (isEmployer === "false") ? (
-                // Employer
-             <>
+               <ApplicationsContainer>
+               <SeekerTabs />
+               
+        
+               <CardContainer>
+               
+               <Card  />
+               
+               </CardContainer>
+               <BtnContainer>
+                          
+               <ShowMoreButton >Load More</ShowMoreButton>
+               </BtnContainer>
+               </ApplicationsContainer> 
+               
 
-         </>
-        )  :(
-            // Not Logged In
-            <>
-        {/* total pages:{totalPages}   page:{page} */}
-        <ApplicationsContainer>
-            <SeekerTabs />
-            <CardContainer>
-            {/* {jobList.map((job,index)=>    */}
-              <Card
-     
-              />
-              {/* )}   */}
-              </CardContainer>
-              <BtnContainer>
-          { <ShowMoreButton >Load More</ShowMoreButton>}
-            </BtnContainer>
-        </ApplicationsContainer> 
+            
             </>
-        )
-    }
-    </>
-    )
+            )
 }
 
 export default SeekerApplications

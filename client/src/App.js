@@ -33,7 +33,9 @@ const App = () => {
   const [width, setWidth] = useState(window.innerWidth);
   
   const breakpoint = 768;
-  console.log("store isEmployer",isEmployer)  
+//   console.log(Boolean("False"))
+// console.log("localStorage isEmployer", localStorage.getItem("isEmployer"))
+// console.log("App isEmployer", isEmployer)
   useEffect(()=> {
     const handleWindowResize = () => setWidth(window.innerWidth)
     window.addEventListener("resize", handleWindowResize);
@@ -47,7 +49,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" >
                 {loggedInUser?
-                  isEmployer? <Redirect to="/employer/profile"/>
+                  isEmployer==="true"? <Redirect to="/employer/profile"/>
                   :<Redirect to="/seeker/profile"/>
                 :<Redirect to="/landing"/>}    
               </Route>

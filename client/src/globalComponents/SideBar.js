@@ -138,7 +138,7 @@ const SideBar = () => {
   return (
     <>
     {loggedInUser ? (
-        isEmployer ? (
+        (isEmployer==="true") ? (
         // Employer
           <>
       <SideBarContainer className="SideBarContainer"></SideBarContainer>
