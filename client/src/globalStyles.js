@@ -11,6 +11,13 @@ export const Styles = createGlobalStyle`
 }
 body{
     background: ${(props) => props.theme.MainBg};
+    &::-webkit-scrollbar {
+      width: 10px;
+      background:${(props) =>theme.NavBg}
+    }
+    &::-webkit-scrollbar-track {
+      background: orange;      
+    }
 }
 `;
 

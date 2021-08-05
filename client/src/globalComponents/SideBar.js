@@ -190,7 +190,7 @@ const SideBar = () => {
       <ContentWrapper className="ContentWrapper">
         <LogoWrapper>
           <Logo src={profilePhoto} />
-          <Heading>Company Name</Heading>
+          <Heading>{loggedInUser}</Heading>
         </LogoWrapper>
         <ButtonWrapper className="ButtonWrapper">
           <SideBarButton
