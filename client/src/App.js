@@ -12,7 +12,8 @@ import EmpRegister from "./pages/EmpRegister"
 import SeekerRegister from "./pages/SeekerRegister"
 import SeekerLogIn from "./pages/SeekerLogIn"
 import AddNewJob from "./pages/AddNewJob";
-
+import EmpApplications from './pages/EmpApplications'
+import SeekerApplications from './pages/SeekerApplications'
 import JobSeekerJobListings from "../src/pages/JobSeekerJobListings";
 import SeekerViewJob from "../src/pages/SeekerViewJob";
 import EmployerJobListings from "../src/pages/EmployerJobListings";
@@ -61,6 +62,8 @@ const App = () => {
               <SideBar /> 
               <Route exact path="/employer/profile" component={EmployerProfilePage}/>
               <Route exact path="/seeker/profile" component={JobSeekerProfilePage}/>
+              <Route exact path="/employer/applications" component={EmpApplications}/>
+              <Route exact path="/seeker/applications" component={SeekerApplications}/>
               <Route exact path="/employer/jobs/newjob" component={AddNewJob} />
               <Route exact path="/employer/jobs/update/:id" component={AddNewJob} />
               <Route exact path="/employer/jobs" component={EmployerJobListings}/>
