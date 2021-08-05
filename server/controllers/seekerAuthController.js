@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken')
 
 const register = function(req, res){
     const newSeeker = new Seeker(req.body)
-    console.log("req is ",req)
+    //console.log("req is ",req)
     newSeeker.hash_password = bcrypt.hashSync(req.body.password, 10)
     newSeeker.save((err, seeker)=>{
         if(err){
             res.status(400)
             return res.json({error: err.message})
         }
-        return res.json({username: seeker.name, jwt: jwt.sign({username: seeker.name, email: seeker.email, _id: seeker.id},process.env.SEEKER_SECRET_KEY) })
+        return res.json({username: seeker.name, jwt: jwt.sign({username: seeker.name, email: seeker.email, id: seeker.id},process.env.SEEKER_SECRET_KEY) })
     })
 
 }
@@ -47,7 +47,15 @@ const getSeeker=function(req,res){
 
 
 const updateSeeker=function(req,res){
-    // console.log("req.body",req.body)
+    console.log("dfqeqfreq.user",req.user)
+    console.log("req.body",req.body)
+    Seeker.findById(req.user.id).exec((err,seeker)=>{
+        if (err){
+            res.status(404)
+            return res.json({error: err.message})
+        }
+        console.log("seeker inside seeker controller",seeker)}) 
+   
     // console.log("req.file",req.file)
     req.file && ( req.body.resumeFile=req.file.location)
     Seeker.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, seeker)=>{
