@@ -61,7 +61,7 @@ const getJob = function (req, res){
             res.status(404)
             return res.json({error: err.message})
         } 
-        console.log("company name ",job.employer.name)
+        //console.log("company name ",job.employer.name)
         // {...job, companyName: job.employer.name}
         res.send(job)
     })
