@@ -54,8 +54,7 @@ const updateSeeker=function(req,res){
             res.status(404)
             return res.json({error: err.message})
         }
-        console.log("seeker inside seeker controller",seeker)}) 
-   
+        console.log("seeker inside seeker controller",seeker)})  
     // console.log("req.file",req.file)
     req.file && ( req.body.resumeFile=req.file.location)
     Seeker.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, seeker)=>{

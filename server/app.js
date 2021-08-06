@@ -11,7 +11,7 @@ const employerAuthRouter=require('./routes/empAuthRoutes')
 const seekerAuthRouter=require('./routes/seekerAuthRoutes')
 const jobsRouter=require('./routes/jobsRoutes')
 const apiRouter = require("./api/api.js");
-
+const applicationsRouter=require("./routes/applicationsRoutes")
 //define the global variables
 const app = express();
 const port = process.env.PORT || 4000
@@ -65,6 +65,7 @@ app.use(morgan('dev'))
 //     }
 // })
 
+app.use("/applications",applicationsRouter)
 app.use("/employer/auth", employerAuthRouter)
 app.use("/seeker", seekerAuthRouter)
 app.use("/jobs", jobsRouter)

@@ -21,7 +21,7 @@ const getAllJobs = async function (req) {
 
     const jobs = await Job.find(findArgs)
         .skip(page * limit)
-        .limit(limit).populate("employer")
+        .limit(limit).populate("employer",{"hash_password":0})
         const JobsNo = await Job.countDocuments(findArgs).exec()
         const totalPages=Math.ceil(JobsNo/10)
     return {jobs, totalPages}
@@ -43,7 +43,7 @@ const getEmployerJobs = async function (req) {
 }
 
 const getJobById = function (id) {
-    return Job.findById(id).populate("employer")
+    return Job.findById(id).populate("employer",{"hash_password":0})
 }
 
 const addJob = function (req) {

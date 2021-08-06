@@ -47,6 +47,7 @@ const JobSeekerJobListings = () => {
         setJobList([...jobList, ...res.data.jobs])
         setTotalPages(res.data.totalPages)
         setLoading(false)
+        console.log("seeker job list res",res.data.jobs)
       })
       .catch((error) =>{ 
         // console.log("err from catch",error.message)
