@@ -134,7 +134,7 @@ const [formState, setFormState] = useState(initialFormState)
 
   const { store} = useGlobalState()
   const {isEmployer}=store
-  console.log("isEmployer",isEmployer)
+  // console.log("isEmployer",isEmployer)
 
   useEffect(()=>{
     getSeeker().then((data)=>{
@@ -144,15 +144,15 @@ const [formState, setFormState] = useState(initialFormState)
   },[])
   
   function handleChange(event) {
-    console.log("formState",formState)
-    console.log("file value",file)
+    // console.log("formState",formState)
+    // console.log("file value",file)
     setFormState({
         ...formState,
         [event.target.name]: event.target.value
       })
     }
   function handleSubmit(event){
-    
+    console.log("formState before submit",formState)
     var form_data = new FormData();
     for ( var key in formState ) {
       form_data.append(key, formState[key]);
@@ -161,7 +161,7 @@ const [formState, setFormState] = useState(initialFormState)
     updateSeeker(form_data)
     .then((data)=>
       { setFormState(data)
-        console.log("job seeker profile",data)
+        // console.log("job seeker profile",data)
         setResMessage("Your profile is successfully updated")}
     )
     .catch((error) =>{ 
@@ -171,7 +171,6 @@ const [formState, setFormState] = useState(initialFormState)
 
   return (
     <>
-    {console.log("return isEmployer",( isEmployer)) }
     {(isEmployer==="false")? 
     <>
       <ProfileContainer>

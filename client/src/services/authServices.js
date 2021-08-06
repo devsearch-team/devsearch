@@ -62,7 +62,8 @@ export async function getSeeker(){
 }
 
 export async function updateSeeker(data){
-	console.log("axios", data.resumeFile);
+	//console.log("axios", data.resumeFile);
+	console.log("data in services",data)
 	const res= await devSearchApi.put("/seeker/profile",data)
 	console.log("res",res)
 	return res.data
