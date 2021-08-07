@@ -21,13 +21,13 @@ export async function empSignUp(data) {
 }
 
 export async function getEmployer(){
-	const res= await devSearchApi.get("/employer/auth/profile")
+	const res= await devSearchApi.get("/employer/profile")
 	console.log("res",res.data)
 	return res.data	
 }
 
 export async function updateEmployer(data){
-	const res= await devSearchApi.put("/employer/auth/profile",data)
+	const res= await devSearchApi.put("/employer/profile",data)
 	console.log("res",res)
 	return res.data
 }

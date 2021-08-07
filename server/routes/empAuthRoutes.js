@@ -25,8 +25,8 @@ const {register,signIn,getEmployer,updateEmployer} = require('../controllers/emp
 //     }
 // })
 
-router.post('/register', register)
-router.post('/signin', signIn)
+router.post('/auth/register', register)
+router.post('/auth/signin', signIn)
 router.get('/profile',empLoginRequired, getEmployer)
 router.put('/profile',empLoginRequired,updateEmployer)
 module.exports = router

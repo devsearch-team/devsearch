@@ -66,7 +66,7 @@ app.use(morgan('dev'))
 // })
 
 app.use("/applications",applicationsRouter)
-app.use("/employer/auth", employerAuthRouter)
+app.use("/employer", employerAuthRouter)
 app.use("/seeker", seekerAuthRouter)
 app.use("/jobs", jobsRouter)
 app.use('/api', apiRouter);
