@@ -138,6 +138,7 @@ const [formState, setFormState] = useState(initialFormState)
 
   useEffect(()=>{
     getSeeker().then((data)=>{
+      console.log("dataProf", data)
       setFormState(data)
       }
     ).catch()

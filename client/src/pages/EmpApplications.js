@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getEmployerJobs } from '../services/jobServices';
 // import { useGlobalState } from "../utils/globalContext";
 import EmployerTabs from '../globalComponents/EmployerTabs'
-import Card from '../globalComponents/Cards'
+import EmployerApplicationsCard from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
 
 const ApplicationsContainer = styled.div`
@@ -40,6 +40,7 @@ width:80%;
 const EmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;
+
     const [jobList, setJobList] = useState([]);
     const [serverError, setServerError] = useState("")
     const [totalPages, setTotalPages] = useState(1);
@@ -50,7 +51,7 @@ const EmpApplications = () => {
       getEmployerJobs(page)
         .then((res) => {
         //   console.log("my jobs",res)
-          setJobList([...jobList, ...res.data.jobs])
+          setJobList(jobList => [...jobList, ...res.data.jobs])
           setTotalPages(res.data.totalPages)
           setLoading(false)
         })
@@ -58,7 +59,7 @@ const EmpApplications = () => {
           // console.log("err from catch",error.message)
           setServerError(error.message)
         });
-      }, [jobList,page]);
+      }, [page]);
       // console.log("serverError",serverError)
       
     return (
@@ -69,10 +70,11 @@ const EmpApplications = () => {
         <ApplicationsContainer>
          
             <EmployerTabs />
+
             <CardContainer>
             {console.log("jobListApplications",jobList)}
             {jobList.map((job,index)=>   
-              <Card
+              <EmployerApplicationsCard
               key={index}
               jobId={job._id}
               jobTitle={job.title}

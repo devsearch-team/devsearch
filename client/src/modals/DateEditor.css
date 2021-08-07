@@ -1,0 +1,46 @@
+*{
+    /* overflow: visible !important; */
+    overflow: visible !important;
+    color:#000;
+}
+.dateEditor{
+    height:30px;
+    border-radius: 5px;
+    border:none;
+    padding:5px 15px;
+    margin: 0 0.5rem;
+    color:#000 !important;
+    font-size:16px;
+    /* overflow: visible; */
+}
+.react-datepicker__time-container {
+    overflow-x: hidden !important;
+    width:120px;
+    color:#000;
+    overflow-y:scroll !important;
+    /* overflow: visible; */
+}
+.react-datepicker__month-option{
+    color:#000;   
+}
+.react-datepicker__time-list-item {
+    color:#000;
+}
+.react-datepicker__header .react-datepicker__header--has-time-selectl{
+    background-color: #424B53 !important;
+}
+.react-datepicker__month-read-view--selected-month{
+    color:#000;
+}
+.react-datepicker__month-read-view--down-arrow{
+    
+    border-color:#000;
+}
+.react-datepicker__month-read-view--down-arrow:hover{
+    border-color:#000 ;
+}
+.react-datepicker__navigation-icon::before{
+    margin:0 -25px;
+    border-color:blue ;
+
+}
