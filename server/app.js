@@ -71,4 +71,4 @@ app.use("/jobs", jobsRouter)
 app.use('/api', apiRouter);
 
 
-
+module.exports = app // for testing

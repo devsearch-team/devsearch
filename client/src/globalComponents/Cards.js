@@ -61,7 +61,7 @@ const CardBtn = styled.button`
   height: 50px;
   cursor: pointer;
   border: 1px solid ${theme.Accent};
-
+  
   transition: 3s all ease-out;
   background: ${(props) => theme.PrimaryBtnBg};
   &:hover {
@@ -91,7 +91,7 @@ export  default function EmployerApplicationsCard({ jobTitle, company, date }) {
             setEmployerViewApplicationModal={setEmployerViewApplicationModal}
           />
       <CardRight>
-        <CardBtn onClick={openEmployerViewApplicationModal}>
+        <CardBtn  onClick={openEmployerViewApplicationModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
       </CardRight>

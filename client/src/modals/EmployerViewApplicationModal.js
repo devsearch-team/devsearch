@@ -16,6 +16,7 @@ const Background = styled.div`
   background: #000;
   position: fixed;
   top: 0;
+  z-index:5;
   left: 0;
   display: flex;
   justify-content: center;
@@ -49,7 +50,7 @@ const ModalWrapper = styled.div`
   color: ${(props) => theme.PrimaryTxt};
 
   position: relative;
-  z-index: 10;
+  z-index: 100 !important;
   border-radius: 10px;
   animation: hiddenBackground 1.5s ease-out;
   @keyframes hiddenBackground {
@@ -65,24 +66,26 @@ const ModalWrapper = styled.div`
   }
 }
 @media only screen and (max-width: 768px) {
-  display:flex;
+  // display:flex;
   flex-direction:column;
-  width: 100vw;
+  // width: 100vw;
   height: 90vh;
+  opacity: 1;
 }
 `;
 
 const ModalContent = styled.div`
-  margin: 0rem 1rem;
-  width: 95%;
+margin: 0rem 1rem;
+width: 95%;
 
-  // @media only screen and (max-width: 768px) {
+
+// @media only screen and (max-width: 768px) {
   //   margin: 0 3rem;
   //   justify-content: center;
   //   align-items: left;
   //   width: 100vw;
   // }
-`;
+  `;
 
 const Header = styled.div`
   display: flex;

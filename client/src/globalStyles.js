@@ -5,7 +5,7 @@ export const Styles = createGlobalStyle`
   overflow-x: hidden;
     padding: 0;
     margin: 0;
-    box-sizing:0;
+    box-sizing:border-box;
     font-family: 'Roboto', sans-serif;
     color: #fff;
 }

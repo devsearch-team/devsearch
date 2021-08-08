@@ -11,7 +11,7 @@ const register = function(req, res){
             res.status(400)
             return res.json({error: err.message})
         }
-        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, _id: employer.id},process.env.EMPLOYER_SECRET_KEY) })
+        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, id: employer.id},process.env.EMPLOYER_SECRET_KEY) })
     })
 
 }

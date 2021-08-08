@@ -62,6 +62,7 @@ const App = () => {
               <SideBar /> 
               <Route exact path="/employer/profile" component={EmployerProfilePage}/>
               <Route exact path="/seeker/profile" component={JobSeekerProfilePage}/>
+              
               <Route exact path="/employer/applications" component={EmpApplications}/>
               <Route exact path="/seeker/applications" component={SeekerApplications}/>
               <Route exact path="/employer/jobs/newjob" component={AddNewJob} />
