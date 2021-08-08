@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { theme } from "../globalStyles";
 import { FaChevronRight } from "react-icons/fa";
 import RobotArm from "../Assets/robotArm.jpg";
 import {useHistory} from 'react-router-dom'
-
+import EmployerViewApplicationModal from '../modals/EmployerViewApplicationModal'
 const CardSmall = styled.div`
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@ const CardRight = styled.div`
   height: 100%;
   margin-left: 1.5rem;
 `;
-const CompanyLogo = styled.div`
+const LogoContainer = styled.div`
   margin: 1rem 1rem;
   width: 40px;
   height: 40px;
@@ -61,7 +61,7 @@ const CardBtn = styled.button`
   height: 50px;
   cursor: pointer;
   border: 1px solid ${theme.Accent};
-
+  
   transition: 3s all ease-out;
   background: ${(props) => theme.PrimaryBtnBg};
   &:hover {
@@ -69,14 +69,43 @@ const CardBtn = styled.button`
   }
 `;
 
-export default function Card({ jobTitle, company, date,jobId }) {
+export  default function EmployerApplicationsCard({ jobTitle, company, date }) {
+  const [showEmployerViewApplicationModal, setEmployerViewApplicationModal] = useState(false)
+
+  const openEmployerViewApplicationModal= () => {  
+    setEmployerViewApplicationModal((prev) => !prev);
+  };
+  
+  return (
+    <CardSmall>
+      <CardLeft>
+        <LogoContainer>
+          <Logo src={RobotArm} alt="Company Logo"></Logo>
+        </LogoContainer>
+        <CardText>{date}</CardText>
+        <CardText>{jobTitle}</CardText>
+        <CardText>{company}</CardText>
+      </CardLeft>
+      <EmployerViewApplicationModal
+            showEmployerViewApplicationModal={showEmployerViewApplicationModal}
+            setEmployerViewApplicationModal={setEmployerViewApplicationModal}
+          />
+      <CardRight>
+        <CardBtn  onClick={openEmployerViewApplicationModal}>
+          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
+        </CardBtn>
+      </CardRight>
+    </CardSmall>
+  );
+}
+export function EmployerJobListingCard({ jobTitle, company, date,jobId }) {
   let history= useHistory()
   return (
     <CardSmall>
       <CardLeft>
-        <CompanyLogo>
+        <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
-        </CompanyLogo>
+        </LogoContainer>
         <CardText>{date}</CardText>
         <CardText>{jobTitle}</CardText>
         <CardText>{company}</CardText>

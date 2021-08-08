@@ -5,12 +5,19 @@ export const Styles = createGlobalStyle`
   overflow-x: hidden;
     padding: 0;
     margin: 0;
-    box-sizing:0;
+    box-sizing:border-box;
     font-family: 'Roboto', sans-serif;
     color: #fff;
 }
 body{
     background: ${(props) => props.theme.MainBg};
+    &::-webkit-scrollbar {
+      width: 10px;
+      background:${(props) =>theme.NavBg}
+    }
+    &::-webkit-scrollbar-track {
+      background: orange;      
+    }
 }
 `;
 
