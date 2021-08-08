@@ -3,7 +3,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 const {empLoginRequired}=require('../middleware/authentications')
-const {register,signIn,getEmployer,updateEmployer,employerProceed,employerReject,empApplications} = require('../controllers/empAuthController')
+const {register,signIn,getEmployer,updateEmployer,employerProceed,employerReject,empApplications,empApplication} = require('../controllers/empAuthController')
 
 
 router.post('/auth/register', register)
@@ -13,4 +13,5 @@ router.put('/profile',empLoginRequired,updateEmployer)
 router.post('/empaccept/:id',empLoginRequired,employerProceed )
 router.post('/empreject/:id',empLoginRequired,employerReject )
 router.get('/applications',empLoginRequired,empApplications )
+router.get('/applications/:id',empLoginRequired,empApplication )
 module.exports = router

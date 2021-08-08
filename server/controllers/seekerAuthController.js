@@ -93,7 +93,7 @@ const seekerApplications=async function(req,res){
     }
 }
 const seekerApplication=async function(req,res){
-    await getSeekerApplication(req)
+    await doAction(getSeekerApplication,req,res)
 }
 const seekerProceed=async function(req,res){
     await doAction(seekerAccept, req, res)

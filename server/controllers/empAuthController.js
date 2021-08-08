@@ -1,7 +1,7 @@
 const Employer = require('../models/employer')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {empAccept,empReject,getEmpApplications}=require("../utils/applicationsUtils")
+const {empAccept,empReject,getEmpApplications,getEmployerApplication}=require("../utils/applicationsUtils")
 
 
 const register = function(req, res){
@@ -71,6 +71,9 @@ const empApplications=async function(req,res){
         res.json({error: err.message})
     }
 }
+const empApplication=async function(req,res){
+    await doAction(getEmployerApplication,req,res)
+}
 
 const employerProceed=async function(req,res){
    await doAction(empAccept, req,res);
@@ -81,7 +84,7 @@ const employerReject= async function(req,res){
 }
 
 async function doAction(action, req,res){
-    try{
+    // try{
         console.log("inside do action")
         const {application, error} = await action(req)
         console.log("do action application",application)
@@ -92,13 +95,13 @@ async function doAction(action, req,res){
         }
 
         res.send(application);
-    }
-    catch(err){
-        res.status(500)
-        return res.json({error: err.message})
-    }
+    // }
+    // catch(err){
+    //     res.status(500)
+    //     return res.json({error: err.message})
+    // }
 }
       
-module.exports = {register,signIn,getEmployer,updateEmployer,employerProceed,employerReject,empApplications}
+module.exports = {register,signIn,getEmployer,updateEmployer,employerProceed,employerReject,empApplications,empApplication}
 
 // 

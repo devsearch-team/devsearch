@@ -1,3 +1,4 @@
+const { ApplicationAutoScaling } = require('aws-sdk');
 const application = require('../models/application')
 const Application = require('../models/application')
 
@@ -32,15 +33,7 @@ const Application = require('../models/application')
     [REJECTED]: { canReject: false }
 }
 
-const addApplication=function(req){
-    req.body.seeker = req.user.id
-    req.body.currentStage=SUBMITTED
-    req.file && ( req.body.coverLetter=req.file.location)
-    req.body.stages={}
-    req.body.stages[SUBMITTED]={actionDate:new Date()}
-  // console.log("inside add app req.body",req.body)
-    return Application(req.body)
-}
+//employer actions------------------------------------------------------------
 
 const getEmpApplications=async function(req){
     //console.log("user id is ",req.user.id)
@@ -50,22 +43,19 @@ const getEmpApplications=async function(req){
     }
     return await applications;
 }
-const getSeekerApplications=async function(req){
-    //console.log("user id is ",req.user.id)
-    let applications =  Application.find({seeker: req.user.id})
-    if(req.query.currentStage){
-        applications.where('currentStage').equals(req.query.currentStage)
-    }
-    return await applications;
-}
 
-const getSeekerApplication=async function(req){
-    let applications =  await Application.findOne({_id:req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
-}
 
+const getEmployerApplication=async function(req){
+    let application =  await Application.findOne({_id:req.params.id,employer: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    if (validateEmpApp(application)) return validateEmpApp(application)
+    return {application}
+}
 const empAccept=async function(req){
     let application=await setEmpApp(req)
     if (validateEmpApp(application)) return validateEmpApp(application)
+    if(!employerWorkflow[application.currentStage].next){//validates the application can proceed by the employer at this stage
+        return {error: {status: 403, message: 'action not allowed'}}
+    }
     const nextStage=employerWorkflow[application.currentStage].next
     application.stages[nextStage]={actionDate: new Date(),...req.body}
     application.markModified("stages")
@@ -80,6 +70,9 @@ const empAccept=async function(req){
 const empReject=async function(req){
     let application=await setEmpApp(req)
     if (validateEmpApp(application)) return validateEmpApp(application)
+    if(!employerWorkflow[application.currentStage].canReject){//validates the application can be rejected by the employer at this stage
+        return {error: {status: 403, message: 'action not allowed'}}
+    }
     application.stages[REJECTED]={actionDate: new Date(),...req.body}
     application.currentStage=REJECTED
     application.markModified("stages")
@@ -87,9 +80,38 @@ const empReject=async function(req){
     return {application: application}
 }
 //seeker actions------------------------------------------------------------
+
+const addApplication=function(req){
+    req.body.seeker = req.user.id
+    req.body.currentStage=SUBMITTED
+    req.file && ( req.body.coverLetter=req.file.location)
+    req.body.stages={}
+    req.body.stages[SUBMITTED]={actionDate:new Date()}
+  // console.log("inside add app req.body",req.body)
+    return Application(req.body)
+}
+
+const getSeekerApplications=async function(req){
+    //console.log("user id is ",req.user.id)
+    let applications =  Application.find({seeker: req.user.id})
+    if(req.query.currentStage){
+        applications.where('currentStage').equals(req.query.currentStage)
+    }
+    return await applications;
+}
+
+const getSeekerApplication=async function(req){
+    let application =  await Application.findOne({_id:req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    if (validateSeekerApp(application)) return validateSeekerApp(application)
+    return {application}
+}
 const seekerAccept=async function(req){
     let application=await setseekerApp(req)
     if (validateSeekerApp(application)) return validateSeekerApp(application) 
+    if(!seekerWorkflow[application.currentStage].next) {//validates the seeker can proceed at this stage
+        console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
+        return {error: {status: 403, message: 'action not allowed'}}
+    } 
     const nextStage=seekerWorkflow[application.currentStage].next
     application.stages[nextStage]={actionDate: new Date(),...req.body}
     application.markModified("stages")
@@ -102,7 +124,11 @@ const seekerAccept=async function(req){
 }
 const seekReject=async function(req){
     let application=await setseekerApp(req)
-    if (validateSeekerApp(application)) return validateSeekerApp(application)
+    if (validateSeekerApp(application)) return validateSeekerApp(application) //validates the application exists
+    if(!seekerWorkflow[application.currentStage].canWithdraw) {//validates the seeker can withdraw at this stage
+        console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
+        return {error: {status: 403, message: 'action not allowed'}}
+    } 
     application.stages[WITHDRAWN]={actionDate: new Date(),...req.body}
     application.currentStage=WITHDRAWN
     application.markModified("stages")
@@ -128,9 +154,6 @@ function validateEmpApp(application){
     if(!application){//validate application exist in the database and belonges to the employer
         return {error: {status: 401, message: 'Application not found'}}
     }
-    if(!employerWorkflow[application.currentStage].canReject){//validates the application can be rejected by the employer at this stage
-        return {error: {status: 403, message: 'action not allowed'}}
-    } 
     else{
         return false
     }
@@ -139,14 +162,10 @@ function validateEmpApp(application){
 function validateSeekerApp(application){
     if(!application){//validate application exist in the database and belonges to the seeker
         return {error: {status: 401, message: 'Application not found'}}
-    }
-    if(!seekerWorkflow[application.currentStage].canWithdraw) {//validates the seeker can withdraw at this stage
-        console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
-        return {error: {status: 403, message: 'action not allowed'}}
     } 
     else{
         return false
     }
 }
 
-module.exports={addApplication,empAccept,empReject,seekerAccept,seekReject,getEmpApplications,getSeekerApplications,getSeekerApplication}
+module.exports={addApplication,empAccept,empReject,seekerAccept,seekReject,getEmpApplications,getEmployerApplication,getSeekerApplications,getSeekerApplication}
