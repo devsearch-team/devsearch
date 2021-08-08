@@ -6,3 +6,9 @@ export async function createApplication(data){
     // console.log('res', res)
     return res
 }
+
+export async function getSeekerApplications(stage){
+    const res = await devSearchApi.get(`/seeker/applications/?currentStage=${stage}`)
+     console.log('res', res)
+    return res
+}
