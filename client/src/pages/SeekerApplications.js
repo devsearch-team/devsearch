@@ -66,7 +66,8 @@ const SeekerApplications = () => {
     useEffect(()=>{
       getSeekerApplications(stage)
       .then((res)=>{
-        setAppList(res)
+        setAppList(res.data)
+        console.log("employer is",res.data[0].employer.name)
       })
       .catch()
     },[stage])
@@ -78,11 +79,12 @@ const SeekerApplications = () => {
                
         
                <CardContainer>
-               {/* {appList.map((app,index)=>{
-                 
-               })} */}
+               {appList && appList.map((app,index)=>{
+                 let date=app.stages[stage].actionDate
+                 return (<Card  jobTitle={app.job.title} company={app.employer.name} data={date}/>)
+               })}
                
-               <Card  />
+               
                </CardContainer>
                <BtnContainer>
                           
