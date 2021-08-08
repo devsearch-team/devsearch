@@ -42,17 +42,111 @@ const addApplication=function(req){
     return Application(req.body)
 }
 
+const getEmpApplications=async function(req){
+    //console.log("user id is ",req.user.id)
+    let applications =  Application.find({employer: req.user.id})
+    if(req.query.currentStage){
+        applications.where('currentStage').equals(req.query.currentStage)
+    }
+    return await applications;
+}
+const getSeekerApplications=async function(req){
+    //console.log("user id is ",req.user.id)
+    let applications =  Application.find({seeker: req.user.id})
+    if(req.query.currentStage){
+        applications.where('currentStage').equals(req.query.currentStage)
+    }
+    return await applications;
+}
+
+const getSeekerApplication=async function(req){
+    let applications =  await Application.findOne({_id:req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+}
+
 const empAccept=async function(req){
-    let application=await Application.findOne({_id: req.params.id,employer: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
-    if(!employerWorkflow[application.currentStage].next) return
+    let application=await setEmpApp(req)
+    if (validateEmpApp(application)) return validateEmpApp(application)
     const nextStage=employerWorkflow[application.currentStage].next
     application.stages[nextStage]={actionDate: new Date(),...req.body}
-    application.markModified("stages");
+    application.markModified("stages")
     application.currentStage=nextStage
-    const res = await application.save()
+    await application.save()
     // console.log("res", res);
     // application=await Application.findOne({_id: req.params.id,employer: req.user.id})
-    // console.log("Application after save", application);
-    return res
+    console.log("Application after save", application);
+    return {application: application}
 }
-module.exports={addApplication,empAccept}
+
+const empReject=async function(req){
+    let application=await setEmpApp(req)
+    if (validateEmpApp(application)) return validateEmpApp(application)
+    application.stages[REJECTED]={actionDate: new Date(),...req.body}
+    application.currentStage=REJECTED
+    application.markModified("stages")
+    await application.save()
+    return {application: application}
+}
+//seeker actions------------------------------------------------------------
+const seekerAccept=async function(req){
+    let application=await setseekerApp(req)
+    if (validateSeekerApp(application)) return validateSeekerApp(application) 
+    const nextStage=seekerWorkflow[application.currentStage].next
+    application.stages[nextStage]={actionDate: new Date(),...req.body}
+    application.markModified("stages")
+    application.currentStage=nextStage
+    const res = await application.save()
+     console.log("res", res);
+    // application=await Application.findOne({_id: req.params.id,employer: req.user.id})
+    // console.log("Application after save", application);
+    return {application: application}
+}
+const seekReject=async function(req){
+    let application=await setseekerApp(req)
+    if (validateSeekerApp(application)) return validateSeekerApp(application)
+    application.stages[WITHDRAWN]={actionDate: new Date(),...req.body}
+    application.currentStage=WITHDRAWN
+    application.markModified("stages")
+    await application.save()
+    return {application: application}
+}
+
+
+/// utils------------------------------------------------------
+
+//finds application by url id and the logged in employer id
+async function setEmpApp(req){
+    let application= Application.findOne({_id: req.params.id,employer: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    return application
+}
+//finds application by url id and the logged in seeker id
+async function setseekerApp(req){
+    let application= Application.findOne({_id: req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    return application
+}
+
+function validateEmpApp(application){
+    if(!application){//validate application exist in the database and belonges to the employer
+        return {error: {status: 401, message: 'Application not found'}}
+    }
+    if(!employerWorkflow[application.currentStage].canReject){//validates the application can be rejected by the employer at this stage
+        return {error: {status: 403, message: 'action not allowed'}}
+    } 
+    else{
+        return false
+    }
+}
+
+function validateSeekerApp(application){
+    if(!application){//validate application exist in the database and belonges to the seeker
+        return {error: {status: 401, message: 'Application not found'}}
+    }
+    if(!seekerWorkflow[application.currentStage].canWithdraw) {//validates the seeker can withdraw at this stage
+        console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
+        return {error: {status: 403, message: 'action not allowed'}}
+    } 
+    else{
+        return false
+    }
+}
+
+module.exports={addApplication,empAccept,empReject,seekerAccept,seekReject,getEmpApplications,getSeekerApplications,getSeekerApplication}

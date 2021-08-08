@@ -8,7 +8,7 @@ const getJobs = async function (req, res){
         res.send({jobs, totalPages})}
     catch(err){
         res.status(500)
-            return res.json({error: err.message})
+        return res.json({error: err.message})
     }    
 }
 
