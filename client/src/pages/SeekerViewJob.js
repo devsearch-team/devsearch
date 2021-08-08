@@ -1,7 +1,11 @@
 import React,{useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from "styled-components";
+import SeekerJobApplicationModal from '../modals/SeekerJobApplicationModal'
+import SeekerInterviewModal from '../modals/SeekerInterviewModal'
+import SeekerOfferPositionModal from '../modals/SeekerOfferPositionModal'
 import { getJob } from '../services/jobServices';
+import { InputButton } from '../globalComponents/Buttons';
 import { theme } from "../globalStyles";
 import RobotArm from "../Assets/robotArm.jpg";
 import ReactHtmlParser from "react-html-parser";
@@ -129,7 +133,7 @@ const Heading = styled.h4`
   }
 `;
 const SubHeading = styled.h6`
-  margin: 0.5rem 0rem;
+  margin: 1rem 0rem;
   color: ${theme.PrimaryTxt};
   text-decoration: none;
   font-weight: 600;
@@ -251,7 +255,7 @@ const Salary = styled.p`
 // `;
 const JobInfo = styled.div`
 width:100%;
-
+margin: 1rem 1rem;
 `;
 // const AboutCompany = styled.p`
 //   font-weight: 300;
@@ -289,9 +293,22 @@ width:100%;
 
 const SeekerViewJob = () => {
   
-  // const wysiwyg = wysiwyg
-    // let date = new Date();
-    // let hour = date.getHours();
+  // Show Application Modal
+  const [showJobApplicationModal, setJobApplicationModal] = useState(false)
+  const [showInterviewModal, setInterviewModal] = useState(false)
+  const [showOfferPositionModal, setOfferPositionModal] = useState(false)
+
+
+  const openJobApplicationModal= () => {
+    setJobApplicationModal((prev) => !prev);
+  };
+  const openInterviewModal= () => {
+    setInterviewModal((prev) => !prev);
+  };
+  const openOfferPositionModal= () => {
+    setOfferPositionModal((prev) => !prev);
+  };
+
 
     const [job, setJob] = useState("")
     let {id} = useParams()
@@ -326,7 +343,18 @@ const SeekerViewJob = () => {
         {job.maxPay && <Salary>Max Pay:{job.maxPay} </Salary>}
         {/* <Category>Developers/Programmers</Category> */}
         </CompanyInfoContainer>
-        
+        <SeekerJobApplicationModal
+            showJobApplicationModal={showJobApplicationModal}
+            setJobApplicationModal={setJobApplicationModal}
+          />
+        <SeekerInterviewModal
+            showJobApplicationModal={showInterviewModal}
+            setJobApplicationModal={setInterviewModal}
+          />
+        <SeekerOfferPositionModal
+            showOfferPositionModal={showOfferPositionModal}
+            setOfferPositionModal={setOfferPositionModal}
+          />
         <JobInfo>
           {
             job.employer.about && <>
@@ -334,10 +362,18 @@ const SeekerViewJob = () => {
             {job.employer.about}
             </>
           }   
-        <Heading>Description</Heading>
+        <SubHeading>Description</SubHeading>
         {ReactHtmlParser(job.description)}
         </JobInfo>
-        
+        <InputButton style={{margin: "1rem 0"}}onClick={openJobApplicationModal}>
+              Apply
+            </InputButton>
+        <InputButton style={{margin: "1rem 0"}}onClick={openInterviewModal}>
+              Interview Modal
+            </InputButton>
+        <InputButton style={{margin: "1rem 0"}}onClick={openOfferPositionModal}>
+              Offer Position Modal
+            </InputButton>
         </JobInfoContainer>
       }
         </ViewJobContainer>

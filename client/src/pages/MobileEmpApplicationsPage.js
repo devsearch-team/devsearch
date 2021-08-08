@@ -1,12 +1,12 @@
 import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
 import { getEmployerJobs } from '../services/jobServices';
+
 // import { useGlobalState } from "../utils/globalContext";
 import EmployerTabs from '../globalComponents/EmployerTabs'
-import EmployerApplicationsCard from '../globalComponents/Cards'
+// import EmployerApplicationsCard from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
-import MobileEmpApplications from './MobileEmpApplicationsPage';
-import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
+
 const ApplicationsContainer = styled.div`
 display:grid;
 grid-area: content;
@@ -39,9 +39,10 @@ display: flex;
 justify-content:center;
 width:80%;
 `;
-const EmpApplications = () => {
+const MobileEmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;
+
     const [jobList, setJobList] = useState([]);
     const [serverError, setServerError] = useState("")
     const [totalPages, setTotalPages] = useState(1);
@@ -62,47 +63,27 @@ const EmpApplications = () => {
         });
       }, [page]);
       // console.log("serverError",serverError)
-
-
-      // Change to Mobile Applications Component when reach mobile screen size
-      const [width, setWidth] = useState(window.innerWidth);
-      const breakpoint = 768;
-      useEffect(()=> {
-        const handleWindowResize = () => setWidth(window.innerWidth)
-        window.addEventListener("resize", handleWindowResize);
-      })  
+      
     return (
         <>
-        { width < breakpoint ?
-             <> 
-       
-        <MobileApplicationTabs />
-      
-         </>
-      : 
+             <>
+             {/* {console.log("pages",totalPages)}
+            total pages:{totalPages}   page:{page} */}
         <ApplicationsContainer>
-         
-            <EmployerTabs />
 
-            {/* <CardContainer>
-            {console.log("jobListApplications",jobList)}
-            {jobList.map((job,index)=>   
-              <EmployerApplicationsCard
-              key={index}
-              jobId={job._id}
-              jobTitle={job.title}
-              date={job.created_at}
-              company={job.employer.name}
-              />)}  
-              </CardContainer>
+            <EmployerTabs />
+          
+              
+            <CardContainer>
+  
+                </CardContainer>
               <BtnContainer>
           {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
-            </BtnContainer> */}
+            </BtnContainer>
         </ApplicationsContainer> 
-
-    }
+         </>
     </>
     )
 }
 
-export default EmpApplications
+export default MobileEmpApplications
