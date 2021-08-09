@@ -2,7 +2,8 @@ import React,{useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from "styled-components";
 import SeekerJobApplicationModal from '../modals/SeekerJobApplicationModal'
-import SeekerInterviewModal from '../modals/SeekerInterviewModal'
+import SeekerInterviewOfferedModal from '../modals/SeekerInterviewOfferedModal'
+import SeekerInterviewAcceptedModal from '../modals/SeekerInterviewAcceptedModal'
 import SeekerOfferPositionModal from '../modals/SeekerOfferPositionModal'
 import { getJob } from '../services/jobServices';
 import { InputButton } from '../globalComponents/Buttons';
@@ -88,7 +89,7 @@ const CompanyLogo = styled.div`
   margin: 0.5rem 1rem;
   width: 66px;
   height: 66px;
-  overflow-y: hidden;
+  overflow-y: hidden !important;
   border-radius: 50%;
   @media only screen and (max-width: 460px) {
     width: 46px;
@@ -295,7 +296,8 @@ const SeekerViewJob = () => {
   
   // Show Application Modal
   const [showJobApplicationModal, setJobApplicationModal] = useState(false)
-  const [showInterviewModal, setInterviewModal] = useState(false)
+  const [showInterviewOfferedModal, setInterviewOfferedModal] = useState(false)
+  const [showInterviewAcceptedModal, setInterviewAcceptedModal] = useState(false)
   const [showOfferPositionModal, setOfferPositionModal] = useState(false)
 
 
@@ -303,7 +305,10 @@ const SeekerViewJob = () => {
     setJobApplicationModal((prev) => !prev);
   };
   const openInterviewModal= () => {
-    setInterviewModal((prev) => !prev);
+    setInterviewOfferedModal((prev) => !prev);
+  };
+  const openInterviewAcceptedModal= () => {
+    setInterviewAcceptedModal((prev) => !prev);
   };
   const openOfferPositionModal= () => {
     setOfferPositionModal((prev) => !prev);
@@ -317,7 +322,7 @@ const SeekerViewJob = () => {
       getJob(id)
         .then((data) => {
           // console.log("data",data);
-          console.log(data.data.employer.name)
+          //console.log("employer name",data.data.employer.name)
           setJob(data.data);
         })
         .catch();
@@ -347,13 +352,17 @@ const SeekerViewJob = () => {
             showJobApplicationModal={showJobApplicationModal}
             setJobApplicationModal={setJobApplicationModal}
           />
-        <SeekerInterviewModal
-            showJobApplicationModal={showInterviewModal}
-            setJobApplicationModal={setInterviewModal}
+        <SeekerInterviewOfferedModal
+            showInterviewOfferedModal={showInterviewOfferedModal}
+            setInterviewOfferedModal={setInterviewOfferedModal}
           />
         <SeekerOfferPositionModal
             showOfferPositionModal={showOfferPositionModal}
             setOfferPositionModal={setOfferPositionModal}
+          />
+        <SeekerInterviewAcceptedModal
+            showInterviewAcceptedModal={showInterviewAcceptedModal}
+            setInterviewAcceptedModal={setInterviewAcceptedModal}
           />
         <JobInfo>
           {
@@ -373,6 +382,9 @@ const SeekerViewJob = () => {
             </InputButton>
         <InputButton style={{margin: "1rem 0"}}onClick={openOfferPositionModal}>
               Offer Position Modal
+            </InputButton>
+        <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
+              Interview Accepted Modal
             </InputButton>
         </JobInfoContainer>
       }

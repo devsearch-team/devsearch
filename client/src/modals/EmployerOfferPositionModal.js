@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
-import DatePicker from "react-datepicker";
-import { useHistory, useParams } from "react-router-dom";
+
+import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
@@ -170,7 +170,7 @@ const BodyContent = styled.p`
 
 `;
 
-const InterviewTime = styled.div`
+const InterviewTimeContainer = styled.div`
   border-radius: 5px;
   background: ${theme.accentBg};
 
@@ -180,7 +180,7 @@ const InterviewTime = styled.div`
   height: 100%;
   width:80%;
   margin: 0.5rem 1rem;
-  // color: ${theme.PrimaryTxt};
+
   @media only screen and (max-width: 768px){
     
     // display:flex;
@@ -191,7 +191,9 @@ const InterviewTime = styled.div`
     width: 80%;
   }
 `;
-
+const InterviewTime = styled.p`
+font-size:16px;
+`
 const BtnContainer = styled.div`
   display: flex;
   width: 90%;
@@ -212,11 +214,12 @@ const CloseModalButton = styled(MdClose)`
 const ModalBtn = styled.button`
   margin: 1rem 0rem;
   width: 150px;
-  height: 50px;
+  height: auto;
+  padding:10px;
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
   transition: 3s all ease-out;
@@ -239,31 +242,55 @@ const ModalBtn = styled.button`
     height: 40px;
   }
 `;
-
-const EmployerViewApplicationModal = ({
-  showEmployerViewApplicationModal,
-  setEmployerViewApplicationModal,
+const FormContainer = styled.div`
+display:flex;
+justify-center:space-evenly;
+align-items:center;
+width: 100%;
+// margin: 0 -1rem;
+`;
+const FileLink = styled(Link)`
+// margin: 0.1rem rem;
+white-space: nowrap;
+// width:100%;
+`;
+const CoverLetterInput = styled.input`
+width: 55%;
+padding: 10px;
+border-radius: 5px;
+text-align:center;
+// margin: 0.3rem 3rem;
+border: none;
+color: ${theme.SecondaryTxt};
+font-size: 18px;
+@media only screen and (max-width: 768px) {
+  font-size: 14px;
+  max-width: 60%;
+  width:400px;
+}
+`;
+const EmployerOfferPositionModal = ({
+  showEmployerOfferPositionModal,
+  setEmployerOfferPositionModal,
+  
 }) => {
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-
-
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerViewApplicationModal(false);
+      setEmployerOfferPositionModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerViewApplicationModal) {
-        setEmployerViewApplicationModal(false);
+      if (e.key === "Escape" && showEmployerOfferPositionModal) {
+        setEmployerOfferPositionModal(false);
       }
     },
-    [setEmployerViewApplicationModal, showEmployerViewApplicationModal]
+    [setEmployerOfferPositionModal, showEmployerOfferPositionModal]
   );
 
   useEffect(() => {
@@ -292,13 +319,16 @@ const EmployerViewApplicationModal = ({
   //   })
   // }, [])
   // console.log(seekerData)
+
+  // Get the date from interview time
+
   return (
     <>
           
-      {showEmployerViewApplicationModal ? (
+      {showEmployerOfferPositionModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerViewApplicationModal={showEmployerViewApplicationModal}
+            showEmployerOfferPositionModal={showEmployerOfferPositionModal}
             >
            
             <ModalContent>
@@ -317,47 +347,41 @@ const EmployerViewApplicationModal = ({
                   tristique suspendisse arcu, accumsan..
                 </BodyContent>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
-                <InterviewTime>
-                <DatePicker 
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    dateFormat='dd/MM/yyyy h:mm aa'
-                    minDate={new Date()}
-                    showMonthDropdown
-                    className='dateEditor'
-                    wrapperClassName='dateTimeWrapper'
-                    popperClassName='timeClass'
-                    showTimeSelect={true}   
-                    timeCaption="Time"              />
-                </InterviewTime>
+                <InterviewTimeContainer>
+                    <InterviewTime>09/11/21 9:30am</InterviewTime>
+                </InterviewTimeContainer>
                 <BodySubtitle>Important Information</BodySubtitle>
                 <BodyContent>
                   Important Information regarding this Interview
                 </BodyContent>
+              <FormContainer>
+                <CoverLetterInput  type="file" placeholder="Upload Contract" onChange={({target})=>{}}></CoverLetterInput>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+
+              </FormContainer>
               </Body>
             </ModalContent>
             <BtnContainer>
               <ModalBtn
                 onClick={() => {
                   history.push("/employer/applications");
-                  setEmployerViewApplicationModal(false);
+                  setEmployerOfferPositionModal(false);
                 }}
               >
-                Offer Interview
+                Offer Position
               </ModalBtn>
               <ModalBtn
                 onClick={() => {
                   history.push("/employer/applications");
-                  setEmployerViewApplicationModal(false);
+                  setEmployerOfferPositionModal(false);
                 }}
               >
                 Reject
               </ModalBtn>
             </BtnContainer>
-
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerViewApplicationModal((prev) => !prev)}
+              onClick={() => setEmployerOfferPositionModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -367,4 +391,4 @@ const EmployerViewApplicationModal = ({
   );
 };
 
-export default EmployerViewApplicationModal;
+export default EmployerOfferPositionModal;

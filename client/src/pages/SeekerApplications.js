@@ -1,10 +1,11 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styled from "styled-components";
 // import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
 import SeekerTabs from '../globalComponents/SeekerTabs'
 import Card from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
+import {getSeekerApplications} from "../services/applicationServices"
 
 const ApplicationsContainer = styled.div`
 display:grid;
@@ -40,6 +41,9 @@ width:80%;
 const SeekerApplications = () => {
     const { store } = useGlobalState();
     const { isEmployer } = store;
+    const [stage,setStage]=useState("SUBMITTED")
+    const [appList,setAppList]=useState([])
+    const [serverError,setServerError]=useState("")
     // const [jobList, setJobList] = useState([]);
     // const [serverError, setServerError] = useState("")
     // const [totalPages, setTotalPages] = useState(1);
@@ -59,17 +63,27 @@ const SeekerApplications = () => {
     //       setServerError(error.message)
     //       });
     // }, [page]);
-
+    useEffect(()=>{
+      getSeekerApplications(stage)
+      .then((res)=>{
+        setAppList(res.data)
+        // console.log("employer is",res.data[0].employer.name)
+      })
+      .catch()
+    },[stage])
     return (
         <>  
         
                <ApplicationsContainer>
-               <SeekerTabs />
+               <SeekerTabs stage={stage} setStage={setStage} />
                
         
                <CardContainer>
+               {appList && appList.map((app,index)=>{
+                 let date=app.stages[stage].actionDate
+                 return (<Card  jobTitle={app.job.title} company={app.employer.name} data={date}/>)
+               })}
                
-               <Card  />
                
                </CardContainer>
                <BtnContainer>

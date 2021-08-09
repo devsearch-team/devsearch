@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from "styled-components";
 
 export const Styles = createGlobalStyle`
 *{
-  overflow-x: hidden;
+  overflow-x: hidden !important;
     padding: 0;
     margin: 0;
     box-sizing:border-box;
@@ -11,13 +11,7 @@ export const Styles = createGlobalStyle`
 }
 body{
     background: ${(props) => props.theme.MainBg};
-    &::-webkit-scrollbar {
-      width: 10px;
-      background:${(props) =>theme.NavBg}
-    }
-    &::-webkit-scrollbar-track {
-      background: orange;      
-    }
+  
 }
 `;
 

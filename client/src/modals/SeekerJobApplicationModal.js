@@ -6,7 +6,7 @@ import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import { ModalBtn } from "../globalComponents/Buttons";
 import { getSeeker } from "../services/authServices";
-
+import {createApplication} from "../services/applicationServices"
 const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -169,6 +169,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
       setJobApplicationModal(false);
     }
   };
+  
 
   const keyPress = useCallback(
     (e) => {
@@ -185,26 +186,42 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
   }, [keyPress]);
 
   // Get Job Information for header
-  const [employerData, setEmployerData] = useState('')
-  const [seekerData, setSeekerData] = useState('')
+  const [jobData, setJobData] = useState({})
+  const [seekerData, setSeekerData] = useState({})
+  let coverLetter
 
   let {id} = useParams()
   useEffect(() => {
     getJob(id)
-    .then((data) => {
-      setEmployerData(data.data)
-      console.log("EmployerData",data.data)
+    .then((res) => {
+      setJobData(res.data)
+      console.log("jobData",res.data)
     })
   }, [id])
 
 
   useEffect(() => {
+    console.log("{showJobApplicationModal}",showJobApplicationModal)
     getSeeker()
-    .then((data) => {
-      setSeekerData(data)
-      console.log("SeekerData",data)
+    .then((res) => {
+      setSeekerData(res)
+      console.log("SeekerData",res)
     })
   }, [])
+  function handleSubmit(){
+    var form_data = new FormData()
+    form_data.append("job",id)
+    form_data.append("employer",jobData.employer._id)
+    form_data.append("seeker",seekerData._id)
+    form_data.append("coverLetter",coverLetter)
+    createApplication(form_data)
+    .then((res)=>{
+      console.log("created application is ",res)
+    })
+    .catch()
+    history.push('/seeker/jobs'); 
+    setJobApplicationModal(false);
+  }
   return (
     <>
       { showJobApplicationModal ?(
@@ -213,24 +230,22 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
             
               <ModalContent>
                 <Header>
-                <Heading>{employerData.title}</Heading>
-                <EmployerInfoData >{employerData.employer.name}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.email}</EmployerInfoData>
-                {employerData.employer.phone ?(
-                  <EmployerInfoData>{employerData.employer.phone}</EmployerInfoData>
-                ) :(
-                  <></>
-                )
+                <Heading>{jobData.title}</Heading>
+                <EmployerInfoData >{jobData.employer.name}</EmployerInfoData>
+                <EmployerInfoData >{jobData.employer.email}</EmployerInfoData>
+                {jobData.employer.phone &&(
+                  <EmployerInfoData>{jobData.employer.phone}</EmployerInfoData>
+                ) 
               }
                 </Header>
                 <Body>
                   <BodySubtitle>Resume</BodySubtitle>
-                  <FileLink to={`${seekerData.resumeFile}}`} target="blank">View Resume</FileLink>
+                  <FileLink to={seekerData.resumeFile}target="blank">View Resume</FileLink>
                   <BodySubtitle>Cover Letter</BodySubtitle>
-                  <CoverLetterInput placeholder="Upload Cover Letter"></CoverLetterInput>
-                  <FileLink to={`${seekerData.resumeFile}}`} target="blank">View Cover Letter</FileLink>
+                  <CoverLetterInput  type="file" placeholder="Upload Cover Letter" onChange={({target})=>{coverLetter=target.files[0]}}></CoverLetterInput>
+                  <FileLink to={seekerData.resumeFile}target="blank">View Cover Letter</FileLink>
                 </Body>
-                <ModalBtn style={{margin: '0.5rem 3rem'}} onClick={() => {history.push('/seeker/jobs'); setJobApplicationModal(false);}}>Submit</ModalBtn>
+                <ModalBtn style={{margin: '0.5rem 3rem'}} onClick={handleSubmit}>Submit</ModalBtn>
               </ModalContent>
             
 

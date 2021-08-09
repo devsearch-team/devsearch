@@ -1,7 +1,8 @@
 import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
-import { getEmployerJobs } from '../services/jobServices';
+import { getEmpApplications } from '../services/applicationServices';
 // import { useGlobalState } from "../utils/globalContext";
+import Card from '../globalComponents/Cards'
 import EmployerTabs from '../globalComponents/EmployerTabs'
 import EmployerApplicationsCard from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
@@ -47,25 +48,17 @@ width:80%;
 const EmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;
-    const [jobList, setJobList] = useState([]);
-    const [serverError, setServerError] = useState("")
-    const [totalPages, setTotalPages] = useState(1);
-    const [page, setPage] = useState(0);
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-      setLoading(true)
-      getEmployerJobs(page)
-        .then((res) => {
-        //   console.log("my jobs",res)
-          setJobList(jobList => [...jobList, ...res.data.jobs])
-          setTotalPages(res.data.totalPages)
-          setLoading(false)
-        })
-        .catch((error) =>{ 
-          // console.log("err from catch",error.message)
-          setServerError(error.message)
-        });
-      }, [page]);
+    const [stage,setStage]=useState("SUBMITTED")
+    const [appList,setAppList]=useState([])
+    const [serverError,setServerError]=useState("")
+
+    useEffect(()=>{
+      getEmpApplications(stage)
+      .then((res)=>{
+        setAppList(res.data)
+      })
+      .catch()
+    },[stage])
       // console.log("serverError",serverError)
 
 
@@ -87,7 +80,7 @@ const EmpApplications = () => {
        
 
         <CardContainer>
-            {console.log("jobListApplications",jobList)}
+            {/* {console.log("jobListApplications",jobList)}
             {jobList.map((job,index)=>   
               <EmployerApplicationsCard
               key={index}
@@ -95,33 +88,26 @@ const EmpApplications = () => {
               jobTitle={job.title}
               date={job.created_at}
               company={job.employer.name}
-              />)}  
+              />)}   */}
               </CardContainer>
               <BtnContainer>
-          {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
+          {/* {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>} */}
             </BtnContainer>
            
               
          </>
       : 
         <ApplicationsContainer>
-         
-            <EmployerTabs />
-
-            <CardContainer>
-            {console.log("jobListApplications",jobList)}
-            {jobList.map((job,index)=>   
-              <EmployerApplicationsCard
-              key={index}
-              jobId={job._id}
-              jobTitle={job.title}
-              date={job.created_at}
-              company={job.employer.name}
-              />)}  
-              </CardContainer>
-              <BtnContainer>
-          {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
-            </BtnContainer>
+            <EmployerTabs stage={stage} setStage={setStage} />
+               
+        
+               <CardContainer>
+               {appList && appList.map((app,index)=>{
+                // let date=app.stages[stage].actionDate
+                console.log(app.seeker.name)
+                 return (<Card  jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} />)
+               })}   
+               </CardContainer>
         </ApplicationsContainer> 
 
     }

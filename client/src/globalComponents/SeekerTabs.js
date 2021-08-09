@@ -4,45 +4,47 @@ import { theme } from "../globalStyles";
 
 const JobSeekerStatusTabs = [
     {
-      name: "Applied",
+      displayName: "Applied",
+      name:"SUBMITTED",
       id: 0,
     },
     {
-      name: "Interview Offered",
+      displayName: "Interview Offered",
+      name:"APPROVED_FOR_INTERVIEW",
       id: 1,
     },
     {
-      name: "Interviewing",
+      displayName: "Interviewing",
+      name:"SCHEDEULED_FOR_INTERVIEW",
       id: 2,
     },
     {
-      name: "Offers Recieved",
+      displayName: "Offers Recieved",
+      name:"OFFER_MADE",
       id: 3,
     },
     {
-      name: "Hired",
+      displayName: "Hired",
+      name:"HIRED",
       id: 4,
     },
     {
-      name: "Rejected",
+      displayName: "Rejected",
+      name:"REJECTED",
       id: 5,
     },
   ];
 
 
 
-const SeekerTabs = () => {
-    const [activeTab, setActiveTab] = useState(0);
-  
+const SeekerTabs = ({stage,setStage}) => {
+    // const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState(stage);
+    console.log("stage is ",stage);
     const handleTab = (e) => {
-      if (JobSeekerStatusTabs.id === e.target.id) {
-        console.log(JobSeekerStatusTabs.id);
-        setActiveTab(false);
-      } else {
-        console.log(JobSeekerStatusTabs.id);
-      }
-      setActiveTab(e.target.id);
-      console.log(e.target.id);
+      setActiveTab(e.target.name);
+      setStage(e.target.name)
+      // setActiveTab(e.target.id);
     };
     //   console.log("ActiveTab", activeTab);
   
@@ -51,13 +53,13 @@ const SeekerTabs = () => {
         {JobSeekerStatusTabs.map((tab, index) => {
           return (
             <Tab
-              id={index}
+              name={tab.name}
               activeTab={activeTab}
               key={index}
               setSelectedTab={setActiveTab}
               onClick={handleTab}
             >
-              {tab.name}
+              {tab.displayName}
             </Tab>
           );
         })}
@@ -86,15 +88,15 @@ const SeekerTabs = () => {
   
     background: ${(props) => {
       // console.log("active tab", props.activeTab);
-      const id = parseInt(props.id);
+      //const id = parseInt(props.id);
   
-      return id === props.activeTab ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
+      return props.name === props.activeTab ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
     }};
     color: ${(props) => {
       // console.log("active tab", props.activeTab);
-      const id = parseInt(props.id);
+      // const id = parseInt(props.id);
   
-      return id === props.activeTab ? theme.PrimaryTxt : theme.SecondaryTxt;
+      return props.name === props.activeTab ? theme.PrimaryTxt : theme.SecondaryTxt;
     }};
   
     cursor: pointer;

@@ -8,7 +8,7 @@ export const ModalBtn = styled.button`
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 600;
   box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
   transition: 3s all ease-out;
