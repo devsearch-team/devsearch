@@ -317,7 +317,7 @@ const SeekerViewJob = () => {
       getJob(id)
         .then((data) => {
           // console.log("data",data);
-          console.log(data.data.employer.name)
+          //console.log("employer name",data.data.employer.name)
           setJob(data.data);
         })
         .catch();

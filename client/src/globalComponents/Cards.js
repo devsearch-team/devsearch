@@ -75,7 +75,7 @@ export  default function EmployerApplicationsCard({ jobTitle, company, date }) {
   const openEmployerViewApplicationModal= () => {  
     setEmployerViewApplicationModal((prev) => !prev);
   };
-  
+  console.log("jobTitle")
   return (
     <CardSmall>
       <CardLeft>

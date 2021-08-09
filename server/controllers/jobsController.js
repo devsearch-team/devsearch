@@ -8,16 +8,8 @@ const getJobs = async function (req, res){
         res.send({jobs, totalPages})}
     catch(err){
         res.status(500)
-            return res.json({error: err.message})
+        return res.json({error: err.message})
     }    
-
-    // .exec((err, jobs)=>{
-    //     if (err){
-    //         res.status(500)
-    //         return res.json({error: err.message})
-    //     } 
-    //     res.send(jobs)
-    // })
 }
 
 const getJobsByEmployer=async function(req,res){

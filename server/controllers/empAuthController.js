@@ -1,6 +1,8 @@
 const Employer = require('../models/employer')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const {empAccept,empReject,getEmpApplications,getEmployerApplication}=require("../utils/applicationsUtils")
+
 
 const register = function(req, res){
     const newEmployer = new Employer(req.body)
@@ -57,17 +59,49 @@ const updateEmployer=function(req,res){
         res.send(employer)
     } ) 
 }
-    // const empLoginRequired = function(req,res, next){
-    //     if(req.user){
-    //         next()
-    //     }else{
-    //         console.log("req.user",req.user)
-    //         return res.status(401).json({message: "Unauthorized operation"})
-    //     }
-    // }
+   
+const empApplications=async function(req,res){
+    try{
+        let applications=await getEmpApplications(req)
+        console.log("inside controller applications are ",applications)
+        res.send(applications)
+    }
+    catch(err){
+        res.status(500)
+        res.json({error: err.message})
+    }
+}
+const empApplication=async function(req,res){
+    await doAction(getEmployerApplication,req,res)
+}
 
-    
+const employerProceed=async function(req,res){
+   await doAction(empAccept, req,res);
+}
+
+const employerReject= async function(req,res){
+    await doAction(empReject,req,res)
+}
+
+async function doAction(action, req,res){
+    // try{
+        console.log("inside do action")
+        const {application, error} = await action(req)
+        console.log("do action application",application)
+        console.log("error is ", error)
+        if(error){
+            res.status(error.status)
+            res.send({message: error.message});
+        }
+
+        res.send(application);
+    // }
+    // catch(err){
+    //     res.status(500)
+    //     return res.json({error: err.message})
+    // }
+}
       
-module.exports = {register,signIn,getEmployer,updateEmployer}
+module.exports = {register,signIn,getEmployer,updateEmployer,employerProceed,employerReject,empApplications,empApplication}
 
 // 

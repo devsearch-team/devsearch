@@ -1,6 +1,8 @@
 const Seeker = require('../models/seeker')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const {addApplication,seekerAccept,seekReject,getSeekerApplications,getSeekerApplication}=require("../utils/applicationsUtils")
+
 
 const register = function(req, res){
     const newSeeker = new Seeker(req.body)
@@ -54,8 +56,7 @@ const updateSeeker=function(req,res){
             res.status(404)
             return res.json({error: err.message})
         }
-        console.log("seeker inside seeker controller",seeker)}) 
-   
+        console.log("seeker inside seeker controller",seeker)})  
     // console.log("req.file",req.file)
     req.file && ( req.body.resumeFile=req.file.location)
     Seeker.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, seeker)=>{
@@ -68,13 +69,57 @@ const updateSeeker=function(req,res){
 } ) 
 }
 
-// const loginRequired = function(req,res, next){
-//     if(req.user){
-//         next()
-//     }else{
-//         console.log("req.user",req.user)
-//         return res.status(401).json({message: "Unauthorized operation"})
-//     }
-// }
+const newApplication = function(req, res){
+   
+    addApplication(req).save((err,application)=>{
+        if (err){
+            res.status(500)
+            return res.json({error: err.message})
+        }
+        console.log("file",req.file)
+        
+        res.send(application)
+    })
+}
+const seekerApplications=async function(req,res){
+    try{
+        let applications=await getSeekerApplications(req)
+        console.log("inside controller applications are ",applications)
+        res.send(applications)
+    }
+    catch(err){
+        res.status(500)
+        res.json({error: err.message})
+    }
+}
+const seekerApplication=async function(req,res){
+    await doAction(getSeekerApplication,req,res)
+}
+const seekerProceed=async function(req,res){
+    await doAction(seekerAccept, req, res)
+}
 
-module.exports = {register,signIn,updateSeeker,getSeeker}
+const seekerReject= async function(req,res){
+    await doAction(seekReject,req,res)
+}
+
+async function doAction(action, req,res){
+    try{
+        console.log("inside do action")
+        const {application, error} = await action(req)
+        console.log("do action application",application)
+        console.log("error is ", error)
+        if(error){
+            res.status(error.status)
+            res.send({message: error.message});
+        }
+
+        res.send(application);
+    }
+    catch(err){
+        res.status(500)
+        return res.json({error: err.message})
+    }
+}
+
+module.exports = {register,signIn,updateSeeker,getSeeker,newApplication,seekerApplications,seekerApplication,seekerProceed,seekerReject}
