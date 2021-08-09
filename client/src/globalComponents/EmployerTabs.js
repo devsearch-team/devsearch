@@ -6,43 +6,44 @@ import { theme } from "../globalStyles";
 
 const EmployerStatusTabs = [
   {
-    name: "Recieved",
+    displayName: "Recieved",
+    name:"SUBMITTED",
     id: 0,
   },
   {
-    name: "Accepted",
+    displayName: "Accepted",
+    name:"APPROVED_FOR_INTERVIEW",
     id: 1,
   },
   {
-    name: "Interviewing",
+    displayName: "Interviewing",
+    name:"SCHEDEULED_FOR_INTERVIEW",
     id: 2,
   },
   {
-    name: "Offer Made",
+    displayName: "Offer Made",
+    name:"OFFER_MADE",
     id: 3,
   },
   {
-    name: "Hired",
+    displayName: "Hired",
+    name:"HIRED",
     id: 4,
   },
   {
-    name: "Rejected",
+    displayName: "Rejected",
+    name:"REJECTED",
     id: 5,
   },
 ];
 
- const EmployerTabs = () => {
-  const [activeTab, setActiveTab] = useState(0);
+ const EmployerTabs = ({stage,setStage}) => {
+  const [activeTab, setActiveTab] = useState(stage);
 
   const handleTab = (e) => {
-    if (EmployerStatusTabs.id === e.target.id) {
-      console.log(EmployerStatusTabs.id);
-      setActiveTab(false);
-    } else {
-      console.log(EmployerStatusTabs.id);
-    }
-    setActiveTab(e.target.id);
-    // console.log(e.target.id);
+    setActiveTab(e.target.name);
+    setStage(e.target.name)
+    // setActiveTab(e.target.id);
   };
     console.log("ActiveTab", activeTab);
 
@@ -51,13 +52,13 @@ const EmployerStatusTabs = [
       {EmployerStatusTabs.map((tab, index) => {
         return (
           <Tab
-            id={index}
+            name={tab.name}
             activeTab={activeTab}
             key={index}
             setSelectedTab={setActiveTab}
             onClick={handleTab}
           >
-            {tab.name}
+            {tab.displayName}
           </Tab>
         );
       })}
@@ -91,15 +92,13 @@ const Tab = styled.button`
 
   background: ${(props) => {
     // console.log("active tab", props.activeTab);
-    const id = parseInt(props.id);
-
-    return id === props.activeTab ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
+    return props.name === props.activeTab ? theme.PrimaryBtnBg : theme.SecondaryBtnBg;
   }};
   color: ${(props) => {
     // console.log("active tab", props.activeTab);
     const id = parseInt(props.id);
 
-    return id === props.activeTab ? theme.PrimaryTxt : theme.SecondaryTxt;
+    return props.name === props.activeTab ? theme.PrimaryTxt : theme.SecondaryTxt;
   }};
 
   cursor: pointer;

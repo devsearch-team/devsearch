@@ -37,7 +37,7 @@ const Application = require('../models/application')
 
 const getEmpApplications=async function(req){
     //console.log("user id is ",req.user.id)
-    let applications =  Application.find({employer: req.user.id})
+    let applications =  Application.find({employer: req.user.id}).populate("job").populate("seeker",{"hash_password":0})
     if(req.query.currentStage){
         applications.where('currentStage').equals(req.query.currentStage)
     }
@@ -46,7 +46,7 @@ const getEmpApplications=async function(req){
 
 
 const getEmployerApplication=async function(req){
-    let application =  await Application.findOne({_id:req.params.id,employer: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    let application =await setEmpApp(req)
     if (validateEmpApp(application)) return validateEmpApp(application)
     return {application}
 }
@@ -93,7 +93,7 @@ const addApplication=function(req){
 
 const getSeekerApplications=async function(req){
     //console.log("user id is ",req.user.id)
-    let applications =  Application.find({seeker: req.user.id})
+    let applications =  Application.find({seeker: req.user.id}).populate("job").populate("employer",{"hash_password":0})
     if(req.query.currentStage){
         applications.where('currentStage').equals(req.query.currentStage)
     }
@@ -101,7 +101,7 @@ const getSeekerApplications=async function(req){
 }
 
 const getSeekerApplication=async function(req){
-    let application =  await Application.findOne({_id:req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    let application = setseekerApp(req)
     if (validateSeekerApp(application)) return validateSeekerApp(application)
     return {application}
 }
@@ -141,12 +141,12 @@ const seekReject=async function(req){
 
 //finds application by url id and the logged in employer id
 async function setEmpApp(req){
-    let application= Application.findOne({_id: req.params.id,employer: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    let application= Application.findOne({_id: req.params.id,employer: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0}).populate("job")
     return application
 }
 //finds application by url id and the logged in seeker id
 async function setseekerApp(req){
-    let application= Application.findOne({_id: req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
+    let application= Application.findOne({_id: req.params.id,seeker: req.user.id}).populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0}).populate("job")
     return application
 }
 
