@@ -8,15 +8,18 @@ import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
 import { getSeeker } from "../services/authServices";
 import './DateEditor.css'
+import EmpApplications from "../pages/EmpApplications";
 
+import './applications.css'
 
-const Background = styled.div`
-  width: 100%;
+  const Background = styled.div`
+  width: 100vw;
   height: 100%;
   background: #000;
   position: fixed;
   top: 0;
   z-index:5;
+  
   left: 0;
   display: flex;
   justify-content: center;
@@ -24,7 +27,7 @@ const Background = styled.div`
   transform: scale(0);
   transform: scaleY(0.01) scaleX(0);
   animation: unfoldIn 1s cubic-bezier(0.65, 0.84, 0.42, 1) forwards;
-
+  
   @keyframes unfoldIn {
     0% {
       transform: scaleY(0.0005) scaleX(0);
@@ -39,12 +42,13 @@ const Background = styled.div`
       background: rgba(0, 0, 0, 0.9);
     }
   }
-`;
-const ModalWrapper = styled.div`
+  `;
+  const ModalWrapper = styled.div`
   max-width: 500px;
-  max-height: 100%;
+  height: 100%;
   margin-top:3rem;
   width:100%;
+  overflow-x:visible !important;
   box-shadow: 3px 3px 5px #333;
   background: ${(props) => theme.MainBg};
   color: ${(props) => theme.PrimaryTxt};
@@ -67,9 +71,13 @@ const ModalWrapper = styled.div`
 }
 @media only screen and (max-width: 768px) {
   // display:flex;
-  flex-direction:column;
-  // width: 100vw;
-  height: 90vh;
+  position:absolute;
+  top:0;
+  z-index:100;
+  overflow:auto !important;
+  // flex-direction:column;
+  width: 90%;
+  // height: 600px;
   opacity: 1;
 }
 `;
@@ -79,26 +87,35 @@ margin: 0rem 1rem;
 width: 95%;
 
 
-// @media only screen and (max-width: 768px) {
-  //   margin: 0 3rem;
-  //   justify-content: center;
-  //   align-items: left;
-  //   width: 100vw;
-  // }
-  `;
+@media only screen and (max-width: 768px) {
+  overflow-x:hidden !important;
+  margin: 0 1rem;
+  // justify-content: center;
+  // align-items: left;
+  width: 90%;
+  max-width:90vw;
+  // height: 100vh;
+}
+`;
 
 const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  margin: 1.5rem 1rem;
-  margin-top: 3rem;
-  background: ${theme.NavBg};
+display: flex;
+flex-direction: column;
+justify-content:center;
+border-radius: 5px;
+margin: 1.5rem 1rem;
+margin-top: 3rem;
+background: ${theme.NavBg};
+width: 70%;
+height: 120px;
+overflow-x:hidden !important;
+@media only screen and (max-width: 768px){
+  height: 100px;
   width: 80%;
-  height: 200px;
-`;
-const Heading = styled.h1`
-  margin: 0.5rem 2rem;
+  }
+  `;
+  const Heading = styled.h1`
+  margin: 0.5rem 1rem;
   width: 100%;
   word-wrap: wrap;
   color: ${theme.PrimaryBtnBg};
@@ -117,8 +134,10 @@ const Heading = styled.h1`
 `;
 
 const DateApplied = styled.p`
-  margin: 0.5rem 2rem;
+  margin: 0.5rem 1rem;
+  font-size:14px;
   color: ${theme.PrimaryTxt};
+  width:100%;
 `;
 
 const Body = styled.div`
@@ -129,7 +148,7 @@ const Body = styled.div`
 `;
 
 const BodySubtitle = styled.h6`
-  margin: 0.5rem 3rem;
+  margin: 0.5rem 1.5rem;
   font-size: 18px;
   font-weight: 600px;
 `;
@@ -148,21 +167,29 @@ const BodyContent = styled.p`
   height: 100%;
   margin: 0.5rem 1rem;
   color: ${theme.PrimaryTxt};
+
 `;
 
 const InterviewTime = styled.div`
-  
-  // z-index: 100;
   border-radius: 5px;
   background: ${theme.accentBg};
-  // width: 80%;
-  
+
   text-align: left;
   border: none;
   padding: 15px;
-  // height: 100%;
+  height: 100%;
+  width:80%;
   margin: 0.5rem 1rem;
   // color: ${theme.PrimaryTxt};
+  @media only screen and (max-width: 768px){
+    
+    // display:flex;
+    height: 100%;
+    // justify-content:center;
+    padding-bottom:5px;
+    
+    width: 80%;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -184,8 +211,8 @@ const CloseModalButton = styled(MdClose)`
 `;
 const ModalBtn = styled.button`
   margin: 1rem 0rem;
-  width: 130px;
-  height: 40px;
+  width: 150px;
+  height: 50px;
   cursor: pointer;
   border-radius: 5px;
   border: none;
@@ -198,15 +225,15 @@ const ModalBtn = styled.button`
     box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
   }
   @media only screen and (max-width: 768px) {
-    width: 100px;
-    font-size: 18px;
+    width: 110px;
+    font-size: 16px;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     height: 40px;
   }
   @media only screen and (max-height: 600px) {
     width: 180px;
-    font-size: 16px;
+    font-size: 14px;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     height: 40px;
@@ -267,11 +294,13 @@ const EmployerViewApplicationModal = ({
   // console.log(seekerData)
   return (
     <>
+          
       {showEmployerViewApplicationModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
             showEmployerViewApplicationModal={showEmployerViewApplicationModal}
-          >
+            >
+           
             <ModalContent>
               <Header>
                 <Heading>Joe Blogs</Heading>
@@ -314,15 +343,15 @@ const EmployerViewApplicationModal = ({
                   setEmployerViewApplicationModal(false);
                 }}
               >
-                Accept
+                Offer Interview
               </ModalBtn>
               <ModalBtn
                 onClick={() => {
-                  history.push("/seeker/jobs");
+                  history.push("/employer/applications");
                   setEmployerViewApplicationModal(false);
                 }}
               >
-                Deny
+                Reject
               </ModalBtn>
             </BtnContainer>
 
@@ -333,6 +362,7 @@ const EmployerViewApplicationModal = ({
           </ModalWrapper>
         </Background>
       ) : null}
+     
     </>
   );
 };

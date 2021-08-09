@@ -33,13 +33,15 @@ const CompanyLogo = styled.div`
   margin: 1rem 0rem;
   width: 86px;
   height: 86px;
-  overflow-y: hidden;
+  
+  overflow: hidden !important;
   border-radius: 50%;
 `;
 const Logo = styled.img`
   border: none;
   object-fit: cover;
   width: 100%;
+  
 `;
 // const Heading = styled.h1`
 //   margin: 1rem 0;

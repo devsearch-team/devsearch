@@ -8,9 +8,9 @@ import EmployerViewApplicationModal from '../modals/EmployerViewApplicationModal
 const CardSmall = styled.div`
   display: flex;
   align-items: center;
-  width: 280px;
+  width: 350px;
   padding: 10px;
-  height: 160px;
+  height: 200px;
   margin: 1rem;
   background: ${theme.SecondaryBtnBg};
   color: ${theme.SecondaryTxt};
@@ -27,7 +27,7 @@ const CardLeft = styled.div`
   width: 60%;
 `;
 const CardRight = styled.div`
-  display: felx;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 60px;
@@ -36,15 +36,16 @@ const CardRight = styled.div`
 `;
 const LogoContainer = styled.div`
   margin: 1rem 1rem;
-  width: 40px;
-  height: 40px;
-  overflow-y: hidden;
+  width: 50px;
+  height: 50px;
+  overflow: hidden !important;
   border-radius: 50%;
-`;
-const Logo = styled.img`
+  `;
+  const Logo = styled.img`
   border: none;
   object-fit: cover;
   width: 100%;
+  height:100%;
 `;
 const CardText = styled.p`
   font-size: 14px;
