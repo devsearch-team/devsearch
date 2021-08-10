@@ -20,6 +20,7 @@ mongoose.connect(dbConn,
     },
     err => {
         if (err){
+            console.error(`Please check and confirm that mongodb is running on ${dbConn}`)
             console.log("No database connection", err)
         } else {
             console.log("Connected to the database")
