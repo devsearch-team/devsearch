@@ -63,19 +63,11 @@ const MobileApplicationTabs = () => {
 export default MobileApplicationTabs;
 
 
-
-
-
-
 const TabsContainer = styled.div`
-// display: flex;
+
 text-align:center;
 width:100vw;
 
-
-z-index:120;
-
-// overflow:visbile;
 height 10vh;
 margin:1rem rem;
 `;

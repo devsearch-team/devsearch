@@ -77,7 +77,7 @@ const TabsContainer = styled.div`
 display: flex;
 width:80%;
 height 100px;
-margin:1rem 0;
+margin:1rem 6rem;
 `;
 
 const Tab = styled.button`

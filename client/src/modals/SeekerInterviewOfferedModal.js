@@ -144,13 +144,12 @@ line-height:1.3;
 text-align:left;
 border:none;
 padding:15px;
-height:100px;
+height:100%;
 margin: 0.5rem 1rem;
 color:${theme.PrimaryTxt}
 `;
 
 const InterviewTime = styled.p`
-outline:none;
 font-size:14px;
 font-weight:550;
 border-radius:5px;
@@ -159,8 +158,8 @@ width:80%;
 line-height:1.3;
 text-align:left;
 border:none;
-padding:15px;
-height:20px;
+padding:5px;
+height:30px;
 margin: 0.5rem 1rem;
 color:${theme.PrimaryTxt}
 `;
@@ -190,7 +189,7 @@ const ModalBtn = styled.button`
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
   transition: 3s all ease-out;
@@ -214,23 +213,23 @@ const ModalBtn = styled.button`
   }
 `;
 
-const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationModal}) => {
+const SeekerInterviewOfferedModal = ({showInterviewOfferedModal, setInterviewOfferedModal}) => {
   // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
   let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setJobApplicationModal(false);
+      setInterviewOfferedModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showJobApplicationModal) {
-        setJobApplicationModal(false);
+      if (e.key === "Escape" && showInterviewOfferedModal) {
+        setInterviewOfferedModal(false);
       }
     },
-    [setJobApplicationModal, showJobApplicationModal]
+    [setInterviewOfferedModal, showInterviewOfferedModal]
   );
 
   useEffect(() => {
@@ -262,9 +261,9 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
   console.log(seekerData)
   return (
     <>
-      { showJobApplicationModal ?(
+      { showInterviewOfferedModal ?(
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showJobApplicationModal={showJobApplicationModal}>
+          <ModalWrapper showInterviewOfferedModal={showInterviewOfferedModal}>
             
               <ModalContent>
                 <Header>
@@ -293,14 +292,14 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
                 </Body>
               </ModalContent>
                 <BtnContainer>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setJobApplicationModal(false);}}>Accept</ModalBtn>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setJobApplicationModal(false);}}>Deny</ModalBtn>
+                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setInterviewOfferedModal(false);}}>Accept Offer</ModalBtn>
+                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setInterviewOfferedModal(false);}}>Deny</ModalBtn>
                 </BtnContainer>
             
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setJobApplicationModal((prev) => !prev)}
+              onClick={() => setInterviewOfferedModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -309,4 +308,4 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
   );
 };
 
-export default SeekerJobApplicationModal;
+export default SeekerInterviewOfferedModal;

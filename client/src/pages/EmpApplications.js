@@ -6,7 +6,7 @@ import Card from '../globalComponents/Cards'
 import EmployerTabs from '../globalComponents/EmployerTabs'
 import EmployerApplicationsCard from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
-import MobileEmpApplications from './MobileEmpApplicationsPage';
+
 import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
 const ApplicationsContainer = styled.div`
 display:grid;
@@ -30,10 +30,15 @@ margin-left:25rem;
 const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
-  border:1px solid red;
+  justify-content:center;
+  // border:1px solid red;
   max-width: 80%;
   flex-wrap: wrap;
 
+@media only screen and (max-width: 768px){
+  justify-content:center;
+  margin-left:4rem;
+}
 `;
 const BtnContainer = styled.div`
 display: flex;
@@ -68,10 +73,29 @@ const EmpApplications = () => {
     return (
         <>
         { width < breakpoint ?
-             <> 
-       
+        <> 
+
         <MobileApplicationTabs />
-      
+        {console.log("width", width)}
+
+       
+
+        <CardContainer>
+            {/* {console.log("jobListApplications",jobList)}
+            {jobList.map((job,index)=>   
+              <EmployerApplicationsCard
+              key={index}
+              jobId={job._id}
+              jobTitle={job.title}
+              date={job.created_at}
+              company={job.employer.name}
+              />)}   */}
+              </CardContainer>
+              <BtnContainer>
+          {/* {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>} */}
+            </BtnContainer>
+           
+              
          </>
       : 
         <ApplicationsContainer>
@@ -82,7 +106,7 @@ const EmpApplications = () => {
                {appList && appList.map((app,index)=>{
                 // let date=app.stages[stage].actionDate
                 return (stage===app.stages[stage]?
-                  <Card  app={app} stage={stage} jobTitle={app.job.title} company={app.employer.name} date={app.stages[stage].actionDate}/>:
+                  <Card  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
                   <></>)
                })}   
                </CardContainer>
