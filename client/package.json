@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^7.1.2",
     "@tinymce/tinymce-react": "^3.12.6",
     "axios": "^0.21.1",
+    "mocha-prepare": "^0.1.0",
+    "mongo-unit": "^2.0.1",
     "react": "^17.0.2",
     "react-datepicker": "^4.1.1",
     "react-dom": "^17.0.2",
