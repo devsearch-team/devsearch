@@ -239,24 +239,14 @@ const ModalBtn = styled.button`
     height: 40px;
   }
 `;
+const FormContainer = styled.div`
+display:flex;
+margin:1rem;
+`;
 const FileLink = styled(Link)`
 margin: 0.1rem 3rem;
 `;
-const CoverLetterInput = styled.input`
-width: 200px;
-padding: 10px;
-border-radius: 5px;
-text-align:center;
-margin: 0.3rem 3rem;
-border: none;
-color: ${theme.SecondaryTxt};
-font-size: 18px;
-@media only screen and (max-width: 768px) {
-  font-size: 14px;
-  max-width: 60%;
-  width:400px;
-}
-`;
+
 const EmployerViewApplicationModal = ({
   showEmployerViewApplicationModal,
   setEmployerViewApplicationModal,
@@ -333,10 +323,11 @@ const EmployerViewApplicationModal = ({
                   nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
                   tristique suspendisse arcu, accumsan..
                 </BodyContent>
+                <FormContainer>
+
                 <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <BodySubtitle>Cover Letter</BodySubtitle>
-                  <CoverLetterInput  type="file" placeholder="Upload Cover Letter" onChange={({target})=>{'/'}}></CoverLetterInput>
                   <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                </FormContainer>
                 <BodySubtitle>Set Interview Time</BodySubtitle>
                 <InterviewTime>
                 <DatePicker 

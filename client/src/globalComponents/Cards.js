@@ -6,8 +6,9 @@ import RobotArm from "../Assets/robotArm.jpg";
 import {useHistory} from 'react-router-dom'
 import EmployerViewApplicationModal from '../modals/EmployerViewApplicationModal'
 import EmployerAcceptedApplicationModal from '../modals/EmployerAcceptedApplicationModal'
-import EmployerInterviewingApplicantModal from '../modals/EmployerInterviewingApplicantModal'
+import EmployerOfferMadeModal from '../modals/EmployerOfferMadeModal'
 import EmployerOfferPositionModal from '../modals/EmployerOfferPositionModal'
+import EmployerHiredModal from '../modals/EmployerHiredModal'
 import EmployerRejectedApplicationModal from '../modals/EmployerRejectedApplicationModal'
 const CardSmall = styled.div`
   display: flex;
@@ -78,8 +79,9 @@ const CardBtn = styled.button`
 export  default function EmployerApplicationsCard({ app,stage,jobTitle, company, date, applicantName }) {
   const [showEmployerViewApplicationModal, setEmployerViewApplicationModal] = useState(false)
   const [showEmployerAcceptedApplicationModal, setEmployerAcceptedApplicationModal] =useState(false)
-  const [showEmployerInterviewingApplicantModal, setEmployerInterviewingApplicantModal] =useState(false)
+  const [showEmployerOfferMadeModal, setEmployerOfferMadeModal] =useState(false)
   const [showEmployerOfferPositionModal, setEmployerOfferPositionModal] =useState(false)
+  const [showEmployerHiredModal, setEmployerHiredModal] =useState(false)
   const [showEmployerRejectedApplicationModal, setEmployerRejectedApplicationModal] =useState(false)
   
   const openEmployerViewApplicationModal= () => {  
@@ -90,12 +92,15 @@ export  default function EmployerApplicationsCard({ app,stage,jobTitle, company,
     setEmployerAcceptedApplicationModal((prev) => !prev);
   };
 
-  const openEmployerInterviewingApplicantModal= () => {  
-    setEmployerInterviewingApplicantModal((prev) => !prev);
+  const openEmployerOfferMadeModal= () => {  
+    setEmployerOfferMadeModal((prev) => !prev);
   };
 
   const openEmployerOfferPositionModal= () => {  
     setEmployerOfferPositionModal((prev) => !prev);
+  };
+  const openEmployerHiredModal= () => {  
+    setEmployerHiredModal((prev) => !prev);
   };
 
   const openEmployerRejectedApplicationModal= () => {  
@@ -120,38 +125,56 @@ export  default function EmployerApplicationsCard({ app,stage,jobTitle, company,
             showEmployerViewApplicationModal={showEmployerViewApplicationModal}
             setEmployerViewApplicationModal={setEmployerViewApplicationModal}
           />
+
       <EmployerAcceptedApplicationModal
             showEmployerAcceptedApplicationModal={showEmployerAcceptedApplicationModal}
             setEmployerAcceptedApplicationModal={setEmployerAcceptedApplicationModal}
           />
-      <EmployerInterviewingApplicantModal
-            showEmployerInterviewingApplicantModal={showEmployerInterviewingApplicantModal}
-            setEmployerInterviewingApplicantModal={setEmployerInterviewingApplicantModal}
-          />
+
       <EmployerOfferPositionModal
             showEmployerOfferPositionModal={showEmployerOfferPositionModal}
             setEmployerOfferPositionModal={setEmployerOfferPositionModal}
           />
+
+      <EmployerOfferMadeModal
+            showEmployerOfferMadeModal={showEmployerOfferMadeModal}
+            setEmployerOfferMadeModal={setEmployerOfferMadeModal}
+          />
+
+      <EmployerHiredModal
+            showEmployerHiredModal={showEmployerHiredModal}
+            setEmployerHiredModal={setEmployerHiredModal}
+          />
+
       <EmployerRejectedApplicationModal
             showEmployerRejectedApplicationModal={showEmployerRejectedApplicationModal}
             setEmployerRejectedApplicationModal={setEmployerRejectedApplicationModal}
           />
       <CardRight>
+
         <CardBtn  onClick={openEmployerViewApplicationModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
+
         <CardBtn  onClick={openEmployerAcceptedApplicationModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
-        <CardBtn  onClick={openEmployerInterviewingApplicantModal}>
-          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
-        </CardBtn>
+
         <CardBtn  onClick={openEmployerOfferPositionModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
+
+        <CardBtn  onClick={openEmployerOfferMadeModal}>
+          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
+        </CardBtn>
+        <CardBtn  onClick={openEmployerHiredModal}>
+          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
+        </CardBtn>
+
         <CardBtn  onClick={openEmployerRejectedApplicationModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
+
       </CardRight>
     </CardSmall>
   );

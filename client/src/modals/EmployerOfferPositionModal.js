@@ -244,17 +244,19 @@ const ModalBtn = styled.button`
 `;
 const FormContainer = styled.div`
 display:flex;
+margin:1rem;
+`;
+const ContractContainer = styled.div`
+display:flex;
 justify-center:space-evenly;
 align-items:center;
 width: 100%;
 // margin: 0 -1rem;
 `;
 const FileLink = styled(Link)`
-// margin: 0.1rem rem;
-white-space: nowrap;
-// width:100%;
+margin: 0.1rem 3rem;
 `;
-const CoverLetterInput = styled.input`
+const ContractInput = styled.input`
 width: 55%;
 padding: 10px;
 border-radius: 5px;
@@ -346,6 +348,10 @@ const EmployerOfferPositionModal = ({
                   nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
                   tristique suspendisse arcu, accumsan..
                 </BodyContent>
+                <FormContainer>
+                  <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>
                     <InterviewTime>09/11/21 9:30am</InterviewTime>
@@ -358,11 +364,12 @@ const EmployerOfferPositionModal = ({
                 <BodyContent>
                   Please add any feedback you have for the applicant.
                 </BodyContent>
-              <FormContainer>
-                <CoverLetterInput  type="file" placeholder="Upload Contract" onChange={({target})=>{}}></CoverLetterInput>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+              <ContractContainer>
+                <BodySubtitle>Upload Contract</BodySubtitle>
+                <ContractInput  type="file" placeholder="Upload Contract" onChange={({target})=>{}}></ContractInput>
+                  
 
-              </FormContainer>
+              </ContractContainer>
               </Body>
             </ModalContent>
             <BtnContainer>

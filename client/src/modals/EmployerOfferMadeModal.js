@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
-
+import DatePicker from "react-datepicker";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
@@ -170,7 +170,7 @@ const BodyContent = styled.p`
 
 `;
 
-const InterviewTimeContainer = styled.div`
+const TimeContainer = styled.div`
   border-radius: 5px;
   background: ${theme.accentBg};
 
@@ -191,15 +191,11 @@ const InterviewTimeContainer = styled.div`
     width: 80%;
   }
 `;
-const InterviewTime = styled.p`
+const Time = styled.p`
 font-size:16px;
 `
-const BtnContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: space-evenly;
-  // max-width:100%;
-`;
+
+
 
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
@@ -211,36 +207,7 @@ const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `;
-const ModalBtn = styled.button`
-  margin: 1rem 0rem;
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px) {
-    width: 110px;
-    font-size: 16px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-  @media only screen and (max-height: 600px) {
-    width: 180px;
-    font-size: 14px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-`;
+
 const FormContainer = styled.div`
 display:flex;
 margin:1rem;
@@ -248,28 +215,48 @@ margin:1rem;
 const FileLink = styled(Link)`
 margin: 0.1rem 3rem;
 `;
-const EmployerViewApplicationModal = ({
-  showEmployerAcceptedApplicationModal,
-  setEmployerAcceptedApplicationModal,
 
+const ContractInfoContainer = styled.div`
+display:flex;
+width:100%;
+margin: 1rem -2rem;
+justify-content:center;
+// max-width:100%;
+`;
+const ContractDownloadBtn = styled(Link)`
+// width:200px;
+text-decoration: none;
+
+&:hover{
+  text-decoration: underline;
+  font-weight:600;
+}
+`;
+
+const EmployerOfferMadeModal = ({
+  showEmployerOfferMadeModal,
+  setEmployerOfferMadeModal,
 }) => {
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+
+
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerAcceptedApplicationModal(false);
+      setEmployerOfferMadeModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerAcceptedApplicationModal) {
-        setEmployerAcceptedApplicationModal(false);
+      if (e.key === "Escape" && showEmployerOfferMadeModal) {
+        setEmployerOfferMadeModal(false);
       }
     },
-    [setEmployerAcceptedApplicationModal, showEmployerAcceptedApplicationModal]
+    [setEmployerOfferMadeModal, showEmployerOfferMadeModal]
   );
 
   useEffect(() => {
@@ -298,16 +285,13 @@ const EmployerViewApplicationModal = ({
   //   })
   // }, [])
   // console.log(seekerData)
-
-  // Get the date from interview time
-
   return (
     <>
           
-      {showEmployerAcceptedApplicationModal ? (
+      {showEmployerOfferMadeModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerAcceptedApplicationModal={showEmployerAcceptedApplicationModal}
+            showEmployerOfferMadeModal={showEmployerOfferMadeModal}
             >
            
             <ModalContent>
@@ -329,19 +313,24 @@ const EmployerViewApplicationModal = ({
                 <FileLink to={'/'}target="blank">View Resume</FileLink>
                   <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
                 </FormContainer>
-                <BodySubtitle>Interview offered on</BodySubtitle>
-                <InterviewTimeContainer>
-                    <InterviewTime>09/11/21 9:30am</InterviewTime>
-                </InterviewTimeContainer>
-                <BodySubtitle>Important Information</BodySubtitle>
+                <BodySubtitle>Offer Made on</BodySubtitle>
+                <TimeContainer>
+                <Time>09/11/21 9:30am</Time>
+                </TimeContainer>
+                <ContractInfoContainer>
+                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>
+                <BodySubtitle>Feedback Given</BodySubtitle>
                 <BodyContent>
-                  Important Information regarding this Interview
+                  This will contain the feedback an employer has provided to the Applicant
                 </BodyContent>
               </Body>
             </ModalContent>
+           
+
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerAcceptedApplicationModal((prev) => !prev)}
+              onClick={() => setEmployerOfferMadeModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -351,4 +340,4 @@ const EmployerViewApplicationModal = ({
   );
 };
 
-export default EmployerViewApplicationModal;
+export default EmployerOfferMadeModal;
