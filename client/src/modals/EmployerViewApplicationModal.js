@@ -309,13 +309,13 @@ console.log("inside employer view application modal")
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
-                <BodyContent readOnly>
-                  {seeker.about}
+                <BodyContent readOnly defaultValue={seeker.about}>
+                  
                 </BodyContent>
                 <FormContainer>
-
-                {app.resumeFile!="undefined"&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                  {app.coverLetter!="undefined"&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                  {console.log("condition",((app.coverLetter)||(app.coverLetter!="undefined")))}
+                  {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Set Interview Time</BodySubtitle>
                 <InterviewTime>

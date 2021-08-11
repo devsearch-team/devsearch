@@ -245,12 +245,12 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
 console.log("inside employer accepted application modal")
-const {seeker,employer,job,stages}= app
+const {seeker,stages}= app
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
@@ -293,8 +293,8 @@ const {seeker,employer,job,stages}= app
                 {seeker.about}
                 </BodyContent>
                 <FormContainer>
-                {app.resumeFile!="undefined"&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {app.coverLetter!="undefined"&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview offered on</BodySubtitle>
                 <InterviewTimeContainer>

@@ -250,7 +250,7 @@ align-items:center;
 width: 100%;
 // margin: 0 -1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 const ContractInput = styled.input`
@@ -338,8 +338,8 @@ const {seeker,stages}= app
                 {seeker.about}
                 </BodyContent>
                 <FormContainer>
-                {app.resumeFile!="undefined"&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {app.coverLetter!="undefined"&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>

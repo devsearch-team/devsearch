@@ -74,10 +74,9 @@ const EmpApplications = () => {
            { width < breakpoint ? <MobileApplicationTabs />:<EmployerTabs stage={stage} setStage={setStage} />}
                <CardContainer>
                {appList && appList.map((app,index)=>{
-                // let date=app.stages[stage].actionDate
-                return (stage===app.currentStage?
-                  <ApplicationCard  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
-                  <></>)
+                return (stage===app.currentStage&&
+                  <ApplicationCard key={index} app={app} stage={stage}/>
+                  )
                })}   
                </CardContainer>
         </ApplicationsContainer> 
