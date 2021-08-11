@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { getJobs } from "../services/jobServices";
 import JobCard from "../globalComponents/JobCard";
-import { InputButton } from "../globalComponents/Buttons";
+import { ShowMoreButton } from "../globalComponents/Buttons";
 
 const ListingContainer = styled.div`
   display: grid;
@@ -11,6 +11,7 @@ const ListingContainer = styled.div`
   width: 80%;
   margin-top: 15rem;
   margin-left: 15rem;
+  margin-bottom: 3rem;
   @media only screen and (max-width: 1200px) {
     margin-left: 15rem;
     width: 100%;
@@ -66,7 +67,7 @@ const JobSeekerJobListings = () => {
         {jobList.map((job, index) => (
           <JobCard job={job} key={index} />
         ))}
-          {!(totalPages-1 <= page) && <InputButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</InputButton>}
+          {!(totalPages-1 <= page) && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
       </ListingContainer>
       {/* {jobList ? (
        

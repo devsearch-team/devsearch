@@ -2,9 +2,12 @@ import React,{useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from "styled-components";
 import SeekerJobApplicationModal from '../modals/SeekerJobApplicationModal'
+import SeekerAppliedModal from '../modals/SeekerAppliedModal'
 import SeekerInterviewOfferedModal from '../modals/SeekerInterviewOfferedModal'
 import SeekerInterviewAcceptedModal from '../modals/SeekerInterviewAcceptedModal'
-import SeekerOfferPositionModal from '../modals/SeekerOfferPositionModal'
+import SeekerPositionOfferedModal from '../modals/SeekerPositionOfferedModal'
+import SeekerHiredModal from '../modals/SeekerHiredModal'
+import SeekerRejectedApplicationModal from '../modals/SeekerRejectedApplication'
 import { getJob } from '../services/jobServices';
 import { InputButton } from '../globalComponents/Buttons';
 import { theme } from "../globalStyles";
@@ -89,17 +92,19 @@ const CompanyLogo = styled.div`
   margin: 0.5rem 1rem;
   width: 66px;
   height: 66px;
-  overflow-y: hidden !important;
+  overflow: hidden !important;
   border-radius: 50%;
   @media only screen and (max-width: 460px) {
     width: 46px;
     height: 46px;
   }
-`;
-const Logo = styled.img`
+  `;
+  const Logo = styled.img`
+  
   border: none;
   object-fit: cover;
   width: 100%;
+  height:100%;
 `;
 const Header = styled.div`
   display: flex;
@@ -296,24 +301,43 @@ const SeekerViewJob = () => {
   
   // Show Application Modal
   const [showJobApplicationModal, setJobApplicationModal] = useState(false)
+  const [showSeekerAppliedModal, setSeekerAppliedModal] = useState(false)
   const [showInterviewOfferedModal, setInterviewOfferedModal] = useState(false)
   const [showInterviewAcceptedModal, setInterviewAcceptedModal] = useState(false)
-  const [showOfferPositionModal, setOfferPositionModal] = useState(false)
+  const [showSeekerPositionOfferedModal, setSeekerPositionOfferedModal] = useState(false)
+  const [showSeekerHiredModal, setSeekerHiredModal] = useState(false)
+  const [showSeekerRejectedApplicationModal , setSeekerRejectedApplicationModal ] = useState(false)
+
 
 
   const openJobApplicationModal= () => {
     setJobApplicationModal((prev) => !prev);
   };
+  const openSeekerAppliedModal= () => {
+    setSeekerAppliedModal((prev) => !prev);
+  };
+
   const openInterviewModal= () => {
     setInterviewOfferedModal((prev) => !prev);
   };
+
   const openInterviewAcceptedModal= () => {
     setInterviewAcceptedModal((prev) => !prev);
   };
-  const openOfferPositionModal= () => {
-    setOfferPositionModal((prev) => !prev);
+
+  const openSeekerPositionOfferedModal= () => {
+    setSeekerPositionOfferedModal((prev) => !prev);
   };
 
+  const openSeekerHiredModal= () => {
+    setSeekerHiredModal((prev) => !prev);
+  };
+
+
+  const openSeekerRejectedApplicationModal = () => {
+    setSeekerRejectedApplicationModal ((prev) => !prev);
+  };
+  
 
     const [job, setJob] = useState("")
     let {id} = useParams()
@@ -352,17 +376,35 @@ const SeekerViewJob = () => {
             showJobApplicationModal={showJobApplicationModal}
             setJobApplicationModal={setJobApplicationModal}
           />
+
+        <SeekerAppliedModal
+            showSeekerAppliedModal={showSeekerAppliedModal}
+            setSeekerAppliedModal={setSeekerAppliedModal}
+          />
+
         <SeekerInterviewOfferedModal
             showInterviewOfferedModal={showInterviewOfferedModal}
             setInterviewOfferedModal={setInterviewOfferedModal}
           />
-        <SeekerOfferPositionModal
-            showOfferPositionModal={showOfferPositionModal}
-            setOfferPositionModal={setOfferPositionModal}
-          />
+
         <SeekerInterviewAcceptedModal
             showInterviewAcceptedModal={showInterviewAcceptedModal}
             setInterviewAcceptedModal={setInterviewAcceptedModal}
+          />
+
+        <SeekerPositionOfferedModal
+            showSeekerPositionOfferedModal={showSeekerPositionOfferedModal}
+            setSeekerPositionOfferedModal={setSeekerPositionOfferedModal}
+          />
+          
+        <SeekerHiredModal
+            showSeekerHiredModal={showSeekerHiredModal}
+            setSeekerHiredModal={setSeekerHiredModal}
+          />
+
+        <SeekerRejectedApplicationModal
+            showSeekerRejectedApplicationModal={showSeekerRejectedApplicationModal}
+            setSeekerRejectedApplicationModal={setSeekerRejectedApplicationModal}
           />
         <JobInfo>
           {
@@ -377,14 +419,29 @@ const SeekerViewJob = () => {
         <InputButton style={{margin: "1rem 0"}}onClick={openJobApplicationModal}>
               Apply
             </InputButton>
-        <InputButton style={{margin: "1rem 0"}}onClick={openInterviewModal}>
-              Interview Modal
+
+        <InputButton style={{margin: "1rem 0"}}onClick={openSeekerAppliedModal}>
+              Applied
             </InputButton>
-        <InputButton style={{margin: "1rem 0"}}onClick={openOfferPositionModal}>
-              Offer Position Modal
+
+          <InputButton style={{margin: "1rem 0"}}onClick={openInterviewModal}>
+              Interview Offered
             </InputButton>
-        <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
+
+            <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
               Interview Accepted Modal
+            </InputButton>
+
+        <InputButton style={{margin: "1rem 0"}}onClick={openSeekerPositionOfferedModal}>
+              Position Offered
+            </InputButton>
+
+        <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerHiredModal}>
+              Hired
+            </InputButton>
+
+        <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerRejectedApplicationModal}>
+              Application Rejected
             </InputButton>
         </JobInfoContainer>
       }

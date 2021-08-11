@@ -1,14 +1,14 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-
-
+import { getJob } from "../services/jobServices";
+import DatePicker from "react-datepicker";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-
-
-
+import "react-datepicker/dist/react-datepicker.css";
+import { getSeeker } from "../services/authServices";
+import './DateEditor.css'
+import EmpApplications from "../pages/EmpApplications";
 
 import './applications.css'
 
@@ -153,7 +153,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.textarea`
+const BodyContent = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -170,6 +170,30 @@ const BodyContent = styled.textarea`
 
 `;
 
+const TimeContainer = styled.div`
+  border-radius: 5px;
+  background: ${theme.accentBg};
+
+  text-align: left;
+  border: none;
+  padding: 15px;
+  height: 100%;
+  width:80%;
+  margin: 0.5rem 1rem;
+
+  @media only screen and (max-width: 768px){
+    
+    // display:flex;
+    height: 100%;
+    // justify-content:center;
+    padding-bottom:5px;
+    
+    width: 80%;
+  }
+`;
+const Time = styled.p`
+font-size:16px;
+`
 
 
 
@@ -184,29 +208,55 @@ const CloseModalButton = styled(MdClose)`
   z-index: 10;
 `;
 
+const FormContainer = styled.div`
+display:flex;
+margin:1rem;
+`;
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
+`;
 
-const EmployerRejectedApplicationModal = ({
-  showEmployerRejectedApplicationModal,
-  setEmployerRejectedApplicationModal,
-  
+const ContractInfoContainer = styled.div`
+display:flex;
+width:100%;
+margin: 1rem -2rem;
+justify-content:center;
+// max-width:100%;
+`;
+const ContractDownloadBtn = styled(Link)`
+// width:200px;
+text-decoration: none;
+
+&:hover{
+  text-decoration: underline;
+  font-weight:600;
+}
+`;
+
+const SeekerHiredModal = ({
+  showSeekerHiredModal,
+  setSeekerHiredModal,
 }) => {
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+
+
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerRejectedApplicationModal(false);
+      setSeekerHiredModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerRejectedApplicationModal) {
-        setEmployerRejectedApplicationModal(false);
+      if (e.key === "Escape" && showSeekerHiredModal) {
+        setSeekerHiredModal(false);
       }
     },
-    [setEmployerRejectedApplicationModal, showEmployerRejectedApplicationModal]
+    [setSeekerHiredModal, showSeekerHiredModal]
   );
 
   useEffect(() => {
@@ -235,16 +285,13 @@ const EmployerRejectedApplicationModal = ({
   //   })
   // }, [])
   // console.log(seekerData)
-
-  // Get the date from interview time
-
   return (
     <>
           
-      {showEmployerRejectedApplicationModal ? (
+      {showSeekerHiredModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerRejectedApplicationModal={showEmployerRejectedApplicationModal}
+            showSeekerHiredModal={showSeekerHiredModal}
             >
            
             <ModalContent>
@@ -253,20 +300,28 @@ const EmployerRejectedApplicationModal = ({
                 <DateApplied>Applied {Date.now()}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>Application Status</BodySubtitle>
+                <BodySubtitle>You have been Hired</BodySubtitle>
                 <BodyContent>
-                 This application has been rejected.
+                  Congratulations on your new position at COMPANY NAME.
                 </BodyContent>
-                <BodySubtitle>Feedback</BodySubtitle>
+                <FormContainer>
+                <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                </FormContainer>
+                <ContractInfoContainer>
+                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>
+                <BodySubtitle>Feedback Given</BodySubtitle>
                 <BodyContent>
-                  Please add any feedback you have for the applicant.
+                  This will contain the feedback an employer has provided to the Applicant
                 </BodyContent>
               </Body>
             </ModalContent>
+           
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerRejectedApplicationModal((prev) => !prev)}
+              onClick={() => setSeekerHiredModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -276,4 +331,4 @@ const EmployerRejectedApplicationModal = ({
   );
 };
 
-export default EmployerRejectedApplicationModal;
+export default SeekerHiredModal;
