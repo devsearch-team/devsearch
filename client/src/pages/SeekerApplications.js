@@ -67,7 +67,7 @@ const SeekerApplications = () => {
       getSeekerApplications(stage)
       .then((res)=>{
         setAppList(res.data)
-        console.log("employer is",res.data[0].employer.name)
+        // console.log("employer is",res.data[0].employer.name)
       })
       .catch()
     },[stage])

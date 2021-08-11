@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback,useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
-import {useHistory,  useParams, Link} from 'react-router-dom'
+import {useHistory,  useParams} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 
@@ -39,7 +39,6 @@ const Background = styled.div`
 const ModalWrapper = styled.div`
   max-width: 500px;
   max-height: 100%;
-  // height:60%;
   margin-top:3rem;
   width:100%;
   box-shadow: 3px 3px 5px #333;
@@ -172,22 +171,7 @@ width:90%;
 justify-content:space-evenly;
 // max-width:100%;
 `;
-const ContractInfoContainer = styled.div`
-display:flex;
-width:100%;
-margin: 1rem -2rem;
-justify-content:center;
-// max-width:100%;
-`;
-const ContractDownloadBtn = styled(Link)`
-// width:200px;
-text-decoration: none;
 
-&:hover{
-  text-decoration: underline;
-  font-weight:600;
-}
-`;
 const CloseModalButton = styled(MdClose)`
 cursor: pointer;
 position: absolute;
@@ -229,23 +213,23 @@ const ModalBtn = styled.button`
   }
 `;
 
-const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal}) => {
+const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewAcceptedModal}) => {
   // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
   let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setOfferPositionModal(false);
+      setInterviewAcceptedModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showOfferPositionModal) {
-        setOfferPositionModal(false);
+      if (e.key === "Escape" && showInterviewAcceptedModal) {
+        setInterviewAcceptedModal(false);
       }
     },
-    [setOfferPositionModal, showOfferPositionModal]
+    [setInterviewAcceptedModal, showInterviewAcceptedModal]
   );
 
   useEffect(() => {
@@ -277,9 +261,9 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
   console.log(seekerData)
   return (
     <>
-      { showOfferPositionModal ?(
+      { showInterviewAcceptedModal ?(
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showOfferPositionModal={showOfferPositionModal}>
+          <ModalWrapper showInterviewAcceptedModal={showInterviewAcceptedModal}>
             
               <ModalContent>
                 <Header>
@@ -295,30 +279,24 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
               }
                 </Header>
                 <Body>
-                  <BodySubtitle>Position Offered</BodySubtitle>
+                  <BodySubtitle>Application Information</BodySubtitle>
                     <BodyContent>
-                    Dear {seekerData.name}  we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an a Position within our company. See below for more information.    
+                    Dear {seekerData.name} we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an interview. See below for more information.  
                     </BodyContent>
-                  <BodySubtitle>Interviewed on</BodySubtitle>
+                  <BodySubtitle>Interview arranged on</BodySubtitle>
                     <InterviewTime>Monday, 27th March, 11am</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
                     <BodyContent >
-                    Important Information regarding the offer you have recieved
+                    Important Information regarding this Interview
                     </BodyContent>
-                  <ContractInfoContainer>
-                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
-                  </ContractInfoContainer>
                 </Body>
               </ModalContent>
-                <BtnContainer>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setOfferPositionModal(false);}}>Accept</ModalBtn>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setOfferPositionModal(false);}}>Deny</ModalBtn>
-                </BtnContainer>
+
             
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setOfferPositionModal((prev) => !prev)}
+              onClick={() => setInterviewAcceptedModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -327,4 +305,4 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
   );
 };
 
-export default SeekerOfferPositionModal;
+export default SeekerInterviewAcceptedModal;
