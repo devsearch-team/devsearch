@@ -51,6 +51,7 @@ const addJob = function (req) {
     req.body.employer = req.user.id
     req.body.created_at = date
     req.body.modified_at = date
+    console.log("create job req",req.body)
     return Job(req.body)
 }
 

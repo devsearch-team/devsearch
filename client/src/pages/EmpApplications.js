@@ -56,6 +56,7 @@ const EmpApplications = () => {
       getEmpApplications(stage)
       .then((res)=>{
         setAppList(res.data)
+        console.log("applicatin list res",res.data)
       })
       .catch()
     },[stage])
@@ -104,8 +105,9 @@ const EmpApplications = () => {
                <CardContainer>
                {appList && appList.map((app,index)=>{
                 // let date=app.stages[stage].actionDate
-                console.log(app.seeker.name)
-                 return (<Card  jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} />)
+                return (stage===app.currentStage?
+                  <Card  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
+                  <></>)
                })}   
                </CardContainer>
         </ApplicationsContainer> 

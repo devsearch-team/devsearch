@@ -44,33 +44,17 @@ const SeekerApplications = () => {
     const [stage,setStage]=useState("SUBMITTED")
     const [appList,setAppList]=useState([])
     const [serverError,setServerError]=useState("")
-    // const [jobList, setJobList] = useState([]);
-    // const [serverError, setServerError] = useState("")
-    // const [totalPages, setTotalPages] = useState(1);
-    // const [page, setPage] = useState(0);
-    // const [loading, setLoading] = useState(false);
-    // useEffect(() => {
-    //   setLoading(true)
-    //   getEmployerJobs(page)
-    //     .then((res) => {
-    //     //   console.log("my jobs",res)
-    //       setJobList([...jobList, ...res.data.jobs])
-    //       setTotalPages(res.data.totalPages)
-    //       setLoading(false)
-    //     })
-    //     .catch((error) =>{ 
-    //       // console.log("err from catch",error.message)
-    //       setServerError(error.message)
-    //       });
-    // }, [page]);
+
     useEffect(()=>{
       getSeekerApplications(stage)
       .then((res)=>{
         setAppList(res.data)
-        // console.log("employer is",res.data[0].employer.name)
+        console.log("applicatin list res",res.data)
+       // console.log("employer is",res.data[0].employer.name)
       })
       .catch()
     },[stage])
+
     return (
         <>  
         
@@ -80,8 +64,9 @@ const SeekerApplications = () => {
         
                <CardContainer>
                {appList && appList.map((app,index)=>{
-                 let date=app.stages[stage].actionDate
-                 return (<Card  jobTitle={app.job.title} company={app.employer.name} data={date}/>)
+                 return (stage===app.currentStage?
+                 <Card  app={app} stage={stage} jobTitle={app.job.title} company={app.employer.name} date={app.stages[stage].actionDate}/>:
+                 <></>)
                })}
                
                

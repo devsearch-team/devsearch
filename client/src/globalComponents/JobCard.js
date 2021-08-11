@@ -177,8 +177,10 @@ const JobInfo = styled.p`
 export default function JobCard({ job }) {
   //let date = new Date();
   //let hour = date.getHours();
+  console.log("job is",job)
   return (
-    <CardContainer>
+    <>
+    {job&&<CardContainer>
       <CompanyLogo>
         <Logo src={RobotArm} alt="Company Logo"></Logo>
       </CompanyLogo>
@@ -191,11 +193,11 @@ export default function JobCard({ job }) {
         <Location>{job.location}</Location>
         {job.minPay && <Salary>Min Pay: {job.minPay} </Salary>}
         {job.maxPay && <Salary>Max Pay:{job.maxPay} </Salary>}
-        {/* <Category>Developers/Programmers</Category> */}
       </CompanyInfoContainer>
       <JobInfoContainer>
         <JobInfo>{ReactHtmlParser(job.description)}</JobInfo>
       </JobInfoContainer>
-    </CardContainer>
+    </CardContainer>}
+    </>
   );
 }

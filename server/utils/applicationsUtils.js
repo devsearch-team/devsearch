@@ -37,7 +37,7 @@ const Application = require('../models/application')
 
 const getEmpApplications=async function(req){
     //console.log("user id is ",req.user.id)
-    let applications =  Application.find({employer: req.user.id}).populate("job").populate("seeker",{"hash_password":0})
+    let applications =  Application.find({employer: req.user.id}).populate("job").populate("seeker",{"hash_password":0}).populate("employer",{"hash_password":0})
     if(req.query.currentStage){
         applications.where('currentStage').equals(req.query.currentStage)
     }
@@ -93,7 +93,7 @@ const addApplication=function(req){
 
 const getSeekerApplications=async function(req){
     //console.log("user id is ",req.user.id)
-    let applications =  Application.find({seeker: req.user.id}).populate("job").populate("employer",{"hash_password":0})
+    let applications =  Application.find({seeker: req.user.id}).populate("job").populate("employer",{"hash_password":0}).populate("seeker",{"hash_password":0})
     if(req.query.currentStage){
         applications.where('currentStage').equals(req.query.currentStage)
     }

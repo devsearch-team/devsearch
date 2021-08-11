@@ -5,7 +5,7 @@ const empLoginRequired=(req, res, next) => {
     if(req.headers && req.headers.authorization){
         jwt.verify(req.headers.authorization.split(' ')[1],process.env.EMPLOYER_SECRET_KEY,(err, decode)=>{
             if (err) {
-                return res.sendStatus(403).json({message: "Unauthorized operation"})
+                return res.status(403).json({message: "Unauthorized operation"})
             }else{
                 req.user = decode
             }

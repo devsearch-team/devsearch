@@ -75,7 +75,8 @@ const CardBtn = styled.button`
   }
 `;
 
-export  default function EmployerApplicationsCard({ jobTitle, company, date, applicantName }) {
+
+export  default function EmployerApplicationsCard({ app,stage,jobTitle, company, date, applicantName }) {
   const [showEmployerViewApplicationModal, setEmployerViewApplicationModal] = useState(false)
   const [showEmployerAcceptedApplicationModal, setEmployerAcceptedApplicationModal] =useState(false)
   const [showEmployerOfferMadeModal, setEmployerOfferMadeModal] =useState(false)
@@ -115,10 +116,10 @@ export  default function EmployerApplicationsCard({ jobTitle, company, date, app
         <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
         </LogoContainer>
-        <CardText>{date}</CardText>
+        <CardText>{app.stages[stage].actionDate}</CardText>
         <CardText>{applicantName}</CardText>
-        <CardText>{jobTitle}</CardText>
-        <CardText>{company}</CardText>
+        <CardText>{app.job.title}</CardText>
+        <CardText>{app.employer.name}</CardText>
       </CardLeft>
       <EmployerViewApplicationModal
             showEmployerViewApplicationModal={showEmployerViewApplicationModal}
