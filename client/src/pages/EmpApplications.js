@@ -105,7 +105,7 @@ const EmpApplications = () => {
                <CardContainer>
                {appList && appList.map((app,index)=>{
                 // let date=app.stages[stage].actionDate
-                return (stage===app.stages[stage]?
+                return (stage===app.currentStage?
                   <Card  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
                   <></>)
                })}   
