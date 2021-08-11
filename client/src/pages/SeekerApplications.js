@@ -3,7 +3,7 @@ import styled from "styled-components";
 // import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
 import SeekerTabs from '../globalComponents/SeekerTabs'
-import Card from '../globalComponents/Cards'
+import {ApplicationCard} from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
 import {getSeekerApplications} from "../services/applicationServices"
 
@@ -65,7 +65,7 @@ const SeekerApplications = () => {
                <CardContainer>
                {appList && appList.map((app,index)=>{
                  return (stage===app.currentStage?
-                 <Card  app={app} stage={stage} jobTitle={app.job.title} company={app.employer.name} date={app.stages[stage].actionDate}/>:
+                 <ApplicationCard  app={app} stage={stage} jobTitle={app.job.title} company={app.employer.name} date={app.stages[stage].actionDate}/>:
                  <></>)
                })}
                

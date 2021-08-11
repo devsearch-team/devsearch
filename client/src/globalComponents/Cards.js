@@ -77,7 +77,8 @@ const CardBtn = styled.button`
 `;
 
 
-export  default function EmployerApplicationsCard({ app,stage,jobTitle, company, date, applicantName }) {
+export function ApplicationCard({ app,stage, applicantName }) {
+
   const [modalClicked,setModalClicked]=useState(false)
 
   const handleModalClicked=()=>{
@@ -104,7 +105,7 @@ export  default function EmployerApplicationsCard({ app,stage,jobTitle, company,
     </CardSmall>
   );
 }
-export function EmployerJobListingCard({ jobTitle, company, date, jobId, applicantName }) {
+export function EmpJobCard({ jobTitle, company, date, jobId, applicantName }) {
   let history= useHistory()
   return (
     <CardSmall>

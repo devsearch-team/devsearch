@@ -21,3 +21,10 @@ export async function getEmpApplications(stage){
      //console.log('res', res)
     return res
 }
+
+export async function empAccept(data){
+    console.log("req data",data)
+    const res = await devSearchApi.post(`/employer/empaccept/${data.id}`,data.payload)
+    console.log("accepted app is",res.data)
+    return res
+}

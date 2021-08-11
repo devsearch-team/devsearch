@@ -2,10 +2,9 @@ import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
 import { getEmpApplications } from '../services/applicationServices';
 // import { useGlobalState } from "../utils/globalContext";
-import Card from '../globalComponents/Cards'
+import {ApplicationCard} from '../globalComponents/Cards'
 import EmployerTabs from '../globalComponents/EmployerTabs'
-import EmployerApplicationsCard from '../globalComponents/Cards'
-import { ShowMoreButton } from "../globalComponents/Buttons";
+
 
 import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
 const ApplicationsContainer = styled.div`
@@ -71,49 +70,17 @@ const EmpApplications = () => {
         window.addEventListener("resize", handleWindowResize);
       })  
     return (
-        <>
-        { width < breakpoint ?
-        <> 
-
-        <MobileApplicationTabs />
-        {console.log("width", width)}
-
-       
-
-        <CardContainer>
-            {/* {console.log("jobListApplications",jobList)}
-            {jobList.map((job,index)=>   
-              <EmployerApplicationsCard
-              key={index}
-              jobId={job._id}
-              jobTitle={job.title}
-              date={job.created_at}
-              company={job.employer.name}
-              />)}   */}
-              </CardContainer>
-              <BtnContainer>
-          {/* {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>} */}
-            </BtnContainer>
-           
-              
-         </>
-      : 
         <ApplicationsContainer>
-            <EmployerTabs stage={stage} setStage={setStage} />
-               
-        
+           { width < breakpoint ? <MobileApplicationTabs />:<EmployerTabs stage={stage} setStage={setStage} />}
                <CardContainer>
                {appList && appList.map((app,index)=>{
                 // let date=app.stages[stage].actionDate
                 return (stage===app.currentStage?
-                  <Card  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
+                  <ApplicationCard  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
                   <></>)
                })}   
                </CardContainer>
         </ApplicationsContainer> 
-
-    }
-    </>
     )
 }
 

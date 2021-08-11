@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
 import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
-import EmployerJobListingCard from "../globalComponents/Cards";
+import {EmpJobCard} from "../globalComponents/Cards";
 import { ShowMoreButton } from "../globalComponents/Buttons";
 
 const ListingContainer = styled.div`
@@ -68,7 +68,7 @@ const EmployerJobListings = () => {
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CardContainer>
               {jobList.map((job,index)=>   
-              <EmployerJobListingCard
+              <EmpJobCard
                 key={index}
                 jobId={job._id}
                 jobTitle={job.title}
