@@ -188,6 +188,13 @@ text-decoration: none;
   font-weight:600;
 }
 `;
+const FormContainer = styled.div`
+display:flex;
+margin:1rem;
+`;
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
+`;
 const CloseModalButton = styled(MdClose)`
 cursor: pointer;
 position: absolute;
@@ -205,7 +212,7 @@ const ModalBtn = styled.button`
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
   transition: 3s all ease-out;
@@ -229,23 +236,23 @@ const ModalBtn = styled.button`
   }
 `;
 
-const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal}) => {
+const SeekerPositionOfferedModal = ({showSeekerPositionOfferedModal, setSeekerPositionOfferedModal}) => {
   // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
   let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setOfferPositionModal(false);
+      setSeekerPositionOfferedModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showOfferPositionModal) {
-        setOfferPositionModal(false);
+      if (e.key === "Escape" && showSeekerPositionOfferedModal) {
+        setSeekerPositionOfferedModal(false);
       }
     },
-    [setOfferPositionModal, showOfferPositionModal]
+    [setSeekerPositionOfferedModal, showSeekerPositionOfferedModal]
   );
 
   useEffect(() => {
@@ -277,9 +284,9 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
   console.log(seekerData)
   return (
     <>
-      { showOfferPositionModal ?(
+      { showSeekerPositionOfferedModal ?(
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showOfferPositionModal={showOfferPositionModal}>
+          <ModalWrapper showSeekerPositionOfferedModal={showSeekerPositionOfferedModal}>
             
               <ModalContent>
                 <Header>
@@ -299,6 +306,10 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
                     <BodyContent>
                     Dear {seekerData.name}  we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an a Position within our company. See below for more information.    
                     </BodyContent>
+                    <FormContainer>
+                  <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                  </FormContainer>
                   <BodySubtitle>Interviewed on</BodySubtitle>
                     <InterviewTime>Monday, 27th March, 11am</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
@@ -311,14 +322,14 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
                 </Body>
               </ModalContent>
                 <BtnContainer>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setOfferPositionModal(false);}}>Accept</ModalBtn>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setOfferPositionModal(false);}}>Deny</ModalBtn>
+                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setSeekerPositionOfferedModal(false);}}>Accept</ModalBtn>
+                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setSeekerPositionOfferedModal(false);}}>Deny</ModalBtn>
                 </BtnContainer>
             
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setOfferPositionModal((prev) => !prev)}
+              onClick={() => setSeekerPositionOfferedModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -327,4 +338,4 @@ const SeekerOfferPositionModal = ({showOfferPositionModal, setOfferPositionModal
   );
 };
 
-export default SeekerOfferPositionModal;
+export default SeekerPositionOfferedModal;

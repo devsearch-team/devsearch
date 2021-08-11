@@ -153,7 +153,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.textarea`
+const BodyContent = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -185,9 +185,9 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 
-const EmployerRejectedApplicationModal = ({
-  showEmployerRejectedApplicationModal,
-  setEmployerRejectedApplicationModal,
+const SeekerRejectedApplicationModal = ({
+  showSeekerRejectedApplicationModal,
+  setSeekerRejectedApplicationModal,
   
 }) => {
   // Adds close functionality to ShowApplication Modal
@@ -196,17 +196,17 @@ const EmployerRejectedApplicationModal = ({
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerRejectedApplicationModal(false);
+      setSeekerRejectedApplicationModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerRejectedApplicationModal) {
-        setEmployerRejectedApplicationModal(false);
+      if (e.key === "Escape" && showSeekerRejectedApplicationModal) {
+        setSeekerRejectedApplicationModal(false);
       }
     },
-    [setEmployerRejectedApplicationModal, showEmployerRejectedApplicationModal]
+    [setSeekerRejectedApplicationModal, showSeekerRejectedApplicationModal]
   );
 
   useEffect(() => {
@@ -215,15 +215,15 @@ const EmployerRejectedApplicationModal = ({
   }, [keyPress]);
 
   // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
+  // const [SeekerData, setSeekerData] = useState('')
   // const [seekerData, setSeekerData] = useState('')
 
   // let {id} = useParams()
   // useEffect(() => {
   //   getJob(id)
   //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
+  //     setSeekerData(data.data)
+  //     console.log("SeekerData",data.data)
   //   })
   // }, [id])
 
@@ -241,10 +241,10 @@ const EmployerRejectedApplicationModal = ({
   return (
     <>
           
-      {showEmployerRejectedApplicationModal ? (
+      {showSeekerRejectedApplicationModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerRejectedApplicationModal={showEmployerRejectedApplicationModal}
+            showSeekerRejectedApplicationModal={showSeekerRejectedApplicationModal}
             >
            
             <ModalContent>
@@ -255,7 +255,7 @@ const EmployerRejectedApplicationModal = ({
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>
                 <BodyContent>
-                 This application has been rejected.
+                 We are sorry to inform you that your application with COMPANY NAME will not be progressing further.
                 </BodyContent>
                 <BodySubtitle>Feedback</BodySubtitle>
                 <BodyContent>
@@ -266,7 +266,7 @@ const EmployerRejectedApplicationModal = ({
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerRejectedApplicationModal((prev) => !prev)}
+              onClick={() => setSeekerRejectedApplicationModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -276,4 +276,4 @@ const EmployerRejectedApplicationModal = ({
   );
 };
 
-export default EmployerRejectedApplicationModal;
+export default SeekerRejectedApplicationModal;

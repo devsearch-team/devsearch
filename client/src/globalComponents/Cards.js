@@ -13,12 +13,12 @@ import EmployerRejectedApplicationModal from '../modals/EmployerRejectedApplicat
 const CardSmall = styled.div`
   display: flex;
   align-items: center;
-  width: 350px;
+  width: 360px;
   padding: 10px;
-  height: 200px;
+  height: 250px;
   margin: 1rem;
-  background: ${theme.SecondaryBtnBg};
-  color: ${theme.SecondaryTxt};
+  background: ${theme.accentBg};
+  color: ${theme.PrimaryTxt};
   border: 1px solid ${theme.Accent};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
@@ -55,7 +55,7 @@ const LogoContainer = styled.div`
 const CardText = styled.p`
   font-size: 14px;
   font-weight: 600;
-  color: ${theme.SecondaryTxt};
+  color: ${theme.PrimaryTxt};
   margin: 5px 1rem;
 `;
 
@@ -116,10 +116,10 @@ export  default function EmployerApplicationsCard({ app,stage,jobTitle, company,
         <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
         </LogoContainer>
+        <CardText>{app.employer.name}</CardText>
         <CardText>{app.stages[stage].actionDate}</CardText>
         <CardText>{applicantName}</CardText>
-        <CardText>{app.job.title}</CardText>
-        <CardText>{app.employer.name}</CardText>
+        <CardText style={{color: `${theme.PrimaryBtnBg}`}} >{app.job.title}</CardText>
       </CardLeft>
       <EmployerViewApplicationModal
             showEmployerViewApplicationModal={showEmployerViewApplicationModal}

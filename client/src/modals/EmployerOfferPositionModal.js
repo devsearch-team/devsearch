@@ -246,6 +246,9 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
+`;
 const ContractContainer = styled.div`
 display:flex;
 justify-center:space-evenly;
@@ -253,9 +256,7 @@ align-items:center;
 width: 100%;
 // margin: 0 -1rem;
 `;
-const FileLink = styled(Link)`
-margin: 0.1rem 3rem;
-`;
+
 const ContractInput = styled.input`
 width: 55%;
 padding: 10px;

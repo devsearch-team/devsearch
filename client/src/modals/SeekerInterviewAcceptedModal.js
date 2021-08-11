@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback,useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
-import {useHistory,  useParams} from 'react-router-dom'
+import {useHistory,  useParams, Link} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 
@@ -164,14 +164,13 @@ margin: 0.5rem 1rem;
 color:${theme.PrimaryTxt}
 `;
 
-const BtnContainer = styled.div`
-
+const FormContainer = styled.div`
 display:flex;
-width:90%;
-justify-content:space-evenly;
-// max-width:100%;
+margin:1rem;
 `;
-
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
+`;
 const CloseModalButton = styled(MdClose)`
 cursor: pointer;
 position: absolute;
@@ -182,36 +181,7 @@ height: 32px;
 padding: 0;
 z-index: 10;
 `;
-const ModalBtn = styled.button`
-  margin: 1rem 0rem;
-  width: 130px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px ){
-    width:100px;
-    font-size:18px;
-    margin-top:0.5rem;
-    margin-bottom:2rem;
-    height:40px;
-  }
-  @media only screen and (max-height: 600px ){
-    width:180px;
-    font-size:16px;
-    margin-top:0.5rem;
-    margin-bottom:2rem;
-    height:40px;
-  }
-`;
+
 
 const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewAcceptedModal}) => {
   // Adds close functionality to ShowApplication Modal
@@ -283,6 +253,10 @@ const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewA
                     <BodyContent>
                     Dear {seekerData.name} we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an interview. See below for more information.  
                     </BodyContent>
+                    <FormContainer>
+                  <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                  </FormContainer>
                   <BodySubtitle>Interview arranged on</BodySubtitle>
                     <InterviewTime>Monday, 27th March, 11am</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
