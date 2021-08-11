@@ -1,11 +1,14 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { useHistory} from "react-router-dom";
+import { getJob } from "../services/jobServices";
+import DatePicker from "react-datepicker";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import {empAccept} from "../services/applicationServices"
+import { getSeeker } from "../services/authServices";
 import './DateEditor.css'
+import EmpApplications from "../pages/EmpApplications";
 
 import './applications.css'
 
@@ -150,7 +153,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.textarea`
+const BodyContent = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -167,7 +170,7 @@ const BodyContent = styled.textarea`
 
 `;
 
-const InterviewTimeContainer = styled.div`
+const TimeContainer = styled.div`
   border-radius: 5px;
   background: ${theme.accentBg};
 
@@ -188,15 +191,11 @@ const InterviewTimeContainer = styled.div`
     width: 80%;
   }
 `;
-const InterviewTime = styled.p`
+const Time = styled.p`
 font-size:16px;
 `
-const BtnContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: space-evenly;
-  // max-width:100%;
-`;
+
+
 
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
@@ -208,178 +207,121 @@ const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `;
-const ModalBtn = styled.button`
-  margin: 1rem 0rem;
-  width: 150px;
-  height: auto;
-  padding:10px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px) {
-    width: 110px;
-    font-size: 16px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-  @media only screen and (max-height: 600px) {
-    width: 180px;
-    font-size: 14px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-`;
+
 const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-
-const ContractContainer = styled.div`
-display:flex;
-justify-center:space-evenly;
-align-items:center;
-width: 100%;
-// margin: 0 -1rem;
-`;
-const FileLink = styled.a`
+const FileLink = styled(Link)`
 margin: 0.1rem 3rem;
 `;
-const ContractInput = styled.input`
-width: 55%;
-padding: 10px;
-border-radius: 5px;
-text-align:center;
-// margin: 0.3rem 3rem;
-border: none;
-color: ${theme.SecondaryTxt};
-font-size: 18px;
-@media only screen and (max-width: 768px) {
-  font-size: 14px;
-  max-width: 60%;
-  width:400px;
+
+const ContractInfoContainer = styled.div`
+display:flex;
+width:100%;
+margin: 1rem -2rem;
+justify-content:center;
+// max-width:100%;
+`;
+const ContractDownloadBtn = styled(Link)`
+// width:200px;
+text-decoration: none;
+
+&:hover{
+  text-decoration: underline;
+  font-weight:600;
 }
 `;
-const EmployerOfferPositionModal = ({app,modalClicked,setModalClicked}) => {
 
-  const initialFormState = {
-		feedback: "",
-		contract: ""
-	}
-const [formState, setFormState] = useState(initialFormState)
-const [serverError,setServererror]= useState("")
+const SeekerHiredModal = ({
+  showSeekerHiredModal,
+  setSeekerHiredModal,
+}) => {
+  // Adds close functionality to ShowApplication Modal
+  // const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
-console.log("inside employer offer application modal")
-const {seeker,stages}= app
 
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setModalClicked(false);
+      setSeekerHiredModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && modalClicked) {
-        setModalClicked(false);
+      if (e.key === "Escape" && showSeekerHiredModal) {
+        setSeekerHiredModal(false);
       }
     },
-    [setModalClicked, modalClicked]
+    [setSeekerHiredModal, showSeekerHiredModal]
   );
-
-  function handleSubmit(){
-    var form_data = new FormData();
-    for ( var key in formState ) {
-      form_data.append(key, formState[key]);
-    }
-    const data={id:app._id,payload: form_data}
-    empAccept(data)
-    .then(
-      //history.go("/employer/applications")
-    ).catch(()=>{
-      setServererror("something went wrong")
-    })
-  }
 
   useEffect(() => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  console.log("formState is",formState)
+  // Get Job Information for header
+  // const [employerData, setEmployerData] = useState('')
+  // const [seekerData, setSeekerData] = useState('')
 
+  // let {id} = useParams()
+  // useEffect(() => {
+  //   getJob(id)
+  //   .then((data) => {
+  //     setEmployerData(data.data)
+  //     console.log("EmployerData",data.data)
+  //   })
+  // }, [id])
+
+  // useEffect(() => {
+  //   getSeeker()
+  //   .then((data) => {
+  //     setSeekerData(data)
+  //     console.log("SeekerData",data)
+  //   })
+  // }, [])
+  // console.log(seekerData)
   return (
     <>
           
-      {modalClicked ? (
+      {showSeekerHiredModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            modalClicked={modalClicked}
+            showSeekerHiredModal={showSeekerHiredModal}
             >
-        {serverError && <p style={{color:"red"}}>{serverError}</p>}          
+           
             <ModalContent>
               <Header>
-                <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                <Heading>Joe Blogs</Heading>
+                <DateApplied>Applied {Date.now()}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>About {seeker.name}</BodySubtitle>
-                <BodyContent readOnly>
-                {seeker.about}
+                <BodySubtitle>You have been Hired</BodySubtitle>
+                <BodyContent>
+                  Congratulations on your new position at COMPANY NAME.
                 </BodyContent>
                 <FormContainer>
-                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
                 </FormContainer>
-                <BodySubtitle>Interview arranged on</BodySubtitle>
-                <InterviewTimeContainer>
-                    <InterviewTime>{stages.SCHEDEULED_FOR_INTERVIEW.actionDate}</InterviewTime>
-                </InterviewTimeContainer>
-                {/* <BodySubtitle>Important Information</BodySubtitle> */}
-                {/* <BodyContent placeholder="Important Information regarding this Interview">
-                  
-                </BodyContent> */}
-                <BodySubtitle>Feedback</BodySubtitle>
-                <BodyContent onChange={(e)=>{setFormState({...formState,"feedback":e.target.value})}} value={formState.feedback} name="feedback" placeholder="Please add any feedback you have for the applicant.">
-                  
+                <ContractInfoContainer>
+                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>
+                <BodySubtitle>Feedback Given</BodySubtitle>
+                <BodyContent>
+                  This will contain the feedback an employer has provided to the Applicant
                 </BodyContent>
-              <ContractContainer>
-                <BodySubtitle>Upload Contract</BodySubtitle>
-                <ContractInput  type="file" placeholder="Upload Contract" onChange={({target})=>{setFormState({...formState,"contract":target.files[0]})}}></ContractInput>
-                  
-
-              </ContractContainer>
               </Body>
             </ModalContent>
-            <BtnContainer>
-              <ModalBtn
-                onClick={handleSubmit}
-              >
-                Offer Position
-              </ModalBtn>
-              <ModalBtn
-                onClick={() => {
-                  history.push("/employer/applications");
-                  setModalClicked(false);
-                }}
-              >
-                Reject
-              </ModalBtn>
-            </BtnContainer>
+           
+
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setModalClicked((prev) => !prev)}
+              onClick={() => setSeekerHiredModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -389,4 +331,4 @@ const {seeker,stages}= app
   );
 };
 
-export default EmployerOfferPositionModal;
+export default SeekerHiredModal;

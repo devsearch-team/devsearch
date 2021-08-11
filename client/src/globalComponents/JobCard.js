@@ -31,8 +31,9 @@ const CardContainer = styled.div`
 const CompanyLogo = styled.div`
   margin: 0.5rem 1rem;
   width: 66px;
-  height: 66px;
-  overflow-y: hidden;
+  max-height: 66px;
+  height100%;
+  overflow-y: hidden !important;
   border-radius: 50%;
   @media only screen and (max-width: 460px) {
     width: 46px;
@@ -41,7 +42,7 @@ const CompanyLogo = styled.div`
 `;
 const Logo = styled.img`
   border: none;
-  object-fit: cover;
+  object-fit: fit;
   width: 100%;
 `;
 const Header = styled.div`
@@ -55,7 +56,7 @@ const JobTitleLink = styled(Link)`
   color: ${theme.PrimaryBtnBg};
   text-decoration: none;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 22px;
   @media only screen and (max-width: 1080px) {
     margin: 0.3rem 1rem;
     font-size: 20px;

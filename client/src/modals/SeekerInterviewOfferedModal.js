@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback,useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
-import {useHistory,  useParams} from 'react-router-dom'
+import {useHistory,  useParams, Link} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 
@@ -171,7 +171,13 @@ width:90%;
 justify-content:space-evenly;
 // max-width:100%;
 `;
-
+const FormContainer = styled.div`
+display:flex;
+margin:1rem;
+`;
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
+`;
 const CloseModalButton = styled(MdClose)`
 cursor: pointer;
 position: absolute;
@@ -283,7 +289,11 @@ const SeekerInterviewOfferedModal = ({showInterviewOfferedModal, setInterviewOff
                     <BodyContent>
                     Dear {seekerData.name} we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an interview. See below for more information.  
                     </BodyContent>
-                  <BodySubtitle>Interview arranged on</BodySubtitle>
+                    <FormContainer>
+                  <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                </FormContainer>
+                  <BodySubtitle>Interview Time</BodySubtitle>
                     <InterviewTime>Monday, 27th March, 11am</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
                     <BodyContent >

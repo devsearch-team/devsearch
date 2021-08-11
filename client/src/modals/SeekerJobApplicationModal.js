@@ -4,7 +4,7 @@ import { getJob } from "../services/jobServices";
 import {useHistory, Link, useParams} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-import { ModalBtn } from "../globalComponents/Buttons";
+
 import { getSeeker } from "../services/authServices";
 import {createApplication} from "../services/applicationServices"
 const Background = styled.div`
@@ -130,16 +130,24 @@ margin: 0.5rem 3rem;
 font-size:18px;
 font-weight:600px;
 `;
-
+const FormContainer = styled.div`
+display:flex;
+margin:1rem 0;
+`;
+const FormContainerColumn = styled.div`
+display:flex;
+flex-direction:column;
+margin:0.3rem 0;
+`;
 const FileLink = styled(Link)`
 margin: 0.1rem 3rem;
 `;
 const CoverLetterInput = styled.input`
-width: 200px;
-padding: 10px;
+// width: 200px;
+// padding: 10px;
 border-radius: 5px;
-text-align:center;
-margin: 0.3rem 3rem;
+// text-align:center;
+margin: 0.5rem 3rem;
 border: none;
 color: ${theme.SecondaryTxt};
 font-size: 18px;
@@ -148,6 +156,36 @@ font-size: 18px;
   max-width: 60%;
   width:400px;
 }
+`;
+const ModalBtn = styled.button`
+  margin: 0.5rem 0;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
+  transition: 3s all ease-out;
+  background: ${(props) => theme.PrimaryBtnBg};
+  &:hover {
+    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
+  }
+  @media only screen and (max-width: 768px ){
+    width:200px;
+    font-size:18px;
+    margin-top:0.5rem;
+    margin-bottom:2rem;
+    height:40px;
+  }
+  @media only screen and (max-height: 600px ){
+    width:180px;
+    font-size:16px;
+    margin-top:0.5rem;
+    margin-bottom:2rem;
+    height:40px;
+  }
 `;
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
@@ -240,10 +278,13 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
                 </Header>
                 <Body>
                   <BodySubtitle>Resume</BodySubtitle>
+                  <FormContainer>
                   <FileLink to={seekerData.resumeFile}target="blank">View Resume</FileLink>
-                  <BodySubtitle>Cover Letter</BodySubtitle>
+                  </FormContainer>
+                  <FormContainerColumn>
+                    <BodySubtitle>Upload Cover Letter</BodySubtitle>
                   <CoverLetterInput  type="file" placeholder="Upload Cover Letter" onChange={({target})=>{coverLetter=target.files[0]}}></CoverLetterInput>
-                  <FileLink to={seekerData.resumeFile}target="blank">View Cover Letter</FileLink>
+                  </FormContainerColumn>
                 </Body>
                 <ModalBtn style={{margin: '0.5rem 3rem'}} onClick={handleSubmit}>Submit</ModalBtn>
               </ModalContent>

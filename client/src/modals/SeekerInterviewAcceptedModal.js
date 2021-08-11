@@ -164,8 +164,13 @@ margin: 0.5rem 1rem;
 color:${theme.PrimaryTxt}
 `;
 
-
-
+const FormContainer = styled.div`
+display:flex;
+margin:1rem;
+`;
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
+`;
 const CloseModalButton = styled(MdClose)`
 cursor: pointer;
 position: absolute;
@@ -176,6 +181,7 @@ height: 32px;
 padding: 0;
 z-index: 10;
 `;
+
 
 const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewAcceptedModal}) => {
   // Adds close functionality to ShowApplication Modal
@@ -246,6 +252,10 @@ const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewA
                     <BodyContent>
                     Dear {seekerData.name} we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an interview. See below for more information.  
                     </BodyContent>
+                    <FormContainer>
+                  <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                  </FormContainer>
                   <BodySubtitle>Interview arranged on</BodySubtitle>
                     <InterviewTime>Monday, 27th March, 11am</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
