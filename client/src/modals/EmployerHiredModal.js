@@ -153,7 +153,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -212,7 +212,7 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 
@@ -223,7 +223,7 @@ margin: 1rem -2rem;
 justify-content:center;
 // max-width:100%;
 `;
-const ContractDownloadBtn = styled(Link)`
+const ContractDownloadBtn = styled.a`
 // width:200px;
 text-decoration: none;
 
@@ -234,7 +234,9 @@ text-decoration: none;
 `;
 
 const EmployerHiredModal = ({app,modalClicked,setModalClicked}) => {
-console.log("inside employer hired application modal")
+  
+  const {seeker,employer,job,stages}= app
+  console.log("inside employer hired application modal")
 
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
@@ -263,27 +265,6 @@ console.log("inside employer hired application modal")
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
   return (
     <>
           
@@ -295,25 +276,25 @@ console.log("inside employer hired application modal")
            
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+                <Heading>{seeker.name}</Heading>
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>Joe Blogs was Hired</BodySubtitle>
-                <BodyContent>
+                <BodySubtitle>{seeker.name} was Hired</BodySubtitle>
+                <BodyContentP>
                   Congratulations on a successful application.
-                </BodyContent>
+                </BodyContentP>
                 <FormContainer>
-                <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
+                {(stages.OFFER_MADE.contract&&stages.OFFER_MADE.contract!="undefined")&&
                 <ContractInfoContainer>
-                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
-                  </ContractInfoContainer>
+                    <ContractDownloadBtn href={stages.OFFER_MADE.contract}>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>}
                 <BodySubtitle>Feedback Given</BodySubtitle>
-                <BodyContent>
-                  This will contain the feedback an employer has provided to the Applicant
-                </BodyContent>
+                <BodyContentP>
+                {stages.OFFER_MADE.feedback?stages.OFFER_MADE.feedback:"No given feedback"}                </BodyContentP>
               </Body>
             </ModalContent>
            

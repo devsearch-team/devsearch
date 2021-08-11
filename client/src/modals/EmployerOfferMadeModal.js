@@ -1,14 +1,12 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-import DatePicker from "react-datepicker";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
+
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
+
 
 import './applications.css'
 
@@ -235,7 +233,7 @@ text-decoration: none;
 
 const EmployerOfferMadeModal = ({app,modalClicked,setModalClicked}) => {
   
-  const {seeker,employer,job,stages}= app
+  const {seeker,stages}= app
   console.log("inside employer offer made application modal")
 
   const modalRef = useRef();
@@ -273,7 +271,7 @@ const EmployerOfferMadeModal = ({app,modalClicked,setModalClicked}) => {
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
