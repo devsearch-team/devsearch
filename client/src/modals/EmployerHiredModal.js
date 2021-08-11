@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
 import DatePicker from "react-datepicker";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
@@ -170,7 +170,7 @@ const BodyContent = styled.p`
 
 `;
 
-const InterviewTimeContainer = styled.div`
+const TimeContainer = styled.div`
   border-radius: 5px;
   background: ${theme.accentBg};
 
@@ -191,16 +191,11 @@ const InterviewTimeContainer = styled.div`
     width: 80%;
   }
 `;
-const InterviewTime = styled.p`
+const Time = styled.p`
 font-size:16px;
 `
 
-const BtnContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: space-evenly;
-  // max-width:100%;
-`;
+
 
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
@@ -212,40 +207,35 @@ const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `;
-const ModalBtn = styled.button`
-  margin: 1rem 0rem;
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px) {
-    width: 110px;
-    font-size: 16px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-  @media only screen and (max-height: 600px) {
-    width: 180px;
-    font-size: 14px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
+
+const FormContainer = styled.div`
+display:flex;
+margin:1rem;
+`;
+const FileLink = styled(Link)`
+margin: 0.1rem 3rem;
 `;
 
-const EmployerInterviewingApplicantModal = ({
-  showEmployerInterviewingApplicantModal,
-  setEmployerInterviewingApplicantModal,
+const ContractInfoContainer = styled.div`
+display:flex;
+width:100%;
+margin: 1rem -2rem;
+justify-content:center;
+// max-width:100%;
+`;
+const ContractDownloadBtn = styled(Link)`
+// width:200px;
+text-decoration: none;
+
+&:hover{
+  text-decoration: underline;
+  font-weight:600;
+}
+`;
+
+const EmployerHiredModal = ({
+  showEmployerHiredModal,
+  setEmployerHiredModal,
 }) => {
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
@@ -256,17 +246,17 @@ const EmployerInterviewingApplicantModal = ({
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerInterviewingApplicantModal(false);
+      setEmployerHiredModal(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerInterviewingApplicantModal) {
-        setEmployerInterviewingApplicantModal(false);
+      if (e.key === "Escape" && showEmployerHiredModal) {
+        setEmployerHiredModal(false);
       }
     },
-    [setEmployerInterviewingApplicantModal, showEmployerInterviewingApplicantModal]
+    [setEmployerHiredModal, showEmployerHiredModal]
   );
 
   useEffect(() => {
@@ -298,10 +288,10 @@ const EmployerInterviewingApplicantModal = ({
   return (
     <>
           
-      {showEmployerInterviewingApplicantModal ? (
+      {showEmployerHiredModal ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerInterviewingApplicantModal={showEmployerInterviewingApplicantModal}
+            showEmployerHiredModal={showEmployerHiredModal}
             >
            
             <ModalContent>
@@ -310,22 +300,20 @@ const EmployerInterviewingApplicantModal = ({
                 <DateApplied>Applied {Date.now()}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>About Joe Blogs</BodySubtitle>
+                <BodySubtitle>Joe Blogs was Hired</BodySubtitle>
                 <BodyContent>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor nam a viverra sed id nulla laoreet accumsan. Cursus et
-                  fermentum turpis ut suspendisse rhoncus nec neque. Dui, sed
-                  amet maecenas sollicitudin. Est proin pulvinar imperdiet morbi
-                  nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
-                  tristique suspendisse arcu, accumsan..
+                  Congratulations on a successful application.
                 </BodyContent>
-                <BodySubtitle>Interview arranged on</BodySubtitle>
-                <InterviewTimeContainer>
-                <InterviewTime>09/11/21 9:30am</InterviewTime>
-                </InterviewTimeContainer>
-                <BodySubtitle>Important Information</BodySubtitle>
+                <FormContainer>
+                <FileLink to={'/'}target="blank">View Resume</FileLink>
+                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                </FormContainer>
+                <ContractInfoContainer>
+                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>
+                <BodySubtitle>Feedback Given</BodySubtitle>
                 <BodyContent>
-                  Provide any important information.
+                  This will contain the feedback an employer has provided to the Applicant
                 </BodyContent>
               </Body>
             </ModalContent>
@@ -333,7 +321,7 @@ const EmployerInterviewingApplicantModal = ({
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerInterviewingApplicantModal((prev) => !prev)}
+              onClick={() => setEmployerHiredModal((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
@@ -343,4 +331,4 @@ const EmployerInterviewingApplicantModal = ({
   );
 };
 
-export default EmployerInterviewingApplicantModal;
+export default EmployerHiredModal;
