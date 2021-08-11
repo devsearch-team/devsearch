@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
@@ -338,8 +338,8 @@ const {seeker,stages}= app
                 {seeker.about}
                 </BodyContent>
                 <FormContainer>
-                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>

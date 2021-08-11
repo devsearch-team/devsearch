@@ -1,15 +1,9 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback} from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-import DatePicker from "react-datepicker";
-import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
-
 import './applications.css'
 
   const Background = styled.div`
@@ -170,33 +164,6 @@ const BodyContentP = styled.p`
 
 `;
 
-const TimeContainer = styled.div`
-  border-radius: 5px;
-  background: ${theme.accentBg};
-
-  text-align: left;
-  border: none;
-  padding: 15px;
-  height: 100%;
-  width:80%;
-  margin: 0.5rem 1rem;
-
-  @media only screen and (max-width: 768px){
-    
-    // display:flex;
-    height: 100%;
-    // justify-content:center;
-    padding-bottom:5px;
-    
-    width: 80%;
-  }
-`;
-const Time = styled.p`
-font-size:16px;
-`
-
-
-
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
@@ -235,16 +202,11 @@ text-decoration: none;
 
 const EmployerHiredModal = ({app,modalClicked,setModalClicked}) => {
   
-  const {seeker,employer,job,stages}= app
+  const {seeker,stages}= app
   console.log("inside employer hired application modal")
 
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-
-
   const modalRef = useRef();
-  let history = useHistory();
+
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);
@@ -285,10 +247,10 @@ const EmployerHiredModal = ({app,modalClicked,setModalClicked}) => {
                   Congratulations on a successful application.
                 </BodyContentP>
                 <FormContainer>
-                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
-                {(stages.OFFER_MADE.contract&&stages.OFFER_MADE.contract!="undefined")&&
+                {(stages.OFFER_MADE.contract&&stages.OFFER_MADE.contract!=="undefined")&&
                 <ContractInfoContainer>
                     <ContractDownloadBtn href={stages.OFFER_MADE.contract}>View Contract</ContractDownloadBtn>
                   </ContractInfoContainer>}

@@ -1,16 +1,12 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
 import DatePicker from "react-datepicker";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
 import {empAccept} from "../services/applicationServices"
-import { getSeeker } from "../services/authServices";
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
-
 import './applications.css'
 
   const Background = styled.div`
@@ -250,7 +246,7 @@ margin: 0.1rem 3rem;
 
 const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
 
-  const {seeker,employer,job,stages}= app
+  const {seeker,stages}= app
   const initialFormState = {
 		interviewTime: new Date(),
 		information: ''
@@ -313,9 +309,8 @@ console.log("inside employer view application modal")
                   
                 </BodyContent>
                 <FormContainer>
-                  {console.log("condition",((app.coverLetter)||(app.coverLetter!="undefined")))}
-                  {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                  {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Set Interview Time</BodySubtitle>
                 <InterviewTime>

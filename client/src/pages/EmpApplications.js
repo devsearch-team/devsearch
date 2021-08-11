@@ -39,11 +39,6 @@ const CardContainer = styled.div`
   margin-left:4rem;
 }
 `;
-const BtnContainer = styled.div`
-display: flex;
-justify-content:center;
-width:80%;
-`;
 const EmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;
@@ -57,9 +52,10 @@ const EmpApplications = () => {
         setAppList(res.data)
         console.log("applicatin list res",res.data)
       })
-      .catch()
+      .catch(() =>{ 
+        setServerError("something went wrong")
+        });
     },[stage])
-      // console.log("serverError",serverError)
 
 
       // Change to Mobile Applications Component when reach mobile screen size
@@ -72,6 +68,7 @@ const EmpApplications = () => {
     return (
         <ApplicationsContainer>
            { width < breakpoint ? <MobileApplicationTabs />:<EmployerTabs stage={stage} setStage={setStage} />}
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
                {appList && appList.map((app,index)=>{
                 return (stage===app.currentStage&&

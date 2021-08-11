@@ -1,8 +1,5 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-
-
-import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 
@@ -191,7 +188,6 @@ console.log("inside employer rejected application modal")
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
   const modalRef = useRef();
-  let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);

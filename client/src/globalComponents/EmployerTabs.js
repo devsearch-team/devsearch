@@ -96,8 +96,6 @@ const Tab = styled.button`
   }};
   color: ${(props) => {
     // console.log("active tab", props.activeTab);
-    const id = parseInt(props.id);
-
     return props.name === props.activeTab ? theme.PrimaryTxt : theme.SecondaryTxt;
   }};
 

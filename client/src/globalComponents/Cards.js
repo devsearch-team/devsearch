@@ -5,12 +5,6 @@ import { FaChevronRight } from "react-icons/fa";
 import RobotArm from "../Assets/robotArm.jpg";
 import {useHistory} from 'react-router-dom'
 import ViewModal from './ViewModal'
-import EmployerViewApplicationModal from '../modals/EmployerViewApplicationModal'
-import EmployerAcceptedApplicationModal from '../modals/EmployerAcceptedApplicationModal'
-import EmployerOfferMadeModal from '../modals/EmployerOfferMadeModal'
-import EmployerOfferPositionModal from '../modals/EmployerOfferPositionModal'
-import EmployerHiredModal from '../modals/EmployerHiredModal'
-import EmployerRejectedApplicationModal from '../modals/EmployerRejectedApplicationModal'
 const CardSmall = styled.div`
   display: flex;
   align-items: center;

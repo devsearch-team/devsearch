@@ -1,14 +1,12 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
 
-import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
+
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
+
 
 import './applications.css'
 
@@ -194,12 +192,6 @@ const InterviewTimeContainer = styled.div`
 const InterviewTime = styled.p`
 font-size:16px;
 `
-const BtnContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: space-evenly;
-  // max-width:100%;
-`;
 
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
@@ -211,36 +203,6 @@ const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `;
-const ModalBtn = styled.button`
-  margin: 1rem 0rem;
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px) {
-    width: 110px;
-    font-size: 16px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-  @media only screen and (max-height: 600px) {
-    width: 180px;
-    font-size: 14px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-`;
 const FormContainer = styled.div`
 display:flex;
 margin:1rem;
@@ -249,10 +211,10 @@ const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
+
 console.log("inside employer accepted application modal")
 const {seeker,stages}= app
-  const modalRef = useRef();
-  let history = useHistory();
+const modalRef = useRef();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);
@@ -293,8 +255,8 @@ const {seeker,stages}= app
                 {seeker.about}
                 </BodyContent>
                 <FormContainer>
-                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview offered on</BodySubtitle>
                 <InterviewTimeContainer>

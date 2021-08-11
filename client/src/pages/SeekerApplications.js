@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import styled from "styled-components";
 // import { getEmployerJobs } from '../services/jobServices';
-import { useGlobalState } from "../utils/globalContext";
+// import { useGlobalState } from "../utils/globalContext";
 import SeekerTabs from '../globalComponents/SeekerTabs'
 import {ApplicationCard} from '../globalComponents/Cards'
 import { ShowMoreButton } from "../globalComponents/Buttons";
@@ -39,8 +39,7 @@ justify-content:center;
 width:80%;
 `;
 const SeekerApplications = () => {
-    const { store } = useGlobalState();
-    const { isEmployer } = store;
+    
     const [stage,setStage]=useState("SUBMITTED")
     const [appList,setAppList]=useState([])
     const [serverError,setServerError]=useState("")
@@ -52,7 +51,9 @@ const SeekerApplications = () => {
         console.log("applicatin list res",res.data)
        // console.log("employer is",res.data[0].employer.name)
       })
-      .catch()
+      .catch((error) =>{ 
+        setServerError("something went wrong")
+        });
     },[stage])
 
     return (
@@ -61,7 +62,7 @@ const SeekerApplications = () => {
                <ApplicationsContainer>
                <SeekerTabs stage={stage} setStage={setStage} />
                
-        
+               {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
                {appList && appList.map((app,index)=>{
                  return (stage===app.currentStage?

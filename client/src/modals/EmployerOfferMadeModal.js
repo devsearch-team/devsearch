@@ -1,13 +1,9 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { useHistory} from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-
 import './DateEditor.css'
-
-
 import './applications.css'
 
   const Background = styled.div`
@@ -237,7 +233,6 @@ const EmployerOfferMadeModal = ({app,modalClicked,setModalClicked}) => {
   console.log("inside employer offer made application modal")
 
   const modalRef = useRef();
-  let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);
@@ -279,17 +274,18 @@ const EmployerOfferMadeModal = ({app,modalClicked,setModalClicked}) => {
                 
                 </BodyContent>
                 <FormContainer>
-                {((seeker.resumeFile)&&(seeker.resumeFile!="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Offer Made on</BodySubtitle>
                 <TimeContainer>
                   {console.log("seeker resume",seeker.resumeFile)}
                 <Time>{stages.OFFER_MADE.actionDate}</Time>
                 </TimeContainer>
+                {(stages.OFFER_MADE.contract&&stages.OFFER_MADE.contract!=="undefined")&&
                 <ContractInfoContainer>
                     <ContractDownloadBtn href={stages.OFFER_MADE.contract}>View Contract</ContractDownloadBtn>
-                  </ContractInfoContainer>
+                  </ContractInfoContainer>}
                 
                 <BodySubtitle>Feedback Given</BodySubtitle>
                 <BodyContent readOnly defaultValue={stages.OFFER_MADE.feedback?stages.OFFER_MADE.feedback:"No given feedback"}>
