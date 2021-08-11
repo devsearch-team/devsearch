@@ -69,7 +69,7 @@ const CardBtn = styled.button`
   }
 `;
 
-export  default function EmployerApplicationsCard({ jobTitle, company, date }) {
+export  default function EmployerApplicationsCard({ app,stage,jobTitle, company, date }) {
   const [showEmployerViewApplicationModal, setEmployerViewApplicationModal] = useState(false)
 
   const openEmployerViewApplicationModal= () => {  
@@ -82,9 +82,9 @@ export  default function EmployerApplicationsCard({ jobTitle, company, date }) {
         <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
         </LogoContainer>
-        <CardText>{date}</CardText>
-        <CardText>{jobTitle}</CardText>
-        <CardText>{company}</CardText>
+        <CardText>{app.stages[stage].actionDate}</CardText>
+        <CardText>{app.job.title}</CardText>
+        <CardText>{app.employer.name}</CardText>
       </CardLeft>
       <EmployerViewApplicationModal
             showEmployerViewApplicationModal={showEmployerViewApplicationModal}

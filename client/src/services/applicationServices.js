@@ -10,7 +10,7 @@ export async function createApplication(data){
 
 export async function getSeekerApplications(stage){
     const res = await devSearchApi.get(`/seeker/applications/?currentStage=${stage}`)
-     console.log('res', res)
+     //console.log('res', res)
     return res
 }
 
@@ -18,6 +18,6 @@ export async function getSeekerApplications(stage){
 //employer-----------------------------------------------------
 export async function getEmpApplications(stage){
     const res = await devSearchApi.get(`/employer/applications/?currentStage=${stage}`)
-     console.log('res', res)
+     //console.log('res', res)
     return res
 }
