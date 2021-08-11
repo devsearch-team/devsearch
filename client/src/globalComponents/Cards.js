@@ -6,7 +6,9 @@ import RobotArm from "../Assets/robotArm.jpg";
 import {useHistory} from 'react-router-dom'
 import EmployerViewApplicationModal from '../modals/EmployerViewApplicationModal'
 import EmployerAcceptedApplicationModal from '../modals/EmployerAcceptedApplicationModal'
+import EmployerInterviewingApplicantModal from '../modals/EmployerInterviewingApplicantModal'
 import EmployerOfferPositionModal from '../modals/EmployerOfferPositionModal'
+import EmployerRejectedApplicationModal from '../modals/EmployerRejectedApplicationModal'
 const CardSmall = styled.div`
   display: flex;
   align-items: center;
@@ -75,16 +77,30 @@ const CardBtn = styled.button`
 export  default function EmployerApplicationsCard({ jobTitle, company, date, applicantName }) {
   const [showEmployerViewApplicationModal, setEmployerViewApplicationModal] = useState(false)
   const [showEmployerAcceptedApplicationModal, setEmployerAcceptedApplicationModal] =useState(false)
+  const [showEmployerInterviewingApplicantModal, setEmployerInterviewingApplicantModal] =useState(false)
   const [showEmployerOfferPositionModal, setEmployerOfferPositionModal] =useState(false)
+  const [showEmployerRejectedApplicationModal, setEmployerRejectedApplicationModal] =useState(false)
+  
   const openEmployerViewApplicationModal= () => {  
     setEmployerViewApplicationModal((prev) => !prev);
   };
+
   const openEmployerAcceptedApplicationModal= () => {  
     setEmployerAcceptedApplicationModal((prev) => !prev);
   };
+
+  const openEmployerInterviewingApplicantModal= () => {  
+    setEmployerInterviewingApplicantModal((prev) => !prev);
+  };
+
   const openEmployerOfferPositionModal= () => {  
     setEmployerOfferPositionModal((prev) => !prev);
   };
+
+  const openEmployerRejectedApplicationModal= () => {  
+    setEmployerRejectedApplicationModal((prev) => !prev);
+  };
+
   console.log("jobTitle")
   console.log(jobTitle)
   console.log(company)
@@ -107,9 +123,17 @@ export  default function EmployerApplicationsCard({ jobTitle, company, date, app
             showEmployerAcceptedApplicationModal={showEmployerAcceptedApplicationModal}
             setEmployerAcceptedApplicationModal={setEmployerAcceptedApplicationModal}
           />
+      <EmployerInterviewingApplicantModal
+            showEmployerInterviewingApplicantModal={showEmployerInterviewingApplicantModal}
+            setEmployerInterviewingApplicantModal={setEmployerInterviewingApplicantModal}
+          />
       <EmployerOfferPositionModal
             showEmployerOfferPositionModal={showEmployerOfferPositionModal}
             setEmployerOfferPositionModal={setEmployerOfferPositionModal}
+          />
+      <EmployerRejectedApplicationModal
+            showEmployerRejectedApplicationModal={showEmployerRejectedApplicationModal}
+            setEmployerRejectedApplicationModal={setEmployerRejectedApplicationModal}
           />
       <CardRight>
         <CardBtn  onClick={openEmployerViewApplicationModal}>
@@ -118,7 +142,13 @@ export  default function EmployerApplicationsCard({ jobTitle, company, date, app
         <CardBtn  onClick={openEmployerAcceptedApplicationModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
+        <CardBtn  onClick={openEmployerInterviewingApplicantModal}>
+          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
+        </CardBtn>
         <CardBtn  onClick={openEmployerOfferPositionModal}>
+          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
+        </CardBtn>
+        <CardBtn  onClick={openEmployerRejectedApplicationModal}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
       </CardRight>

@@ -153,7 +153,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContent = styled.textarea`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -353,6 +353,10 @@ const EmployerOfferPositionModal = ({
                 <BodySubtitle>Important Information</BodySubtitle>
                 <BodyContent>
                   Important Information regarding this Interview
+                </BodyContent>
+                <BodySubtitle>Feedback</BodySubtitle>
+                <BodyContent>
+                  Please add any feedback you have for the applicant.
                 </BodyContent>
               <FormContainer>
                 <CoverLetterInput  type="file" placeholder="Upload Contract" onChange={({target})=>{}}></CoverLetterInput>
