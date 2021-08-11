@@ -153,7 +153,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContent = styled.textarea`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -250,8 +250,7 @@ margin: 0.1rem 3rem;
 `;
 const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
 console.log("inside employer accepted application modal")
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
+const {seeker,employer,job,stages}= app
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
@@ -285,31 +284,29 @@ console.log("inside employer accepted application modal")
            
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+                <Heading>{seeker.name}</Heading>
+                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>About Joe Blogs</BodySubtitle>
-                <BodyContent>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor nam a viverra sed id nulla laoreet accumsan. Cursus et
-                  fermentum turpis ut suspendisse rhoncus nec neque. Dui, sed
-                  amet maecenas sollicitudin. Est proin pulvinar imperdiet morbi
-                  nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
-                  tristique suspendisse arcu, accumsan..
+                <BodySubtitle>About {seeker.name}</BodySubtitle>
+                <BodyContent readOnly>
+                {seeker.about}
                 </BodyContent>
                 <FormContainer>
-                <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {app.resumeFile!="undefined"&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {app.coverLetter!="undefined"&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview offered on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>09/11/21 9:30am</InterviewTime>
+                    <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
                 </InterviewTimeContainer>
+                {stages.APPROVED_FOR_INTERVIEW.information&&
+                <>
                 <BodySubtitle>Important Information</BodySubtitle>
-                <BodyContent>
-                  Important Information regarding this Interview
+                <BodyContent readOnly>
+                {stages.APPROVED_FOR_INTERVIEW.information}
                 </BodyContent>
+                </>}
               </Body>
             </ModalContent>
             <CloseModalButton

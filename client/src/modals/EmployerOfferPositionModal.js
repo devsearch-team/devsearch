@@ -278,7 +278,7 @@ const [formState, setFormState] = useState(initialFormState)
 const [serverError,setServererror]= useState("")
 
 console.log("inside employer offer application modal")
-const {seeker,employer,job,stages}= app
+const {seeker,stages}= app
 
   const modalRef = useRef();
   let history = useHistory();
@@ -345,7 +345,7 @@ const {seeker,employer,job,stages}= app
                 <InterviewTimeContainer>
                     <InterviewTime>{stages.SCHEDEULED_FOR_INTERVIEW.actionDate}</InterviewTime>
                 </InterviewTimeContainer>
-                <BodySubtitle>Important Information</BodySubtitle>
+                {/* <BodySubtitle>Important Information</BodySubtitle> */}
                 {/* <BodyContent placeholder="Important Information regarding this Interview">
                   
                 </BodyContent> */}
