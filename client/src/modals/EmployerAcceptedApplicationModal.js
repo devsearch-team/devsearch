@@ -248,28 +248,25 @@ margin:1rem;
 const FileLink = styled(Link)`
 margin: 0.1rem 3rem;
 `;
-const EmployerViewApplicationModal = ({
-  showEmployerAcceptedApplicationModal,
-  setEmployerAcceptedApplicationModal,
-
-}) => {
+const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
+console.log("inside employer accepted application modal")
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerAcceptedApplicationModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerAcceptedApplicationModal) {
-        setEmployerAcceptedApplicationModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerAcceptedApplicationModal, showEmployerAcceptedApplicationModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -277,37 +274,13 @@ const EmployerViewApplicationModal = ({
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
-
-  // Get the date from interview time
-
   return (
     <>
-          
-      {showEmployerAcceptedApplicationModal ? (
+        
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerAcceptedApplicationModal={showEmployerAcceptedApplicationModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
@@ -341,7 +314,7 @@ const EmployerViewApplicationModal = ({
             </ModalContent>
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerAcceptedApplicationModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

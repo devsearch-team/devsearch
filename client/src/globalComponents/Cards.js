@@ -4,6 +4,7 @@ import { theme } from "../globalStyles";
 import { FaChevronRight } from "react-icons/fa";
 import RobotArm from "../Assets/robotArm.jpg";
 import {useHistory} from 'react-router-dom'
+import ViewModal from './ViewModal'
 import EmployerViewApplicationModal from '../modals/EmployerViewApplicationModal'
 import EmployerAcceptedApplicationModal from '../modals/EmployerAcceptedApplicationModal'
 import EmployerOfferMadeModal from '../modals/EmployerOfferMadeModal'
@@ -77,39 +78,11 @@ const CardBtn = styled.button`
 
 
 export  default function EmployerApplicationsCard({ app,stage,jobTitle, company, date, applicantName }) {
-  const [showEmployerViewApplicationModal, setEmployerViewApplicationModal] = useState(false)
-  const [showEmployerAcceptedApplicationModal, setEmployerAcceptedApplicationModal] =useState(false)
-  const [showEmployerOfferMadeModal, setEmployerOfferMadeModal] =useState(false)
-  const [showEmployerOfferPositionModal, setEmployerOfferPositionModal] =useState(false)
-  const [showEmployerHiredModal, setEmployerHiredModal] =useState(false)
-  const [showEmployerRejectedApplicationModal, setEmployerRejectedApplicationModal] =useState(false)
-  
-  const openEmployerViewApplicationModal= () => {  
-    setEmployerViewApplicationModal((prev) => !prev);
-  };
+  const [modalClicked,setModalClicked]=useState(false)
 
-  const openEmployerAcceptedApplicationModal= () => {  
-    setEmployerAcceptedApplicationModal((prev) => !prev);
-  };
-
-  const openEmployerOfferMadeModal= () => {  
-    setEmployerOfferMadeModal((prev) => !prev);
-  };
-
-  const openEmployerOfferPositionModal= () => {  
-    setEmployerOfferPositionModal((prev) => !prev);
-  };
-  const openEmployerHiredModal= () => {  
-    setEmployerHiredModal((prev) => !prev);
-  };
-
-  const openEmployerRejectedApplicationModal= () => {  
-    setEmployerRejectedApplicationModal((prev) => !prev);
-  };
-
-  console.log("jobTitle")
-  console.log(jobTitle)
-  console.log(company)
+  const handleModalClicked=()=>{
+    setModalClicked(true)
+  }
   return (
     <CardSmall>
       <CardLeft>
@@ -121,60 +94,12 @@ export  default function EmployerApplicationsCard({ app,stage,jobTitle, company,
         <CardText>{app.job.title}</CardText>
         <CardText>{app.employer.name}</CardText>
       </CardLeft>
-      <EmployerViewApplicationModal
-            showEmployerViewApplicationModal={showEmployerViewApplicationModal}
-            setEmployerViewApplicationModal={setEmployerViewApplicationModal}
-          />
-
-      <EmployerAcceptedApplicationModal
-            showEmployerAcceptedApplicationModal={showEmployerAcceptedApplicationModal}
-            setEmployerAcceptedApplicationModal={setEmployerAcceptedApplicationModal}
-          />
-
-      <EmployerOfferPositionModal
-            showEmployerOfferPositionModal={showEmployerOfferPositionModal}
-            setEmployerOfferPositionModal={setEmployerOfferPositionModal}
-          />
-
-      <EmployerOfferMadeModal
-            showEmployerOfferMadeModal={showEmployerOfferMadeModal}
-            setEmployerOfferMadeModal={setEmployerOfferMadeModal}
-          />
-
-      <EmployerHiredModal
-            showEmployerHiredModal={showEmployerHiredModal}
-            setEmployerHiredModal={setEmployerHiredModal}
-          />
-
-      <EmployerRejectedApplicationModal
-            showEmployerRejectedApplicationModal={showEmployerRejectedApplicationModal}
-            setEmployerRejectedApplicationModal={setEmployerRejectedApplicationModal}
-          />
+      {console.log("modalClicked",modalClicked)}
+        {modalClicked&&<ViewModal app={app} stage={stage} setModalClicked={setModalClicked} modalClicked={modalClicked}/>}
       <CardRight>
-
-        <CardBtn  onClick={openEmployerViewApplicationModal}>
+       <CardBtn  onClick={handleModalClicked}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
         </CardBtn>
-
-        <CardBtn  onClick={openEmployerAcceptedApplicationModal}>
-          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
-        </CardBtn>
-
-        <CardBtn  onClick={openEmployerOfferPositionModal}>
-          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
-        </CardBtn>
-
-        <CardBtn  onClick={openEmployerOfferMadeModal}>
-          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
-        </CardBtn>
-        <CardBtn  onClick={openEmployerHiredModal}>
-          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
-        </CardBtn>
-
-        <CardBtn  onClick={openEmployerRejectedApplicationModal}>
-          <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
-        </CardBtn>
-
       </CardRight>
     </CardSmall>
   );

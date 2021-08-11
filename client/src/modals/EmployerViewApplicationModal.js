@@ -247,30 +247,26 @@ const FileLink = styled(Link)`
 margin: 0.1rem 3rem;
 `;
 
-const EmployerViewApplicationModal = ({
-  showEmployerViewApplicationModal,
-  setEmployerViewApplicationModal,
-}) => {
+const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
+console.log("inside employer view application modal")
   const [startDate, setStartDate] = useState(new Date());
-
-
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerViewApplicationModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerViewApplicationModal) {
-        setEmployerViewApplicationModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerViewApplicationModal, showEmployerViewApplicationModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -302,10 +298,10 @@ const EmployerViewApplicationModal = ({
   return (
     <>
           
-      {showEmployerViewApplicationModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerViewApplicationModal={showEmployerViewApplicationModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
@@ -351,8 +347,9 @@ const EmployerViewApplicationModal = ({
             <BtnContainer>
               <ModalBtn
                 onClick={() => {
+                  console.log("offer button clicked")
                   history.push("/employer/applications");
-                  setEmployerViewApplicationModal(false);
+                  setModalClicked(false);
                 }}
               >
                 Offer Interview
@@ -360,7 +357,7 @@ const EmployerViewApplicationModal = ({
               <ModalBtn
                 onClick={() => {
                   history.push("/employer/applications");
-                  setEmployerViewApplicationModal(false);
+                  setModalClicked(false);
                 }}
               >
                 Reject
@@ -369,7 +366,7 @@ const EmployerViewApplicationModal = ({
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerViewApplicationModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

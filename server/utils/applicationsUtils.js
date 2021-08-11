@@ -8,15 +8,15 @@ const Application = require('../models/application')
  const APPROVED_FOR_INTERVIEW = 'APPROVED_FOR_INTERVIEW';
  const SCHEDEULED_FOR_INTERVIEW = 'SCHEDEULED_FOR_INTERVIEW';
  const OFFER_MADE = 'OFFER_MADE';
- const OFFER_ACCEPTED = 'OFFER_ACCEPTED';
+ //const OFFER_ACCEPTED = 'OFFER_ACCEPTED';
  const HIRED = 'HIRED'
 
  const seekerWorkflow = {
     [SUBMITTED]: { canWithdraw: true },
     [APPROVED_FOR_INTERVIEW]: { canWithdraw: true, next: SCHEDEULED_FOR_INTERVIEW },
     [SCHEDEULED_FOR_INTERVIEW]: { canWithdraw: true },
-    [OFFER_MADE]: { canWithdraw: true, next: OFFER_ACCEPTED },
-    [OFFER_ACCEPTED]: { canWithdraw: true },
+    [OFFER_MADE]: { canWithdraw: true, next: HIRED },
+    // [OFFER_ACCEPTED]: { canWithdraw: true },
     [HIRED]: { canWithdraw: false },
     [WITHDRAWN]: { canWithdraw: false },
     [REJECTED]: { canWithdraw: false }
@@ -27,7 +27,7 @@ const Application = require('../models/application')
     [APPROVED_FOR_INTERVIEW]: { canReject: false },
     [SCHEDEULED_FOR_INTERVIEW]: { canReject: true, next: OFFER_MADE },
     [OFFER_MADE]: { canReject: false },
-    [OFFER_ACCEPTED]: { canReject: false, next: HIRED },
+    // [OFFER_ACCEPTED]: { canReject: false, next: HIRED },
     [HIRED]: { canReject: false },
     [WITHDRAWN]: { canReject: false },
     [REJECTED]: { canReject: false }

@@ -185,28 +185,26 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 
-const EmployerRejectedApplicationModal = ({
-  showEmployerRejectedApplicationModal,
-  setEmployerRejectedApplicationModal,
-  
-}) => {
+const EmployerRejectedApplicationModal = ({app,modalClicked,setModalClicked}) => {
+console.log("inside employer rejected application modal")
+
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerRejectedApplicationModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerRejectedApplicationModal) {
-        setEmployerRejectedApplicationModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerRejectedApplicationModal, showEmployerRejectedApplicationModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -241,10 +239,10 @@ const EmployerRejectedApplicationModal = ({
   return (
     <>
           
-      {showEmployerRejectedApplicationModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerRejectedApplicationModal={showEmployerRejectedApplicationModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
@@ -254,19 +252,17 @@ const EmployerRejectedApplicationModal = ({
               </Header>
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>
-                <BodyContent>
-                 We are sorry to inform you that your application with COMPANY NAME will not be progressing further.
+                <BodyContent defaultValue="We are sorry to inform you that your application with COMPANY NAME will not be progressing further.">
                 </BodyContent>
                 <BodySubtitle>Feedback</BodySubtitle>
-                <BodyContent>
-                  Please add any feedback you have for the applicant.
+                <BodyContent defaultValue="Please add any feedback you have for the applicant.">
                 </BodyContent>
               </Body>
             </ModalContent>
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerRejectedApplicationModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

@@ -233,10 +233,9 @@ text-decoration: none;
 }
 `;
 
-const EmployerHiredModal = ({
-  showEmployerHiredModal,
-  setEmployerHiredModal,
-}) => {
+const EmployerHiredModal = ({app,modalClicked,setModalClicked}) => {
+console.log("inside employer hired application modal")
+
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
@@ -246,17 +245,17 @@ const EmployerHiredModal = ({
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerHiredModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerHiredModal) {
-        setEmployerHiredModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerHiredModal, showEmployerHiredModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -288,10 +287,10 @@ const EmployerHiredModal = ({
   return (
     <>
           
-      {showEmployerHiredModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerHiredModal={showEmployerHiredModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
@@ -321,7 +320,7 @@ const EmployerHiredModal = ({
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerHiredModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

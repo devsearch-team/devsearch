@@ -271,28 +271,26 @@ font-size: 18px;
   width:400px;
 }
 `;
-const EmployerOfferPositionModal = ({
-  showEmployerOfferPositionModal,
-  setEmployerOfferPositionModal,
-  
-}) => {
+const EmployerOfferPositionModal = ({app,modalClicked,setModalClicked}) => {
   // Adds close functionality to ShowApplication Modal
   // const [value, onChange] = useState(new Date());
+console.log("inside employer offer application modal")
+
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerOfferPositionModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerOfferPositionModal) {
-        setEmployerOfferPositionModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerOfferPositionModal, showEmployerOfferPositionModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -327,10 +325,10 @@ const EmployerOfferPositionModal = ({
   return (
     <>
           
-      {showEmployerOfferPositionModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerOfferPositionModal={showEmployerOfferPositionModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
@@ -376,7 +374,7 @@ const EmployerOfferPositionModal = ({
               <ModalBtn
                 onClick={() => {
                   history.push("/employer/applications");
-                  setEmployerOfferPositionModal(false);
+                  setModalClicked(false);
                 }}
               >
                 Offer Position
@@ -384,7 +382,7 @@ const EmployerOfferPositionModal = ({
               <ModalBtn
                 onClick={() => {
                   history.push("/employer/applications");
-                  setEmployerOfferPositionModal(false);
+                  setModalClicked(false);
                 }}
               >
                 Reject
@@ -392,7 +390,7 @@ const EmployerOfferPositionModal = ({
             </BtnContainer>
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerOfferPositionModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>
