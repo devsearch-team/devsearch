@@ -6,6 +6,7 @@ import RobotArm from "../Assets/robotArm.jpg"
 import {useHistory} from 'react-router-dom'
 import {useGlobalState} from '../utils/globalContext'
 import ViewModal from './ViewModal'
+import Moment from 'moment';
 const CardSmall = styled.div`
   display: flex;
   align-items: center;
@@ -86,10 +87,9 @@ export function ApplicationCard({ app,stage }) {
         <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
         </LogoContainer>
-        <CardText>{app.job.title}</CardText>
-        <CardText>{app.stages[stage].actionDate}</CardText>
-        <CardText>{(isEmployer==="true") ?app.seeker.name:app.employer.name}</CardText>
         <CardText style={{color: `${theme.PrimaryBtnBg}`}} >{app.job.title}</CardText>
+        <CardText>{Moment(app.stages[stage].actionDate).format('d MMM YYYY')}</CardText>
+        <CardText>{(isEmployer==="true") ?app.seeker.name:app.employer.name}</CardText>  
       </CardLeft>
       {console.log("modalClicked",modalClicked)}
         {modalClicked&&<ViewModal app={app} stage={stage} setModalClicked={setModalClicked} modalClicked={modalClicked}/>}
@@ -109,7 +109,7 @@ export function EmpJobCard({ jobTitle, company, date, jobId, applicantName }) {
         <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
         </LogoContainer>
-        <CardText>{date}</CardText>
+        <CardText>{Moment(date).format('d MMM YYYY')}</CardText>
         <CardText>{jobTitle}</CardText>
         <CardText>{company}</CardText>
         <CardText>{applicantName}</CardText>

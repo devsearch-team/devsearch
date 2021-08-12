@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {empAccept,empReject} from "../services/applicationServices"
 import './DateEditor.css'
 import './applications.css'
+import Moment from 'moment';
 
   const Background = styled.div`
   width: 100vw;
@@ -309,7 +310,7 @@ console.log("inside employer view application modal")
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
@@ -326,7 +327,7 @@ console.log("inside employer view application modal")
                 name="interviewTime"
                     selected={formState.interviewTime}
                     //onChange={(date) => setStartDate(date)}
-                    onChange={(value)=>{setFormState({...formState,"interviewTime":value})}}
+                    onChange={(value)=>{console.log("date picker time",value);setFormState({...formState,"interviewTime":value})}}
                     dateFormat='dd/MM/yyyy h:mm aa'
                     minDate={new Date()}
                     showMonthDropdown

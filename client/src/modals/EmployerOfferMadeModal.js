@@ -5,6 +5,7 @@ import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
 import './DateEditor.css'
 import './applications.css'
+import Moment from 'moment';
 
   const Background = styled.div`
   width: 100vw;
@@ -266,7 +267,7 @@ const EmployerOfferMadeModal = ({app,modalClicked,setModalClicked}) => {
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
@@ -280,7 +281,7 @@ const EmployerOfferMadeModal = ({app,modalClicked,setModalClicked}) => {
                 <BodySubtitle>Offer Made on</BodySubtitle>
                 <TimeContainer>
                   {console.log("seeker resume",seeker.resumeFile)}
-                <Time>{stages.OFFER_MADE.actionDate}</Time>
+                <Time>{Moment(stages.OFFER_MADE.actionDate).format('d MMM YYYY')}</Time>
                 </TimeContainer>
                 {(stages.OFFER_MADE.contract&&stages.OFFER_MADE.contract!=="undefined")&&
                 <ContractInfoContainer>

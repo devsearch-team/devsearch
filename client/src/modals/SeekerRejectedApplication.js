@@ -1,13 +1,8 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-
+import Moment from 'moment';
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-
-
-
-
 import './applications.css'
 
   const Background = styled.div`
@@ -218,7 +213,7 @@ const SeekerRejectedApplicationModal = ({app,modalClicked,setModalClicked}) => {
             <ModalContent>
               <Header>
               <Heading>{job.title}</Heading>
-              <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
+              <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>

@@ -2,11 +2,7 @@ import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-
-
-
-
+import Moment from 'moment';
 import './applications.css'
 
   const Background = styled.div`
@@ -219,7 +215,7 @@ const {seeker,stages}= app
             <ModalContent>
               <Header>
               <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied On {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied On {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>

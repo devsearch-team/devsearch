@@ -4,6 +4,7 @@ import { useHistory} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import { seekerAccept, seekerReject } from "../services/applicationServices";
+import Moment from 'moment';
 
 const Background = styled.div`
   width: 100%;
@@ -286,7 +287,7 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
                 {employer.phone && (
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
                 )}
-                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Interview Offered</BodySubtitle>
@@ -298,7 +299,7 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
                   {(app.coverLetter && app.coverLetter !== "undefined") && <FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview Time</BodySubtitle>
-                <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY')}</InterviewTime>
                 <BodySubtitle>Important Information</BodySubtitle>
                 <BodyContentP >
                   {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>

@@ -4,7 +4,6 @@ import { getJob } from "../services/jobServices";
 import {useHistory, Link, useParams} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
 import { getSeeker } from "../services/authServices";
 import {createApplication} from "../services/applicationServices"
 const Background = styled.div`

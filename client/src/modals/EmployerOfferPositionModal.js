@@ -5,6 +5,8 @@ import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
 import {empAccept,empReject} from "../services/applicationServices"
+import Moment from 'moment';
+
 import './DateEditor.css'
 
 import './applications.css'
@@ -341,7 +343,7 @@ const {seeker,stages}= app
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
@@ -353,7 +355,7 @@ const {seeker,stages}= app
                 </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>{stages.SCHEDEULED_FOR_INTERVIEW.actionDate}</InterviewTime>
+                    <InterviewTime>{Moment(stages.SCHEDEULED_FOR_INTERVIEW.actionDate).format('d MMM YYYY')}</InterviewTime>
                 </InterviewTimeContainer>
                 {/* <BodySubtitle>Important Information</BodySubtitle> */}
                 {/* <BodyContent placeholder="Important Information regarding this Interview">
