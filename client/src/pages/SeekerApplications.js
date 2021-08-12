@@ -1,36 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import styled from "styled-components";
 import SeekerTabs from '../globalComponents/SeekerTabs'
 import {ApplicationCard} from '../globalComponents/Cards'
+import {ApplicationsContainer,CardContainer} from '../globalComponents/styledComponents'
+import { theme } from "../globalStyles";
 
 import {getSeekerApplications} from "../services/applicationServices"
 
-const ApplicationsContainer = styled.div`
-display:grid;
-grid-area: content;
-margin-top: 15rem;
-margin-left:25rem;
-@media only screen and (max-width: 1200px) {
-  margin-left:15rem;
-  width:100%;
-}
-@media only screen and (max-width: 900px) {
-  margin-left:15rem;
-  width:100%;
-}
-@media only screen and (max-width: 768px) {
-  margin-left:1rem;
-  width:100%;
-}
-`;
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  max-width: 80%;
-  flex-wrap: wrap;
-`;
 const SeekerApplications = () => {
     
     const [stage,setStage]=useState("SUBMITTED")
@@ -56,6 +31,8 @@ const SeekerApplications = () => {
                <SeekerTabs stage={stage} setStage={setStage} />          
                {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
+        {(!appList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>No applications at this stage yet</p>}
+
                {appList && appList.map((app,index)=>{
                  return (stage===app.currentStage?
                  <ApplicationCard  app={app} stage={stage}/>:

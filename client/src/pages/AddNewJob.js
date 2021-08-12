@@ -1,13 +1,12 @@
 import React, {useState,useEffect,useRef} from "react";
 import {useParams,useHistory} from 'react-router-dom'
 import {getJob,updateJob,createJob} from "../services/jobServices"
-// import ReactHtmlParser from "react-html-parser";
 import './myeditor.css'
 import { Editor } from '@tinymce/tinymce-react';
 import styled from "styled-components";
 import RobotArm from "../Assets/robotArm.jpg";
 import { useGlobalState } from "../utils/globalContext";
-
+import {FormDiv,SubHeading} from '../globalComponents/styledComponents'
 import { theme } from "../globalStyles";
 
 const AddJobContainer = styled.div`
@@ -43,30 +42,7 @@ const Logo = styled.img`
   width: 100%;
   
 `;
-// const Heading = styled.h1`
-//   margin: 1rem 0;
-//   @media only screen and (max-width: 768px) {
-//     font-size: 24px;
-//     margin: 1rem 1rem;
-//   }
-// `;
-const SubHeading = styled.h3`
-  margin: 1rem 0;
-  @media only screen and (max-width: 768px) {
-    font-size: 18px;
-  }
-`;
 
-const FormDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
-  width: 100%;
-  @media only screen and (max-width: 768px) {
-    margin: 1rem 1rem;
-    width: 100vw;
-  }
-`;
 const TextBoxContainer = styled.div`
   position: relative;
   display: flex;
@@ -142,17 +118,7 @@ const ShortInput = styled.input`
     width: 300px;
   }
 `;
-// const InputLabel = styled.label`
-//   font-weight: 500;
-//   //   display: flex;
-//   font-size: 18px;
-//   padding-left: 0.5rem;
-//   opacity: 0.5;
-//   @media only screen and (max-width: 768px) {
-//     font-size: 14px;
-//     opacity: 0.5;
-//   }
-// `;
+
 const DescContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -287,18 +253,12 @@ const AddNewJob = () => {
               <TextBoxContainer>
                 <ShortInput name='maxPay' value={formState.maxPay} onChange={handleChange} placeholder="Maximum Pay Rate"></ShortInput>
               </TextBoxContainer>
-              <TextBoxContainer>
-                <select name='category' value={formState.category}   onChange={handleChange} style={{color:'#000', width:'300px', height:'40px'}} placeholder="Category">
-                  <option style={{color:'#000'}} value="Web Development">Web Development</option>
-                  <option style={{color:'#000'}} value="DevOps">DevOps</option>
-                </select>
-              </TextBoxContainer>
             </FormDiv>
             <FormDiv>
               <SubHeading>Role Description</SubHeading>
               {/* <DescContainer placeholder="About your company!!!"></DescContainer> */}
               <DescContainer style={{height:'600px', width:'600px'}}>
-              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
+              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='59omwpr6thzzk3ci27k6w0497s9d0alttwb5dc09yb788b3u' init={{
                     auto_focus:false,
                     resize:'both',
                     height:600,

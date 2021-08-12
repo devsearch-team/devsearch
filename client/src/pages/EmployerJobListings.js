@@ -4,7 +4,7 @@ import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
 import {EmpJobCard} from "../globalComponents/Cards";
 import { ShowMoreButton } from "../globalComponents/Buttons";
-
+import { theme } from "../globalStyles";
 const ListingContainer = styled.div`
   display: grid;
   grid-area: content;
@@ -59,6 +59,7 @@ const EmployerJobListings = () => {
       {isEmployer &&   
           <ListingContainer>
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
+        {(!jobList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>You have not listed any jobs yet</p>}
             <CardContainer>
               {jobList.map((job,index)=>   
               <EmpJobCard
