@@ -14,7 +14,18 @@ export async function getSeekerApplications(stage){
     return res
 }
 
-
+export async function seekerAccept(data){
+    console.log("seeker req data",data)
+    const res = await devSearchApi.post(`/seeker/seekeraccept/${data.id}`,data.payload)
+    console.log("seeker accepted app is",res.data)
+    return res
+}
+export async function seekerReject(data){
+    console.log("seeker req data",data)
+    const res = await devSearchApi.post(`/seeker/seekerreject/${data.id}`,data.payload)
+    console.log("seeker rejected app is",res.data)
+    return res
+}
 //employer-----------------------------------------------------
 export async function getEmpApplications(stage){
     const res = await devSearchApi.get(`/employer/applications/?currentStage=${stage}`)

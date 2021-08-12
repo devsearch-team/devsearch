@@ -377,15 +377,15 @@ const SeekerViewJob = () => {
             setJobApplicationModal={setJobApplicationModal}
           />
 
-        <SeekerAppliedModal
+        {/* <SeekerAppliedModal
             showSeekerAppliedModal={showSeekerAppliedModal}
             setSeekerAppliedModal={setSeekerAppliedModal}
-          />
+          /> */}
 
-        <SeekerInterviewOfferedModal
+        {/* <SeekerInterviewOfferedModal
             showInterviewOfferedModal={showInterviewOfferedModal}
             setInterviewOfferedModal={setInterviewOfferedModal}
-          />
+          /> */}
 
         <SeekerInterviewAcceptedModal
             showInterviewAcceptedModal={showInterviewAcceptedModal}
@@ -420,13 +420,9 @@ const SeekerViewJob = () => {
               Apply
             </InputButton>
 
-        <InputButton style={{margin: "1rem 0"}}onClick={openSeekerAppliedModal}>
-              Applied
-            </InputButton>
-
-          <InputButton style={{margin: "1rem 0"}}onClick={openInterviewModal}>
+          {/* <InputButton style={{margin: "1rem 0"}}onClick={openInterviewModal}>
               Interview Offered
-            </InputButton>
+            </InputButton> */}
 
             <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
               Interview Accepted Modal

@@ -60,22 +60,15 @@ const SeekerApplications = () => {
         <>  
         
                <ApplicationsContainer>
-               <SeekerTabs stage={stage} setStage={setStage} />
-               
+               <SeekerTabs stage={stage} setStage={setStage} />          
                {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
                {appList && appList.map((app,index)=>{
                  return (stage===app.currentStage?
-                 <ApplicationCard  app={app} stage={stage} jobTitle={app.job.title} company={app.employer.name} date={app.stages[stage].actionDate}/>:
+                 <ApplicationCard  app={app} stage={stage}/>:
                  <></>)
-               })}
-               
-               
+               })}        
                </CardContainer>
-               <BtnContainer>
-                          
-               <ShowMoreButton >Load More</ShowMoreButton>
-               </BtnContainer>
                </ApplicationsContainer> 
                
 

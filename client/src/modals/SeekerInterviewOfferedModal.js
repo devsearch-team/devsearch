@@ -4,8 +4,7 @@ import { getJob } from "../services/jobServices";
 import {useHistory,  useParams, Link} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-import { getSeeker } from "../services/authServices";
+import { seekerAccept,seekerReject } from "../services/applicationServices";
 
 const Background = styled.div`
   width: 100%;
@@ -133,7 +132,7 @@ font-size:18px;
 font-weight:600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
 outline:none;
 font-size:14px;
 font-weight:550;
@@ -175,7 +174,7 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 const CloseModalButton = styled(MdClose)`
@@ -219,97 +218,94 @@ const ModalBtn = styled.button`
   }
 `;
 
-const SeekerInterviewOfferedModal = ({showInterviewOfferedModal, setInterviewOfferedModal}) => {
-  // Adds close functionality to ShowApplication Modal
+const SeekerInterviewOfferedModal = ({app,modalClicked, setModalClicked}) => {
+  
+  const {seeker,employer,job,stages}= app
+const [serverError,setServererror]= useState("")
   const modalRef = useRef();
   let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setInterviewOfferedModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showInterviewOfferedModal) {
-        setInterviewOfferedModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setInterviewOfferedModal, showInterviewOfferedModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
+const handleAccept=()=>{
+  console.log("handle accept")
+  seekerAccept({id:app._id})
+  .then(
+    history.go("/seeker/applications")
 
-  // Get Job Information for header
-  const [employerData, setEmployerData] = useState('')
-  const [seekerData, setSeekerData] = useState('')
+  ).catch(()=>{
+    setServererror("something went wrong")
+  })
+}
 
-  let {id} = useParams()
-  useEffect(() => {
-    getJob(id)
-    .then((data) => {
-      setEmployerData(data.data)
-      console.log("EmployerData",data.data)
-    })
-  }, [id])
+const handleReject=()=>{
+  seekerReject({id:app._id})
+  .then(
+    history.go("/seeker/applications")
 
-
-  useEffect(() => {
-    getSeeker()
-    .then((data) => {
-      setSeekerData(data)
-      console.log("SeekerData",data)
-    })
-  }, [])
-  console.log(seekerData)
+  ).catch(()=>{
+    setServererror("something went wrong")
+  })
+}
+ 
   return (
     <>
-      { showInterviewOfferedModal ?(
+      { modalClicked ?(
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showInterviewOfferedModal={showInterviewOfferedModal}>
-            
+          <ModalWrapper modalClicked={modalClicked}>         
               <ModalContent>
                 <Header>
-                <Heading>{employerData.title}</Heading>
-                <EmployerInfoData >{employerData.employer.name}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.address}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.email}</EmployerInfoData>
-                {employerData.employer.phone ?(
-                  <EmployerInfoData>{employerData.employer.phone}</EmployerInfoData>
-                ) :(
-                  <></>
-                )
+                {serverError && <p style={{color:"red"}}>{serverError}</p>} 
+                <Heading>{job.title}</Heading>
+                <EmployerInfoData >{employer.name}</EmployerInfoData>
+                {employer.address&&<EmployerInfoData >{employer.address}</EmployerInfoData>}
+                <EmployerInfoData >{employer.email}</EmployerInfoData>
+                {employer.phone &&(
+                  <EmployerInfoData>{employer.phone}</EmployerInfoData>
+                ) 
               }
                 </Header>
                 <Body>
                   <BodySubtitle>Interview Offered</BodySubtitle>
-                    <BodyContent>
-                    Dear {seekerData.name} we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an interview. See below for more information.  
-                    </BodyContent>
+                    <BodyContentP>
+                    Dear {seeker.name} we are pleased to inform you that your application for {job.title} with {employer.name} was successful and we would like to offer you an interview. See below for more information.  
+                    </BodyContentP>
                     <FormContainer>
-                  <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                   <BodySubtitle>Interview Time</BodySubtitle>
-                    <InterviewTime>Monday, 27th March, 11am</InterviewTime>
+                  <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
-                    <BodyContent >
-                    Important Information regarding this Interview
-                    </BodyContent>
+                    <BodyContentP >
+                    {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>
                 </Body>
               </ModalContent>
                 <BtnContainer>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setInterviewOfferedModal(false);}}>Accept Offer</ModalBtn>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setInterviewOfferedModal(false);}}>Deny</ModalBtn>
+                <ModalBtn onClick={handleAccept}>Accept Offer</ModalBtn>
+                <ModalBtn onClick={handleReject}>Deny</ModalBtn>
                 </BtnContainer>
             
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setInterviewOfferedModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

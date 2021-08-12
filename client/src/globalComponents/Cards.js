@@ -1,9 +1,10 @@
-import React, {useState} from "react";
-import styled from "styled-components";
-import { theme } from "../globalStyles";
-import { FaChevronRight } from "react-icons/fa";
-import RobotArm from "../Assets/robotArm.jpg";
+import React, {useState} from "react"
+import styled from "styled-components"
+import { theme } from "../globalStyles"
+import { FaChevronRight } from "react-icons/fa"
+import RobotArm from "../Assets/robotArm.jpg"
 import {useHistory} from 'react-router-dom'
+import {useGlobalState} from '../utils/globalContext'
 import ViewModal from './ViewModal'
 const CardSmall = styled.div`
   display: flex;
@@ -71,10 +72,11 @@ const CardBtn = styled.button`
 `;
 
 
-export function ApplicationCard({ app,stage, applicantName }) {
+export function ApplicationCard({ app,stage }) {
 
   const [modalClicked,setModalClicked]=useState(false)
-
+  const {store} = useGlobalState()
+  const {isEmployer}=store
   const handleModalClicked=()=>{
     setModalClicked(true)
   }
@@ -84,9 +86,9 @@ export function ApplicationCard({ app,stage, applicantName }) {
         <LogoContainer>
           <Logo src={RobotArm} alt="Company Logo"></Logo>
         </LogoContainer>
-        <CardText>{app.employer.name}</CardText>
+        <CardText>{app.job.title}</CardText>
         <CardText>{app.stages[stage].actionDate}</CardText>
-        <CardText>{applicantName}</CardText>
+        <CardText>{(isEmployer==="true") ?app.seeker.name:app.employer.name}</CardText>
         <CardText style={{color: `${theme.PrimaryBtnBg}`}} >{app.job.title}</CardText>
       </CardLeft>
       {console.log("modalClicked",modalClicked)}
