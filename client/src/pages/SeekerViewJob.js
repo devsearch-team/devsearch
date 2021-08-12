@@ -2,12 +2,6 @@ import React,{useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from "styled-components";
 import SeekerJobApplicationModal from '../modals/SeekerJobApplicationModal'
-import SeekerAppliedModal from '../modals/SeekerAppliedModal'
-import SeekerInterviewOfferedModal from '../modals/SeekerInterviewOfferedModal'
-import SeekerInterviewAcceptedModal from '../modals/SeekerInterviewAcceptedModal'
-import SeekerPositionOfferedModal from '../modals/SeekerPositionOfferedModal'
-import SeekerHiredModal from '../modals/SeekerHiredModal'
-import SeekerRejectedApplicationModal from '../modals/SeekerRejectedApplication'
 import { getJob } from '../services/jobServices';
 import { InputButton } from '../globalComponents/Buttons';
 import { theme } from "../globalStyles";
@@ -246,98 +240,21 @@ const Salary = styled.p`
     font-size: 10px;
   }
 `;
-// const Category = styled.p`
-//   font-weight: 550;
-//   margin: 0.5rem 1rem;
-//   color: ${theme.PrimaryTxt};
-//   font-size: 14px;
-//   @media only screen and (max-width: 1080px) {
-//     margin: 0.3rem 1rem;
-//     font-size: 12px;
-//   }
-//   @media only screen and (max-width: 460px) {
-//     font-size: 10px;
-//   }
-// `;
+
 const JobInfo = styled.div`
 width:100%;
 margin: 1rem 1rem;
 `;
-// const AboutCompany = styled.p`
-//   font-weight: 300;
-//   margin: 0.4rem 1rem;
-//   line-height:1.5;
-//   color: ${theme.SecondaryFadedTxt};
-//   width:100%;
-//   //   opacity: 0.7;
-//   font-size: 14px;
-//   @media only screen and (max-width: 1080px) {
-//     margin: 0.3rem 1rem;
-//     font-size: 12px;
-// }
-// @media only screen and (max-width: 460px) {
-//       margin: 0.1rem 1rem;
-//     font-size: 10px;
-//   }
-// `;
-// const RoleDescription = styled.p`
-//   font-weight: 300;
-//   margin: 0.4rem 1rem;
-//   line-height:1.5;
-//   color: ${theme.SecondaryFadedTxt};
-//   width:100%;
-//   //   opacity: 0.7;
-//   font-size: 14px;
-//   @media only screen and (max-width: 1080px) {
-//     margin: 0.3rem 1rem;
-//     font-size: 12px;
-//   }
-//   @media only screen and (max-width: 460px) {
-//     font-size: 10px;
-//   }
-// `;
+
 
 const SeekerViewJob = () => {
   
   // Show Application Modal
   const [showJobApplicationModal, setJobApplicationModal] = useState(false)
-  const [showSeekerAppliedModal, setSeekerAppliedModal] = useState(false)
-  const [showInterviewOfferedModal, setInterviewOfferedModal] = useState(false)
-  const [showInterviewAcceptedModal, setInterviewAcceptedModal] = useState(false)
-  const [showSeekerPositionOfferedModal, setSeekerPositionOfferedModal] = useState(false)
-  const [showSeekerHiredModal, setSeekerHiredModal] = useState(false)
-  const [showSeekerRejectedApplicationModal , setSeekerRejectedApplicationModal ] = useState(false)
-
-
 
   const openJobApplicationModal= () => {
     setJobApplicationModal((prev) => !prev);
   };
-  const openSeekerAppliedModal= () => {
-    setSeekerAppliedModal((prev) => !prev);
-  };
-
-  const openInterviewModal= () => {
-    setInterviewOfferedModal((prev) => !prev);
-  };
-
-  const openInterviewAcceptedModal= () => {
-    setInterviewAcceptedModal((prev) => !prev);
-  };
-
-  const openSeekerPositionOfferedModal= () => {
-    setSeekerPositionOfferedModal((prev) => !prev);
-  };
-
-  const openSeekerHiredModal= () => {
-    setSeekerHiredModal((prev) => !prev);
-  };
-
-
-  const openSeekerRejectedApplicationModal = () => {
-    setSeekerRejectedApplicationModal ((prev) => !prev);
-  };
-  
 
     const [job, setJob] = useState("")
     let {id} = useParams()
@@ -377,35 +294,6 @@ const SeekerViewJob = () => {
             setJobApplicationModal={setJobApplicationModal}
           />
 
-        {/* <SeekerAppliedModal
-            showSeekerAppliedModal={showSeekerAppliedModal}
-            setSeekerAppliedModal={setSeekerAppliedModal}
-          /> */}
-
-        {/* <SeekerInterviewOfferedModal
-            showInterviewOfferedModal={showInterviewOfferedModal}
-            setInterviewOfferedModal={setInterviewOfferedModal}
-          /> */}
-
-        {/* <SeekerInterviewAcceptedModal
-            showInterviewAcceptedModal={showInterviewAcceptedModal}
-            setInterviewAcceptedModal={setInterviewAcceptedModal}
-          /> */}
-
-        {/* <SeekerPositionOfferedModal
-            showSeekerPositionOfferedModal={showSeekerPositionOfferedModal}
-            setSeekerPositionOfferedModal={setSeekerPositionOfferedModal}
-          />
-          
-        <SeekerHiredModal
-            showSeekerHiredModal={showSeekerHiredModal}
-            setSeekerHiredModal={setSeekerHiredModal}
-          /> */}
-
-        {/* <SeekerRejectedApplicationModal
-            showSeekerRejectedApplicationModal={showSeekerRejectedApplicationModal}
-            setSeekerRejectedApplicationModal={setSeekerRejectedApplicationModal}
-          /> */}
         <JobInfo>
           {
             job.employer.about && <>
@@ -420,25 +308,7 @@ const SeekerViewJob = () => {
               Apply
             </InputButton>
 
-          {/* <InputButton style={{margin: "1rem 0"}}onClick={openInterviewModal}>
-              Interview Offered
-            </InputButton> */}
-
-            {/* <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
-              Interview Accepted Modal
-            </InputButton> */}
-
-        {/* <InputButton style={{margin: "1rem 0"}}onClick={openSeekerPositionOfferedModal}>
-              Position Offered
-            </InputButton>
-
-        <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerHiredModal}>
-              Hired
-            </InputButton> */}
-
-        {/* <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerRejectedApplicationModal}>
-              Application Rejected
-            </InputButton> */}
+         
         </JobInfoContainer>
       }
         </ViewJobContainer>

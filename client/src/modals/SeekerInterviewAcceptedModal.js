@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback,useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";

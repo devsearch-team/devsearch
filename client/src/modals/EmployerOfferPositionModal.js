@@ -318,7 +318,7 @@ const {seeker,stages}= app
     const data={id:app._id,payload:{feedback: formState.feedback}}
     empReject(data)
     .then(
-      //history.go("/employer/applications")
+      history.go("/employer/applications")
     ).catch(()=>{
       setServererror("something went wrong")
     })
@@ -357,10 +357,6 @@ const {seeker,stages}= app
                 <InterviewTimeContainer>
                     <InterviewTime>{Moment(stages.SCHEDEULED_FOR_INTERVIEW.actionDate).format('d MMM YYYY')}</InterviewTime>
                 </InterviewTimeContainer>
-                {/* <BodySubtitle>Important Information</BodySubtitle> */}
-                {/* <BodyContent placeholder="Important Information regarding this Interview">
-                  
-                </BodyContent> */}
                 <BodySubtitle>Feedback</BodySubtitle>
                 <BodyContent onChange={(e)=>{setFormState({...formState,"feedback":e.target.value})}} value={formState.feedback} name="feedback" placeholder="Please add any feedback you have for the applicant.">
                   

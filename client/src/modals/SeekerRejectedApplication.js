@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Moment from 'moment';
 import { MdClose } from "react-icons/md";
