@@ -30,20 +30,22 @@ const App = () => {
 	}
   const [store, dispatch] = useReducer(stateReducer, initialState )
   const {loggedInUser,isEmployer}=store
+  const [selectedPage,setSelectedPage]=useState(1)  //selected nav bar page
+  const [landingEmail,setLandingEmail]=useState("")
   const [width, setWidth] = useState(window.innerWidth);
   
   const breakpoint = 768;
-//   console.log(Boolean("False"))
  console.log("localStorage isEmployer",typeof localStorage.getItem("isEmployer"))
  console.log("App isEmployer type",  isEmployer)
   useEffect(()=> {
     const handleWindowResize = () => setWidth(window.innerWidth)
     window.addEventListener("resize", handleWindowResize);
   })  
+  console.log("landingEmail",landingEmail)
   return (
     <ThemeProvider theme={theme}>
       <Styles /> 
-      <StateContext.Provider value={{store, dispatch}}>
+      <StateContext.Provider value={{store,dispatch,selectedPage,setSelectedPage,landingEmail,setLandingEmail}}>
         <BrowserRouter>
         { width < breakpoint ? <NavMobile /> : <NavBar />}
             <Switch>

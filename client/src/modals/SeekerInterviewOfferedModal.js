@@ -4,6 +4,7 @@ import { useHistory} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import { seekerAccept, seekerReject } from "../services/applicationServices";
+import Moment from 'moment';
 
 const Background = styled.div`
   width: 100%;
@@ -117,6 +118,12 @@ margin: 0.5rem 2rem;
 color:${theme.PrimaryTxt}
 `;
 
+const DateApplied = styled.p`
+  margin: 0.5rem 1rem;
+  font-size:14px;
+  color: ${theme.PrimaryTxt};
+  width:100%;
+`;
 
 const Body = styled.div`
 display: flex;
@@ -279,8 +286,8 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone && (
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
-                )
-                }
+                )}
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Interview Offered</BodySubtitle>
@@ -292,7 +299,7 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
                   {(app.coverLetter && app.coverLetter !== "undefined") && <FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview Time</BodySubtitle>
-                <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY')}</InterviewTime>
                 <BodySubtitle>Important Information</BodySubtitle>
                 <BodyContentP >
                   {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>

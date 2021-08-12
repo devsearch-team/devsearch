@@ -4,7 +4,9 @@ import { useHistory} from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import {empAccept} from "../services/applicationServices"
+import {empAccept,empReject} from "../services/applicationServices"
+import Moment from 'moment';
+
 import './DateEditor.css'
 
 import './applications.css'
@@ -298,13 +300,23 @@ const {seeker,stages}= app
     [setModalClicked, modalClicked]
   );
 
-  function handleSubmit(){
+  function handleAccept(){
     var form_data = new FormData();
     for ( var key in formState ) {
       form_data.append(key, formState[key]);
     }
     const data={id:app._id,payload: form_data}
     empAccept(data)
+    .then(
+      history.go("/employer/applications")
+    ).catch(()=>{
+      setServererror("something went wrong")
+    })
+  }
+
+  function handleReject(){
+    const data={id:app._id,payload:{feedback: formState.feedback}}
+    empReject(data)
     .then(
       //history.go("/employer/applications")
     ).catch(()=>{
@@ -331,7 +343,7 @@ const {seeker,stages}= app
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
@@ -343,7 +355,7 @@ const {seeker,stages}= app
                 </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>{stages.SCHEDEULED_FOR_INTERVIEW.actionDate}</InterviewTime>
+                    <InterviewTime>{Moment(stages.SCHEDEULED_FOR_INTERVIEW.actionDate).format('d MMM YYYY')}</InterviewTime>
                 </InterviewTimeContainer>
                 {/* <BodySubtitle>Important Information</BodySubtitle> */}
                 {/* <BodyContent placeholder="Important Information regarding this Interview">
@@ -363,15 +375,12 @@ const {seeker,stages}= app
             </ModalContent>
             <BtnContainer>
               <ModalBtn
-                onClick={handleSubmit}
+                onClick={handleAccept}
               >
                 Offer Position
               </ModalBtn>
               <ModalBtn
-                onClick={() => {
-                  history.push("/employer/applications");
-                  setModalClicked(false);
-                }}
+                onClick={handleReject}
               >
                 Reject
               </ModalBtn>

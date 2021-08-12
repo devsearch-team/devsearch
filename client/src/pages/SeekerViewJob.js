@@ -402,10 +402,10 @@ const SeekerViewJob = () => {
             setSeekerHiredModal={setSeekerHiredModal}
           /> */}
 
-        <SeekerRejectedApplicationModal
+        {/* <SeekerRejectedApplicationModal
             showSeekerRejectedApplicationModal={showSeekerRejectedApplicationModal}
             setSeekerRejectedApplicationModal={setSeekerRejectedApplicationModal}
-          />
+          /> */}
         <JobInfo>
           {
             job.employer.about && <>
@@ -436,9 +436,9 @@ const SeekerViewJob = () => {
               Hired
             </InputButton> */}
 
-        <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerRejectedApplicationModal}>
+        {/* <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerRejectedApplicationModal}>
               Application Rejected
-            </InputButton>
+            </InputButton> */}
         </JobInfoContainer>
       }
         </ViewJobContainer>

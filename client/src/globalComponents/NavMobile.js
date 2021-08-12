@@ -171,7 +171,7 @@ const NavMobile = () => {
               </NavLinks>
             
             
-              <NavLinks  onClick={handleIdChange} id={4} to="/employer/newjob" activebutton={activebutton}>Add New Job</NavLinks>
+              <NavLinks  onClick={handleIdChange} id={4} to="/employer/jobs/newjob" activebutton={activebutton}>Add New Job</NavLinks>
             
             <ModalBtn onClick={handleLogout}>Logout</ModalBtn>
           </NavMenu>

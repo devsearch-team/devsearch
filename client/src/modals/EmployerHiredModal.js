@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useCallback} from "react";
 import styled from "styled-components";
+import Moment from 'moment';
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
@@ -239,7 +240,7 @@ const EmployerHiredModal = ({app,modalClicked,setModalClicked}) => {
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>{seeker.name} was Hired</BodySubtitle>

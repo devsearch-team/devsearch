@@ -56,9 +56,7 @@ const EmployerJobListings = () => {
 
   return (
     <>
-      {isEmployer ? (
-        <>
-        total pages:{totalPages}   page:{page}
+      {isEmployer &&   
           <ListingContainer>
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CardContainer>
@@ -74,10 +72,8 @@ const EmployerJobListings = () => {
           {!(totalPages-1 <= page) && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>}
 
           </ListingContainer>
-        </>  
-      ) : (
-        <></>
-      )}
+       
+      }
     </>
   );
 };

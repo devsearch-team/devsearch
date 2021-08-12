@@ -1,13 +1,10 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-
+import Moment from 'moment';
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-
 import './DateEditor.css'
-
-
 import './applications.css'
 
   const Background = styled.div`
@@ -247,7 +244,8 @@ const modalRef = useRef();
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
@@ -260,7 +258,7 @@ const modalRef = useRef();
                 </FormContainer>
                 <BodySubtitle>Interview offered on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                    <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY')}</InterviewTime>
                 </InterviewTimeContainer>
                 {stages.APPROVED_FOR_INTERVIEW.information&&
                 <>

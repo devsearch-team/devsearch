@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import {empAccept} from "../services/applicationServices"
+import {empAccept,empReject} from "../services/applicationServices"
 import './DateEditor.css'
 import './applications.css'
+import Moment from 'moment';
 
   const Background = styled.div`
   width: 100vw;
@@ -287,8 +288,16 @@ console.log("inside employer view application modal")
     })
   }
 
-  console.log("formState is",formState)
- 
+  // console.log("formState is",formState)
+  function handleReject(){
+    const data={id:app._id,payload:{feedback: formState.information}}
+    empReject(data)
+    .then(
+      history.go("/employer/applications")
+    ).catch(()=>{
+      setServererror("something went wrong")
+    })
+  }
   return (
     <>
           
@@ -301,7 +310,7 @@ console.log("inside employer view application modal")
             <ModalContent>
               <Header>
                 <Heading>{seeker.name}</Heading>
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
+                <DateApplied>Applied {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
@@ -318,7 +327,7 @@ console.log("inside employer view application modal")
                 name="interviewTime"
                     selected={formState.interviewTime}
                     //onChange={(date) => setStartDate(date)}
-                    onChange={(value)=>{setFormState({...formState,"interviewTime":value})}}
+                    onChange={(value)=>{console.log("date picker time",value);setFormState({...formState,"interviewTime":value})}}
                     dateFormat='dd/MM/yyyy h:mm aa'
                     minDate={new Date()}
                     showMonthDropdown
@@ -340,9 +349,7 @@ console.log("inside employer view application modal")
               >
                 Offer Interview
               </ModalBtn>
-              <ModalBtn
-                onClick={()=>{}}
-              >
+              <ModalBtn onClick={handleReject}>
                 Reject
               </ModalBtn>
             </BtnContainer>

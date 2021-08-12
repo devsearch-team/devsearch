@@ -1,13 +1,11 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
+import Moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
-
 import './DateEditor.css'
-
-
 import './applications.css'
 
   const Background = styled.div`
@@ -276,8 +274,8 @@ const SeekerHiredModal = ({app, modalClicked,setModalClicked}) => {
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone && (
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
-                )
-                }
+                )}
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>You have been Hired</BodySubtitle>

@@ -1,11 +1,9 @@
 import React, { useRef, useEffect, useCallback,useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-import {useParams} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
+import Moment from 'moment';
 
-import { getSeeker } from "../services/authServices";
 
 const Background = styled.div`
   width: 100%;
@@ -82,6 +80,12 @@ const ModalContent = styled.div`
   //   align-items: left;
   //   width: 100vw;
   // }
+`;
+const DateApplied = styled.p`
+  margin: 0.5rem 1rem;
+  font-size:14px;
+  color: ${theme.PrimaryTxt};
+  width:100%;
 `;
 
 const Header = styled.div`
@@ -223,8 +227,8 @@ const {seeker,employer,job,stages}= app
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone &&(
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
-                ) 
-              }
+                )}
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
                 </Header>
                 <Body>
                   <BodySubtitle>Interview Offered</BodySubtitle>
@@ -236,7 +240,7 @@ const {seeker,employer,job,stages}= app
                 {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                   <BodySubtitle>Interview Arranged On</BodySubtitle>
-                  <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                  <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY')}</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
                     <BodyContentP >
                     {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>

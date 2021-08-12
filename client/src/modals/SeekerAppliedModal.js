@@ -2,13 +2,10 @@ import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
 
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory,  Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-import { getSeeker } from "../services/authServices";
-
-import EmpApplications from "../pages/EmpApplications";
+import Moment from 'moment';
 
 import './applications.css'
 
@@ -253,12 +250,12 @@ const SeekerAppliedModal = ({app,modalClicked,setModalClicked,}) => {
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone &&
                 (<EmployerInfoData>{employer.phone}</EmployerInfoData>)}
-                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Application Information</BodySubtitle>
                 <BodyContentP>
-                  You have applied for the postion of ${job.title} at ${employer.name}
+                  You have applied for the postion of {job.title} at {employer.name}
                 </BodyContentP>
                 <FormContainer>
                 {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}

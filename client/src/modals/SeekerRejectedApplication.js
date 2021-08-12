@@ -1,15 +1,8 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-
-
-import { useHistory, useParams, Link } from "react-router-dom";
+import Moment from 'moment';
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-
-
-
-
 import './applications.css'
 
   const Background = styled.div`
@@ -82,6 +75,12 @@ import './applications.css'
 }
 `;
 
+const DateApplied = styled.p`
+  margin: 0.5rem 1rem;
+  font-size:14px;
+  color: ${theme.PrimaryTxt};
+  width:100%;
+`;
 const ModalContent = styled.div`
 margin: 0rem 1rem;
 width: 95%;
@@ -133,12 +132,6 @@ overflow-x:hidden !important;
   }
 `;
 
-const DateApplied = styled.p`
-  margin: 0.5rem 1rem;
-  font-size:14px;
-  color: ${theme.PrimaryTxt};
-  width:100%;
-`;
 
 const Body = styled.div`
   display: flex;
@@ -153,7 +146,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -185,28 +178,25 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 
-const SeekerRejectedApplicationModal = ({
-  showSeekerRejectedApplicationModal,
-  setSeekerRejectedApplicationModal,
+const SeekerRejectedApplicationModal = ({app,modalClicked,setModalClicked}) => {
   
-}) => {
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
+  const {employer,job,stages}= app
+
   const modalRef = useRef();
-  let history = useHistory();
+
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setSeekerRejectedApplicationModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showSeekerRejectedApplicationModal) {
-        setSeekerRejectedApplicationModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setSeekerRejectedApplicationModal, showSeekerRejectedApplicationModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -214,59 +204,34 @@ const SeekerRejectedApplicationModal = ({
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [SeekerData, setSeekerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setSeekerData(data.data)
-  //     console.log("SeekerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
-
-  // Get the date from interview time
-
   return (
     <>
           
-      {showSeekerRejectedApplicationModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper
-            showSeekerRejectedApplicationModal={showSeekerRejectedApplicationModal}
-            >
-           
+          <ModalWrapper modalClicked={modalClicked}>
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+              <Heading>{job.title}</Heading>
+              <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>
-                <BodyContent>
-                 We are sorry to inform you that your application with COMPANY NAME will not be progressing further.
-                </BodyContent>
-                <BodySubtitle>Feedback</BodySubtitle>
-                <BodyContent>
-                  Please add any feedback you have for the applicant.
-                </BodyContent>
+                <BodyContentP>
+                 We are sorry to inform you that your application with {employer.name} will not be progressing further.
+                </BodyContentP>
+                {stages.REJECTED.feedback&&
+                  <>
+                  <BodySubtitle>Feedback</BodySubtitle>
+                <BodyContentP>
+                 {stages.REJECTED.feedback}
+                </BodyContentP></>}
               </Body>
             </ModalContent>
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setSeekerRejectedApplicationModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

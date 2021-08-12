@@ -4,7 +4,7 @@ import { useHistory} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import { seekerAccept, seekerReject } from "../services/applicationServices";
-
+import Moment from 'moment';
 
 const Background = styled.div`
   width: 100%;
@@ -204,6 +204,13 @@ height: 32px;
 padding: 0;
 z-index: 10;
 `;
+
+const DateApplied = styled.p`
+  margin: 0.5rem 1rem;
+  font-size:14px;
+  color: ${theme.PrimaryTxt};
+  width:100%;
+`;
 const ModalBtn = styled.button`
   margin: 1rem 0rem;
   width: 130px;
@@ -301,6 +308,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
                 {employer.phone &&
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
                 }
+                <DateApplied>Applied on {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Position Offered</BodySubtitle>
@@ -312,7 +320,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
                 {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interviewed on</BodySubtitle>
-                <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY')}</InterviewTime>
                 <BodySubtitle>Feedback Given</BodySubtitle>
                 <BodyContentP >
                   {stages.OFFER_MADE.feedback ? stages.OFFER_MADE.feedback : "No feedback was given"}

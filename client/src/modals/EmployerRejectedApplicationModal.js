@@ -2,11 +2,7 @@ import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-
-
-
-
-
+import Moment from 'moment';
 import './applications.css'
 
   const Background = styled.div`
@@ -150,7 +146,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.textarea`
+const BodyContentP = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -183,10 +179,9 @@ const CloseModalButton = styled(MdClose)`
 
 
 const EmployerRejectedApplicationModal = ({app,modalClicked,setModalClicked}) => {
-console.log("inside employer rejected application modal")
 
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
+const {seeker,stages}= app
+
   const modalRef = useRef();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
@@ -208,30 +203,6 @@ console.log("inside employer rejected application modal")
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
-
-  // Get the date from interview time
-
   return (
     <>
           
@@ -243,16 +214,20 @@ console.log("inside employer rejected application modal")
            
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+              <Heading>{seeker.name}</Heading>
+                <DateApplied>Applied On {Moment(stages.SUBMITTED.actionDate).format('d MMM YYYY')}</DateApplied>
               </Header>
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>
-                <BodyContent defaultValue="We are sorry to inform you that your application with COMPANY NAME will not be progressing further.">
-                </BodyContent>
-                <BodySubtitle>Feedback</BodySubtitle>
-                <BodyContent defaultValue="Please add any feedback you have for the applicant.">
-                </BodyContent>
+                <BodyContentP >
+                Applicant rejected.
+                </BodyContentP>
+                {stages.REJECTED.feedback&&
+                  <>
+                  <BodySubtitle>Feedback</BodySubtitle>
+                <BodyContentP>
+                 {stages.REJECTED.feedback}
+                </BodyContentP></>}
               </Body>
             </ModalContent>
 
