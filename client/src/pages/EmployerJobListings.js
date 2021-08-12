@@ -59,7 +59,7 @@ const EmployerJobListings = () => {
       {isEmployer &&   
           <ListingContainer>
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
-        {(!jobList.lenght)&&<p style={{color:theme.Accent,fontSize:"18px"}}>You have not listed any jobs yet</p>}
+        {(!jobList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>You have not listed any jobs yet</p>}
             <CardContainer>
               {jobList.map((job,index)=>   
               <EmpJobCard

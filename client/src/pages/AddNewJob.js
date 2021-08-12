@@ -255,7 +255,7 @@ const AddNewJob = () => {
               <SubHeading>Role Description</SubHeading>
               {/* <DescContainer placeholder="About your company!!!"></DescContainer> */}
               <DescContainer style={{height:'600px', width:'600px'}}>
-              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='5fbbd5pfeq4vfydxd1r3j42cqy6hx9ucpv77o167cvbocp3w' init={{
+              <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='59omwpr6thzzk3ci27k6w0497s9d0alttwb5dc09yb788b3u' init={{
                     auto_focus:false,
                     resize:'both',
                     height:600,

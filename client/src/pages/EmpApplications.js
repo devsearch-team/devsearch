@@ -4,6 +4,7 @@ import { getEmpApplications } from '../services/applicationServices';
 import {ApplicationCard} from '../globalComponents/Cards'
 import EmployerTabs from '../globalComponents/EmployerTabs'
 import {ApplicationsContainer,CardContainer} from '../globalComponents/styledComponents'
+import { theme } from "../globalStyles";
 
 import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
 
@@ -40,6 +41,8 @@ const EmpApplications = () => {
            { width < breakpoint ? <MobileApplicationTabs />:<EmployerTabs stage={stage} setStage={setStage} />}
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
+        {(!appList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>No applications at this stage yet</p>}
+
                {appList && appList.map((app,index)=>{
                 return (stage===app.currentStage&&
                   <ApplicationCard key={index} app={app} stage={stage}/>
