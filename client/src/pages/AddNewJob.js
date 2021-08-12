@@ -235,6 +235,9 @@ const AddNewJob = () => {
 
 	},[id])
  
+ 
+
+
   function handleSubmit(){
     console.log("inside handle submit")
 
