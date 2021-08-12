@@ -120,7 +120,7 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
             </ModalContent>
             <BtnContainer>
               <ModalBtn onClick={handleAccept}>Accept Interview</ModalBtn>
-              <ModalBtn onClick={handleReject}>Deny</ModalBtn>
+              <ModalBtn onClick={handleReject}>Withdraw</ModalBtn>
             </BtnContainer>
 
 

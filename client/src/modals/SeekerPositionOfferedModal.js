@@ -131,7 +131,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
             </ModalContent>
             <BtnContainer>
                 <ModalBtn onClick={handleAccept}>Accept Offer</ModalBtn>
-                <ModalBtn onClick={handleReject}>Deny</ModalBtn>
+                <ModalBtn onClick={handleReject}>Withdraw</ModalBtn>
                 </BtnContainer>
 
 
