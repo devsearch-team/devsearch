@@ -117,6 +117,12 @@ margin: 0.5rem 2rem;
 color:${theme.PrimaryTxt}
 `;
 
+const DateApplied = styled.p`
+  margin: 0.5rem 1rem;
+  font-size:14px;
+  color: ${theme.PrimaryTxt};
+  width:100%;
+`;
 
 const Body = styled.div`
 display: flex;
@@ -279,8 +285,8 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone && (
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
-                )
-                }
+                )}
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Interview Offered</BodySubtitle>

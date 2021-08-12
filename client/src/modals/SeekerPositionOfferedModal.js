@@ -204,6 +204,13 @@ height: 32px;
 padding: 0;
 z-index: 10;
 `;
+
+const DateApplied = styled.p`
+  margin: 0.5rem 1rem;
+  font-size:14px;
+  color: ${theme.PrimaryTxt};
+  width:100%;
+`;
 const ModalBtn = styled.button`
   margin: 1rem 0rem;
   width: 130px;
@@ -301,6 +308,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
                 {employer.phone &&
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
                 }
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Position Offered</BodySubtitle>

@@ -276,8 +276,8 @@ const SeekerHiredModal = ({app, modalClicked,setModalClicked}) => {
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone && (
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
-                )
-                }
+                )}
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>You have been Hired</BodySubtitle>

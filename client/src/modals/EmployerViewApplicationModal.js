@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import {empAccept} from "../services/applicationServices"
+import {empAccept,empReject} from "../services/applicationServices"
 import './DateEditor.css'
 import './applications.css'
 
@@ -287,8 +287,16 @@ console.log("inside employer view application modal")
     })
   }
 
-  console.log("formState is",formState)
- 
+  // console.log("formState is",formState)
+  function handleReject(){
+    const data={id:app._id,payload:{feedback: formState.information}}
+    empReject(data)
+    .then(
+      history.go("/employer/applications")
+    ).catch(()=>{
+      setServererror("something went wrong")
+    })
+  }
   return (
     <>
           
@@ -340,9 +348,7 @@ console.log("inside employer view application modal")
               >
                 Offer Interview
               </ModalBtn>
-              <ModalBtn
-                onClick={()=>{}}
-              >
+              <ModalBtn onClick={handleReject}>
                 Reject
               </ModalBtn>
             </BtnContainer>

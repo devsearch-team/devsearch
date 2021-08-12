@@ -258,7 +258,7 @@ const SeekerAppliedModal = ({app,modalClicked,setModalClicked,}) => {
               <Body>
                 <BodySubtitle>Application Information</BodySubtitle>
                 <BodyContentP>
-                  You have applied for the postion of ${job.title} at ${employer.name}
+                  You have applied for the postion of {job.title} at {employer.name}
                 </BodyContentP>
                 <FormContainer>
                 {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}

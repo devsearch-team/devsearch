@@ -275,6 +275,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
                   <EmployerInfoData>{jobData.employer.phone}</EmployerInfoData>
                 ) 
               }
+              
                 </Header>
                 <Body>
                   <BodySubtitle>Resume</BodySubtitle>
