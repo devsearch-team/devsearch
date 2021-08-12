@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useCallback,useState } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-import {useHistory,  useParams, Link} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-import { seekerAccept,seekerReject } from "../services/applicationServices";
+import { seekerAccept, seekerReject } from "../services/applicationServices";
 
 const Background = styled.div`
   width: 100%;
@@ -218,10 +217,12 @@ const ModalBtn = styled.button`
   }
 `;
 
-const SeekerInterviewOfferedModal = ({app,modalClicked, setModalClicked}) => {
-  
-  const {seeker,employer,job,stages}= app
-const [serverError,setServererror]= useState("")
+const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => {
+
+  const { seeker, employer, job, stages } = app
+  const [serverError, setServererror] = useState("")
+
+  // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
   let history = useHistory()
   const closeModal = (e) => {
@@ -243,65 +244,65 @@ const [serverError,setServererror]= useState("")
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
-const handleAccept=()=>{
-  console.log("handle accept")
-  seekerAccept({id:app._id})
-  .then(
-    history.go("/seeker/applications")
+  const handleAccept = () => {
+    console.log("handle accept")
+    seekerAccept({ id: app._id })
+      .then(
+        history.go("/seeker/applications")
 
-  ).catch(()=>{
-    setServererror("something went wrong")
-  })
-}
+      ).catch(() => {
+        setServererror("something went wrong")
+      })
+  }
 
-const handleReject=()=>{
-  seekerReject({id:app._id})
-  .then(
-    history.go("/seeker/applications")
+  const handleReject = () => {
+    seekerReject({ id: app._id })
+      .then(
+        history.go("/seeker/applications")
 
-  ).catch(()=>{
-    setServererror("something went wrong")
-  })
-}
- 
+      ).catch(() => {
+        setServererror("something went wrong")
+      })
+  }
+
   return (
     <>
-      { modalClicked ?(
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper modalClicked={modalClicked}>         
-              <ModalContent>
-                <Header>
-                {serverError && <p style={{color:"red"}}>{serverError}</p>} 
+          <ModalWrapper modalClicked={modalClicked}>
+            <ModalContent>
+              <Header>
+                {serverError && <p style={{ color: "red" }}>{serverError}</p>}
                 <Heading>{job.title}</Heading>
                 <EmployerInfoData >{employer.name}</EmployerInfoData>
-                {employer.address&&<EmployerInfoData >{employer.address}</EmployerInfoData>}
+                {employer.address && <EmployerInfoData >{employer.address}</EmployerInfoData>}
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
-                {employer.phone &&(
+                {employer.phone && (
                   <EmployerInfoData>{employer.phone}</EmployerInfoData>
-                ) 
-              }
-                </Header>
-                <Body>
-                  <BodySubtitle>Interview Offered</BodySubtitle>
-                    <BodyContentP>
-                    Dear {seeker.name} we are pleased to inform you that your application for {job.title} with {employer.name} was successful and we would like to offer you an interview. See below for more information.  
-                    </BodyContentP>
-                    <FormContainer>
-                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
-                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                )
+                }
+              </Header>
+              <Body>
+                <BodySubtitle>Interview Offered</BodySubtitle>
+                <BodyContentP>
+                  Dear {seeker.name} we are pleased to inform you that your application for {job.title} with {employer.name} was successful and we would like to offer you an interview. See below for more information.
+                </BodyContentP>
+                <FormContainer>
+                  {((seeker.resumeFile) && (seeker.resumeFile !== "undefined")) && <FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                  {(app.coverLetter && app.coverLetter !== "undefined") && <FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
-                  <BodySubtitle>Interview Time</BodySubtitle>
-                  <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
-                  <BodySubtitle>Important Information</BodySubtitle>
-                    <BodyContentP >
-                    {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>
-                </Body>
-              </ModalContent>
-                <BtnContainer>
-                <ModalBtn onClick={handleAccept}>Accept Offer</ModalBtn>
-                <ModalBtn onClick={handleReject}>Deny</ModalBtn>
-                </BtnContainer>
-            
+                <BodySubtitle>Interview Time</BodySubtitle>
+                <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                <BodySubtitle>Important Information</BodySubtitle>
+                <BodyContentP >
+                  {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>
+              </Body>
+            </ModalContent>
+            <BtnContainer>
+              <ModalBtn onClick={handleAccept}>Accept Offer</ModalBtn>
+              <ModalBtn onClick={handleReject}>Deny</ModalBtn>
+            </BtnContainer>
+
 
             <CloseModalButton
               aria-label="Close modal"

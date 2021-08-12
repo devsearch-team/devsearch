@@ -16,7 +16,7 @@ export async function getSeekerApplications(stage){
 
 export async function seekerAccept(data){
     console.log("seeker req data",data)
-    const res = await devSearchApi.post(`/seeker/seekeraccept/${data.id}`,data.payload)
+    const res = await devSearchApi.post(`/seeker/seekeraccept/${data.id}`)
     console.log("seeker accepted app is",res.data)
     return res
 }

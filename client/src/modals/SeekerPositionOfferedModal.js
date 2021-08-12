@@ -1,11 +1,10 @@
-import React, { useRef, useEffect, useCallback,useState } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-import {useHistory,  useParams, Link} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
+import { seekerAccept, seekerReject } from "../services/applicationServices";
 
-import { getSeeker } from "../services/authServices";
 
 const Background = styled.div`
   width: 100%;
@@ -93,7 +92,7 @@ margin: 1.5rem 1rem;
 margin-top:3rem;
 background: ${theme.NavBg};
 width:80%;
-height:200px;
+
 `;
 const Heading = styled.h1`
   margin: 0.5rem 2rem;
@@ -134,7 +133,7 @@ font-size:18px;
 font-weight:600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
 outline:none;
 font-size:14px;
 font-weight:550;
@@ -179,7 +178,7 @@ margin: 1rem -2rem;
 justify-content:center;
 // max-width:100%;
 `;
-const ContractDownloadBtn = styled(Link)`
+const ContractDownloadBtn = styled.a`
 // width:200px;
 text-decoration: none;
 
@@ -192,7 +191,7 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 const CloseModalButton = styled(MdClose)`
@@ -208,7 +207,7 @@ z-index: 10;
 const ModalBtn = styled.button`
   margin: 1rem 0rem;
   width: 130px;
-  height: 40px;
+  min-height: 40px;
   cursor: pointer;
   border-radius: 5px;
   border: none;
@@ -225,34 +224,37 @@ const ModalBtn = styled.button`
     font-size:18px;
     margin-top:0.5rem;
     margin-bottom:2rem;
-    height:40px;
+    min-height:40px;
   }
   @media only screen and (max-height: 600px ){
     width:180px;
     font-size:16px;
     margin-top:0.5rem;
     margin-bottom:2rem;
-    height:40px;
+    min-height:40px;
   }
 `;
 
-const SeekerPositionOfferedModal = ({showSeekerPositionOfferedModal, setSeekerPositionOfferedModal}) => {
+const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
+  const { seeker, employer, job, stages } = app
+  const [serverError, setServererror] = useState("")
+
   // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
   let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setSeekerPositionOfferedModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showSeekerPositionOfferedModal) {
-        setSeekerPositionOfferedModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setSeekerPositionOfferedModal, showSeekerPositionOfferedModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -260,76 +262,76 @@ const SeekerPositionOfferedModal = ({showSeekerPositionOfferedModal, setSeekerPo
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  const [employerData, setEmployerData] = useState('')
-  const [seekerData, setSeekerData] = useState('')
 
-  let {id} = useParams()
-  useEffect(() => {
-    getJob(id)
-    .then((data) => {
-      setEmployerData(data.data)
-      console.log("EmployerData",data.data)
+  const handleAccept=()=>{
+    console.log("handle accept")
+    seekerAccept({id:app._id})
+    .then(
+      history.go("/seeker/applications")
+  
+    ).catch(()=>{
+      setServererror("something went wrong")
     })
-  }, [id])
-
-
-  useEffect(() => {
-    getSeeker()
-    .then((data) => {
-      setSeekerData(data)
-      console.log("SeekerData",data)
+  }
+  
+  const handleReject=()=>{
+    seekerReject({id:app._id})
+    .then(
+      history.go("/seeker/applications")
+  
+    ).catch(()=>{
+      setServererror("something went wrong")
     })
-  }, [])
-  console.log(seekerData)
+  }
+   
+
   return (
     <>
-      { showSeekerPositionOfferedModal ?(
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showSeekerPositionOfferedModal={showSeekerPositionOfferedModal}>
-            
-              <ModalContent>
-                <Header>
-                <Heading>{employerData.title}</Heading>
-                <EmployerInfoData >{employerData.employer.name}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.address}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.email}</EmployerInfoData>
-                {employerData.employer.phone ?(
-                  <EmployerInfoData>{employerData.employer.phone}</EmployerInfoData>
-                ) :(
-                  <></>
-                )
-              }
-                </Header>
-                <Body>
-                  <BodySubtitle>Position Offered</BodySubtitle>
-                    <BodyContent>
-                    Dear {seekerData.name}  we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an a Position within our company. See below for more information.    
-                    </BodyContent>
-                    <FormContainer>
-                  <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
-                  </FormContainer>
-                  <BodySubtitle>Interviewed on</BodySubtitle>
-                    <InterviewTime>Monday, 27th March, 11am</InterviewTime>
-                  <BodySubtitle>Important Information</BodySubtitle>
-                    <BodyContent >
-                    Important Information regarding the offer you have recieved
-                    </BodyContent>
+          <ModalWrapper modalClicked={modalClicked}>
+
+            <ModalContent>
+              <Header>
+                {serverError && <p style={{ color: "red" }}>{serverError}</p>}
+                <Heading>{job.title}</Heading>
+                <EmployerInfoData >{employer.name}</EmployerInfoData>
+                {employer.address && <EmployerInfoData >{employer.address}</EmployerInfoData>}
+                <EmployerInfoData >{employer.email}</EmployerInfoData>
+                {employer.phone &&
+                  <EmployerInfoData>{employer.phone}</EmployerInfoData>
+                }
+              </Header>
+              <Body>
+                <BodySubtitle>Position Offered</BodySubtitle>
+                <BodyContentP>
+                  Dear {seeker.name}  we are pleased to inform you that your application for {job.title} with {employer.name} was successful and we would like to offer you an a Position within our company. See below for more information.
+                </BodyContentP>
+                <FormContainer>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                </FormContainer>
+                <BodySubtitle>Interviewed on</BodySubtitle>
+                <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
+                <BodySubtitle>Feedback Given</BodySubtitle>
+                <BodyContentP >
+                  {stages.OFFER_MADE.feedback ? stages.OFFER_MADE.feedback : "No feedback was given"}
+                </BodyContentP>
+                {(stages.OFFER_MADE.contract && stages.OFFER_MADE.contract == !"undefined") &&
                   <ContractInfoContainer>
-                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
-                  </ContractInfoContainer>
-                </Body>
-              </ModalContent>
-                <BtnContainer>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setSeekerPositionOfferedModal(false);}}>Accept</ModalBtn>
-                <ModalBtn onClick={() => {history.push('/seeker/jobs'); setSeekerPositionOfferedModal(false);}}>Deny</ModalBtn>
+                    <ContractDownloadBtn href={stages.OFFER_MADE.contract}>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>}
+              </Body>
+            </ModalContent>
+            <BtnContainer>
+                <ModalBtn onClick={handleAccept}>Accept Offer</ModalBtn>
+                <ModalBtn onClick={handleReject}>Deny</ModalBtn>
                 </BtnContainer>
-            
+
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setSeekerPositionOfferedModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

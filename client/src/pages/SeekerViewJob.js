@@ -387,12 +387,12 @@ const SeekerViewJob = () => {
             setInterviewOfferedModal={setInterviewOfferedModal}
           /> */}
 
-        <SeekerInterviewAcceptedModal
+        {/* <SeekerInterviewAcceptedModal
             showInterviewAcceptedModal={showInterviewAcceptedModal}
             setInterviewAcceptedModal={setInterviewAcceptedModal}
-          />
+          /> */}
 
-        <SeekerPositionOfferedModal
+        {/* <SeekerPositionOfferedModal
             showSeekerPositionOfferedModal={showSeekerPositionOfferedModal}
             setSeekerPositionOfferedModal={setSeekerPositionOfferedModal}
           />
@@ -400,7 +400,7 @@ const SeekerViewJob = () => {
         <SeekerHiredModal
             showSeekerHiredModal={showSeekerHiredModal}
             setSeekerHiredModal={setSeekerHiredModal}
-          />
+          /> */}
 
         <SeekerRejectedApplicationModal
             showSeekerRejectedApplicationModal={showSeekerRejectedApplicationModal}
@@ -424,17 +424,17 @@ const SeekerViewJob = () => {
               Interview Offered
             </InputButton> */}
 
-            <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
+            {/* <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openInterviewAcceptedModal}>
               Interview Accepted Modal
-            </InputButton>
+            </InputButton> */}
 
-        <InputButton style={{margin: "1rem 0"}}onClick={openSeekerPositionOfferedModal}>
+        {/* <InputButton style={{margin: "1rem 0"}}onClick={openSeekerPositionOfferedModal}>
               Position Offered
             </InputButton>
 
         <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerHiredModal}>
               Hired
-            </InputButton>
+            </InputButton> */}
 
         <InputButton style={{margin: "1rem 0", height: 'auto', padding:'5px'}}onClick={openSeekerRejectedApplicationModal}>
               Application Rejected

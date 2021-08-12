@@ -133,7 +133,7 @@ font-size:18px;
 font-weight:600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
 outline:none;
 font-size:14px;
 font-weight:550;
@@ -183,22 +183,25 @@ z-index: 10;
 `;
 
 
-const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewAcceptedModal}) => {
+const SeekerInterviewAcceptedModal = ({app,modalClicked, setModalClicked}) => {
+  
+const {seeker,employer,job,stages}= app
+
   // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setInterviewAcceptedModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showInterviewAcceptedModal) {
-        setInterviewAcceptedModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setInterviewAcceptedModal, showInterviewAcceptedModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -206,62 +209,37 @@ const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewA
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  const [employerData, setEmployerData] = useState('')
-  const [seekerData, setSeekerData] = useState('')
-
-  let {id} = useParams()
-  useEffect(() => {
-    getJob(id)
-    .then((data) => {
-      setEmployerData(data.data)
-      console.log("EmployerData",data.data)
-    })
-  }, [id])
-
-
-  useEffect(() => {
-    getSeeker()
-    .then((data) => {
-      setSeekerData(data)
-      console.log("SeekerData",data)
-    })
-  }, [])
-  console.log(seekerData)
   return (
     <>
-      { showInterviewAcceptedModal ?(
+      { modalClicked ?(
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showInterviewAcceptedModal={showInterviewAcceptedModal}>
+          <ModalWrapper modalClicked={modalClicked}>
             
               <ModalContent>
-                <Header>
-                <Heading>{employerData.title}</Heading>
-                <EmployerInfoData >{employerData.employer.name}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.address}</EmployerInfoData>
-                <EmployerInfoData >{employerData.employer.email}</EmployerInfoData>
-                {employerData.employer.phone ?(
-                  <EmployerInfoData>{employerData.employer.phone}</EmployerInfoData>
-                ) :(
-                  <></>
-                )
+                  <Header>
+                <Heading>{job.title}</Heading>
+                <EmployerInfoData >{employer.name}</EmployerInfoData>
+                {employer.address&&<EmployerInfoData >{employer.address}</EmployerInfoData>}
+                <EmployerInfoData >{employer.email}</EmployerInfoData>
+                {employer.phone &&(
+                  <EmployerInfoData>{employer.phone}</EmployerInfoData>
+                ) 
               }
                 </Header>
                 <Body>
-                  <BodySubtitle>Application Information</BodySubtitle>
-                    <BodyContent>
-                    Dear {seekerData.name} we are pleased to inform you that your application for {employerData.title} with {employerData.employer.name} was successful and we would like to offer you an interview. See below for more information.  
-                    </BodyContent>
+                  <BodySubtitle>Interview Offered</BodySubtitle>
+                    <BodyContentP>
+                    Dear {seeker.name} we are pleased to inform you that your application for {job.title} with {employer.name} was successful and we would like to offer you an interview. See below for more information.  
+                    </BodyContentP>
                     <FormContainer>
-                  <FileLink href={'/'}target="blank">View Resume</FileLink>
-                  <FileLink hres={'/'}target="blank">View Cover Letter</FileLink>
-                  </FormContainer>
-                  <BodySubtitle>Interview arranged on</BodySubtitle>
-                    <InterviewTime>Monday, 27th March, 11am</InterviewTime>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
+                </FormContainer>
+                  <BodySubtitle>Interview Arranged On</BodySubtitle>
+                  <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
-                    <BodyContent >
-                    Important Information regarding this Interview
-                    </BodyContent>
+                    <BodyContentP >
+                    {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>
                 </Body>
               </ModalContent>
 
@@ -269,7 +247,7 @@ const SeekerInterviewAcceptedModal = ({showInterviewAcceptedModal, setInterviewA
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setInterviewAcceptedModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

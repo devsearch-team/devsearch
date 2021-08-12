@@ -247,15 +247,13 @@ const SeekerAppliedModal = ({app,modalClicked,setModalClicked,}) => {
             >
            
             <ModalContent>
-              <Header>
-             
+              <Header>    
                 <Heading>{job.title}</Heading>
                 <EmployerInfoData >{employer.name}</EmployerInfoData>
                 <EmployerInfoData >{employer.email}</EmployerInfoData>
                 {employer.phone &&
                 (<EmployerInfoData>{employer.phone}</EmployerInfoData>)}
-                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
-               
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Application Information</BodySubtitle>

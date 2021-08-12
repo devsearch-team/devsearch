@@ -335,8 +335,7 @@ const {seeker,stages}= app
               </Header>
               <Body>
                 <BodySubtitle>About {seeker.name}</BodySubtitle>
-                <BodyContent readOnly>
-                {seeker.about}
+                <BodyContent readOnly defaultValue={seeker.about}>        
                 </BodyContent>
                 <FormContainer>
                 {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
