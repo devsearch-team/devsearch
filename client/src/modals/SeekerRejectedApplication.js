@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 
-
-import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 

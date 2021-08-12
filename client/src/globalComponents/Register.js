@@ -9,10 +9,11 @@ import { useGlobalState } from "../utils/globalContext";
 
 export default function Register({ name, header, callback }) {
   let history = useHistory();
-
+  const { dispatch, store,landingEmail } = useGlobalState();
+  const { loggedInUser} = store;
   const initialFormState = {
     name: "",
-    email: "",
+    email: landingEmail,
     password: "",
     passwordConfirmation: "",
   };
@@ -24,8 +25,7 @@ export default function Register({ name, header, callback }) {
   const [passwordConfirmationError, setPasswordConfirmationError] =
     useState("");
   const [serverError, setServerError] = useState("");
-  const { dispatch, store } = useGlobalState();
-  const { loggedInUser} = store;
+  
 
   function handleChange(event) {
     setFormState({

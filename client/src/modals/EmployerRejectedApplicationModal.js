@@ -223,7 +223,8 @@ const {seeker,stages}= app
               </Header>
               <Body>
                 <BodySubtitle>Application Status</BodySubtitle>
-                <BodyContentP defaultValue="We are sorry to inform you that your application with COMPANY NAME will not be progressing further.">
+                <BodyContentP >
+                Applicant rejected.
                 </BodyContentP>
                 {stages.REJECTED.feedback&&
                   <>
