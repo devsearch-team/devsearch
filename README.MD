@@ -34,7 +34,7 @@ URL: https://github.com/MrAjMann/devSearch
   - [Desktop](#Desktop)
   - [Tablet](#Tablet)
   - [Mobile](#Mobile)
-- [Trello Board](#Trello-Board)
+- [Agile Information](#Agile-Information)
 
 ---
 
@@ -123,6 +123,17 @@ This application is targeted towards job seekers, and employers looking for empl
 - **Axios:** promise-based HTTP client for the browser and node.js
 - **Cloudinary:** Cloudinary is an end-to-end image- and video management solution for websites and mobile app.
 - **Cypress:** a test automation tool used for functional testing of web applications by automating browser actions.
+
+#### Updated TechStack
+
+- **Cloudinary** REMOVED
+- **AWS S3** AWS S3 is a Cloud based storage service. 
+- **react-datepicker** This package allows a simplier way to input date and time information.
+- **SwiperJS** Swiper is a mobile touch slider we are using this specificaly on the Mobile version of the Applications page.
+- **tinymce** TinyMCE is a rich text editor that allows us to convert a standard textfield into a highly customisable text editor.
+- **Mocha** Mocha is a testing framework, we are using this specifically on the backend.
+- **Chai** Is a BDD/TDD assertion library designed to bu used in conjusction with testing frameworks.
+
 
 ## Dataflow Diagram
 
@@ -398,8 +409,9 @@ As a Job Seeker I want to:
 
 ---
 
-## Trello Board
+## Agile Information
 
+### GitHub and Trello Workflow
 We have defined a process to allow us to integrate and track changes while developing our application. This includes using Card numbers on our Trello boards e.g(`AR-8`) and those card numbers are what we have used as the branch name for GitHub (`git branch AR-8`), each commit is also labed with the card number and if another trello card is required as a part of that branch then it is also labeled in the commit message.
 
 ## Example Commit Message:
@@ -414,6 +426,13 @@ AR-14: adjusted tab state to filter based on selected tabs
 ---
 <!-- end commit -->
 ```
+
+Our workflow also included both parties pulling, pushing and merging data, at all times we were in constant communication regarding any version control request to any Priority branch such as Development or Main. We also worked together to solve Merge conflicts and we typically solved conflicts localy before pushing to the priority branch.
+
+
+## Who does what Trello Task
+
+We initially split the application into front-end and backend tasks with Anthony's primary focus being the front end and Roba's on the Back End, however, both parties implemented and worked on components front and back. We also communicated daily through discord in both text and voice/video chat about what we were working on and any queries related to that task. At no stage during this project did we not communicate our intentions with a feature or a change without at least informing the other person first. This helped up to also keep merge conflicts to a minimum. 
 
 [Link to Trello Board.](https://trello.com/b/asm78QlN)
 
