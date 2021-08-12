@@ -1,44 +1,14 @@
 import React,{useEffect, useState} from 'react'
-import styled from "styled-components";
 import { getEmpApplications } from '../services/applicationServices';
 // import { useGlobalState } from "../utils/globalContext";
 import {ApplicationCard} from '../globalComponents/Cards'
 import EmployerTabs from '../globalComponents/EmployerTabs'
-
+import {ApplicationsContainer,CardContainer} from '../globalComponents/styledComponents'
 
 import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
-const ApplicationsContainer = styled.div`
-display:grid;
-grid-area: content;
-margin-top: 15rem;
-margin-left:25rem;
-@media only screen and (max-width: 1200px) {
-  margin-left:15rem;
-  width:100%;
-}
-@media only screen and (max-width: 900px) {
-  margin-left:15rem;
-  width:100%;
-}
-@media only screen and (max-width: 768px) {
-  margin-left:1rem;
-  width:100%;
-}
-`;
 
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content:center;
-  // border:1px solid red;
-  max-width: 80%;
-  flex-wrap: wrap;
 
-@media only screen and (max-width: 768px){
-  justify-content:center;
-  margin-left:4rem;
-}
-`;
+
 const EmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;

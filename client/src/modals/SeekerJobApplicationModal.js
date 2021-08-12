@@ -1,146 +1,21 @@
 import React, { useRef, useEffect, useCallback,useState } from "react";
 import styled from "styled-components";
 import { getJob } from "../services/jobServices";
-import {useHistory, Link, useParams} from 'react-router-dom'
-import { MdClose } from "react-icons/md";
+import {useHistory, useParams} from 'react-router-dom'
 import { theme } from "../globalStyles";
+import {Heading,Body,FileLink,FormContainer,ModalBtn,CloseModalButton,BodySubtitle,Header,EmployerInfoData,Background,LongModalWrapper,ModalContent} from "../globalComponents/modalComponents"
+
 import { getSeeker } from "../services/authServices";
 import {createApplication} from "../services/applicationServices"
-const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: #000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(0);
-  transform: scaleY(0.01) scaleX(0);
-  animation: unfoldIn 1s cubic-bezier(0.65, 0.84, 0.42, 1) forwards;
-
-  @keyframes unfoldIn {
-    0% {
-      transform: scaleY(0.0005) scaleX(0);
-      background: rgba(0, 0, 0, 1);
-    }
-    50% {
-      transform: scaleY(0.003) scaleX(1);
-      background: rgba(0, 0, 0, 1);
-    }
-    100% {
-      transform: scaleY(1) scaleX(1);
-      background: rgba(0, 0, 0, 0.9);
-    }
-  }
-`;
-const ModalWrapper = styled.div`
-  max-width: 500px;
-  height: 500px;
-  width:100%;
-  box-shadow: 3px 3px 5px #333;
-  background: ${(props) => theme.MainBg};
-  color: ${(props) => theme.PrimaryTxt};
-
-  position: relative;
-  z-index: 10;
-  border-radius: 10px;
-  animation: hiddenBackground 1.5s ease-out;
-  @keyframes hiddenBackground {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-}
-@media only screen and (max-width: 768px) {
-  display:flex;
-  flex-direction:column;
-  width: 100vw;
-  height: 90vh;
-}
-`;
 
 
-const ModalContent = styled.div`
 
-  margin: 0rem 1rem;
-  width: 95%;
-  
-  
-  // @media only screen and (max-width: 768px) {  
-  //   margin: 0 3rem;
-  //   justify-content: center;
-  //   align-items: left;
-  //   width: 100vw;
-  // }
-`;
-
-const Header = styled.div`
-display: flex;
-flex-direction:column;
-border-radius: 5px;
-margin: 1.5rem 1rem;
-margin-top:3rem;
-background: ${theme.NavBg};
-width:70%;
-height:150px;
-`;
-const Heading = styled.h1`
-  margin: 0.5rem 2rem;
-  width: 100%;
-  word-wrap: wrap;
-  color:${theme.PrimaryBtnBg};
-  font-size:24px;
-  @media only screen and (max-width: 768px) {  
-    font-size: 24px;
-    text-align:left;
-    // width: 100%;
-  }
-  @media only screen and (max-width: 360px) {  
-
-    text-align:left;
-    width: 100%;
-    
-    font-size: 20px;
-  }
-`;
-
-const EmployerInfoData = styled.p`
-margin: 0.5rem 2rem;
-color:${theme.PrimaryTxt}
-`;
-
-const Body = styled.div`
-display: flex;
-flex-direction:column;
-margin: 1rem 0;
-// width: 100%;
-`;
-
-const BodySubtitle = styled.h6`
-margin: 0.5rem 3rem;
-font-size:18px;
-font-weight:600px;
-`;
-const FormContainer = styled.div`
-display:flex;
-margin:1rem 0;
-`;
 const FormContainerColumn = styled.div`
 display:flex;
 flex-direction:column;
 margin:0.3rem 0;
 `;
-const FileLink = styled(Link)`
-margin: 0.1rem 3rem;
-`;
+
 const CoverLetterInput = styled.input`
 // width: 200px;
 // padding: 10px;
@@ -156,46 +31,7 @@ font-size: 18px;
   width:400px;
 }
 `;
-const ModalBtn = styled.button`
-  margin: 0.5rem 0;
-  width: 150px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px ){
-    width:200px;
-    font-size:18px;
-    margin-top:0.5rem;
-    margin-bottom:2rem;
-    height:40px;
-  }
-  @media only screen and (max-height: 600px ){
-    width:180px;
-    font-size:16px;
-    margin-top:0.5rem;
-    margin-bottom:2rem;
-    height:40px;
-  }
-`;
-const CloseModalButton = styled(MdClose)`
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  z-index: 10;
-`;
+
 
 const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationModal}) => {
   // Adds close functionality to ShowApplication Modal
@@ -263,7 +99,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
     <>
       { showJobApplicationModal ?(
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper showJobApplicationModal={showJobApplicationModal}>
+          <LongModalWrapper showJobApplicationModal={showJobApplicationModal}>
             
               <ModalContent>
                 <Header>
@@ -279,14 +115,14 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
                 <Body>
                   <BodySubtitle>Resume</BodySubtitle>
                   <FormContainer>
-                  <FileLink to={seekerData.resumeFile}target="blank">View Resume</FileLink>
+                  <FileLink href={seekerData.resumeFile}target="blank">View Resume</FileLink>
                   </FormContainer>
                   <FormContainerColumn>
                     <BodySubtitle>Upload Cover Letter</BodySubtitle>
                   <CoverLetterInput  type="file" placeholder="Upload Cover Letter" onChange={({target})=>{coverLetter=target.files[0]}}></CoverLetterInput>
                   </FormContainerColumn>
                 </Body>
-                <ModalBtn style={{margin: '0.5rem 3rem'}} onClick={handleSubmit}>Submit</ModalBtn>
+                <ModalBtn style={{margin: '1rem 3rem'}} onClick={handleSubmit}>Submit</ModalBtn>
               </ModalContent>
             
 
@@ -294,7 +130,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
               aria-label="Close modal"
               onClick={() => setJobApplicationModal((prev) => !prev)}
             />
-          </ModalWrapper>
+          </LongModalWrapper>
         </Background>
       ) : null}
     </>

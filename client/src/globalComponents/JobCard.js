@@ -4,6 +4,7 @@ import { theme } from "../globalStyles";
 import RobotArm from "../Assets/robotArm.jpg";
 import { Link } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
+import Moment from 'moment';
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -187,7 +188,7 @@ export default function JobCard({ job }) {
       </CompanyLogo>
       <Header>
         <JobTitleLink to={`/seeker/jobs/${job._id}`} >{job.title}</JobTitleLink>
-        <TimeSincePost>{job.created_at}</TimeSincePost>
+        <TimeSincePost>{Moment(job.created_at).format('d MMM YYYY')}</TimeSincePost>
       </Header>
       <CompanyInfoContainer>
         <CompanyName>{job.employer.name}</CompanyName>
