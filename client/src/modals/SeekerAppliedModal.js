@@ -1,8 +1,6 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-
-import { useHistory,  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import Moment from 'moment';
@@ -213,7 +211,6 @@ text-decoration: none;
 const SeekerAppliedModal = ({app,modalClicked,setModalClicked,}) => {
   const {seeker,employer,job,stages}= app
   const modalRef = useRef();
-  let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);

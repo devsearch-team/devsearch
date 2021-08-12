@@ -1,10 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import styled from "styled-components";
-// import { getEmployerJobs } from '../services/jobServices';
-// import { useGlobalState } from "../utils/globalContext";
 import SeekerTabs from '../globalComponents/SeekerTabs'
 import {ApplicationCard} from '../globalComponents/Cards'
-import { ShowMoreButton } from "../globalComponents/Buttons";
+
 import {getSeekerApplications} from "../services/applicationServices"
 
 const ApplicationsContainer = styled.div`
@@ -32,11 +30,6 @@ const CardContainer = styled.div`
 
   max-width: 80%;
   flex-wrap: wrap;
-`;
-const BtnContainer = styled.div`
-display: flex;
-justify-content:center;
-width:80%;
 `;
 const SeekerApplications = () => {
     

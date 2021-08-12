@@ -325,7 +325,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
                 <BodyContentP >
                   {stages.OFFER_MADE.feedback ? stages.OFFER_MADE.feedback : "No feedback was given"}
                 </BodyContentP>
-                {(stages.OFFER_MADE.contract && stages.OFFER_MADE.contract == !"undefined") &&
+                {(stages.OFFER_MADE.contract && stages.OFFER_MADE.contract !== "undefined") &&
                   <ContractInfoContainer>
                     <ContractDownloadBtn href={stages.OFFER_MADE.contract}>View Contract</ContractDownloadBtn>
                   </ContractInfoContainer>}
