@@ -2,10 +2,9 @@ import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
 import { getEmpApplications } from '../services/applicationServices';
 // import { useGlobalState } from "../utils/globalContext";
-import Card from '../globalComponents/Cards'
+import {ApplicationCard} from '../globalComponents/Cards'
 import EmployerTabs from '../globalComponents/EmployerTabs'
-import EmployerApplicationsCard from '../globalComponents/Cards'
-import { ShowMoreButton } from "../globalComponents/Buttons";
+
 
 import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
 const ApplicationsContainer = styled.div`
@@ -40,11 +39,6 @@ const CardContainer = styled.div`
   margin-left:4rem;
 }
 `;
-const BtnContainer = styled.div`
-display: flex;
-justify-content:center;
-width:80%;
-`;
 const EmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;
@@ -58,9 +52,10 @@ const EmpApplications = () => {
         setAppList(res.data)
         console.log("applicatin list res",res.data)
       })
-      .catch()
+      .catch(() =>{ 
+        setServerError("something went wrong")
+        });
     },[stage])
-      // console.log("serverError",serverError)
 
 
       // Change to Mobile Applications Component when reach mobile screen size
@@ -71,49 +66,17 @@ const EmpApplications = () => {
         window.addEventListener("resize", handleWindowResize);
       })  
     return (
-        <>
-        { width < breakpoint ?
-        <> 
-
-        <MobileApplicationTabs />
-        {console.log("width", width)}
-
-       
-
-        <CardContainer>
-            {/* {console.log("jobListApplications",jobList)}
-            {jobList.map((job,index)=>   
-              <EmployerApplicationsCard
-              key={index}
-              jobId={job._id}
-              jobTitle={job.title}
-              date={job.created_at}
-              company={job.employer.name}
-              />)}   */}
-              </CardContainer>
-              <BtnContainer>
-          {/* {(totalPages-1 ) >= page && <ShowMoreButton onClick={()=>setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</ShowMoreButton>} */}
-            </BtnContainer>
-           
-              
-         </>
-      : 
         <ApplicationsContainer>
-            <EmployerTabs stage={stage} setStage={setStage} />
-               
-        
+           { width < breakpoint ? <MobileApplicationTabs />:<EmployerTabs stage={stage} setStage={setStage} />}
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
                {appList && appList.map((app,index)=>{
-                // let date=app.stages[stage].actionDate
-                return (stage===app.currentStage?
-                  <Card  app={app} stage={stage} jobTitle={app.job.title} applicantName={app.seeker.name} company={app.employer.name} date={app.stages[stage].actionDate}/>:
-                  <></>)
+                return (stage===app.currentStage&&
+                  <ApplicationCard key={index} app={app} stage={stage}/>
+                  )
                })}   
                </CardContainer>
         </ApplicationsContainer> 
-
-    }
-    </>
     )
 }
 

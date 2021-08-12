@@ -1,14 +1,11 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
+import {empAccept} from "../services/applicationServices"
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
 
 import './applications.css'
 
@@ -246,9 +243,7 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
-margin: 0.1rem 3rem;
-`;
+
 const ContractContainer = styled.div`
 display:flex;
 justify-center:space-evenly;
@@ -256,7 +251,9 @@ align-items:center;
 width: 100%;
 // margin: 0 -1rem;
 `;
-
+const FileLink = styled.a`
+margin: 0.1rem 3rem;
+`;
 const ContractInput = styled.input`
 width: 55%;
 padding: 10px;
@@ -272,102 +269,93 @@ font-size: 18px;
   width:400px;
 }
 `;
-const EmployerOfferPositionModal = ({
-  showEmployerOfferPositionModal,
-  setEmployerOfferPositionModal,
-  
-}) => {
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
+const EmployerOfferPositionModal = ({app,modalClicked,setModalClicked}) => {
+
+  const initialFormState = {
+		feedback: "",
+		contract: ""
+	}
+const [formState, setFormState] = useState(initialFormState)
+const [serverError,setServererror]= useState("")
+
+console.log("inside employer offer application modal")
+const {seeker,stages}= app
+
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerOfferPositionModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerOfferPositionModal) {
-        setEmployerOfferPositionModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerOfferPositionModal, showEmployerOfferPositionModal]
+    [setModalClicked, modalClicked]
   );
+
+  function handleSubmit(){
+    var form_data = new FormData();
+    for ( var key in formState ) {
+      form_data.append(key, formState[key]);
+    }
+    const data={id:app._id,payload: form_data}
+    empAccept(data)
+    .then(
+      //history.go("/employer/applications")
+    ).catch(()=>{
+      setServererror("something went wrong")
+    })
+  }
 
   useEffect(() => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
-
-  // Get the date from interview time
+  console.log("formState is",formState)
 
   return (
     <>
           
-      {showEmployerOfferPositionModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerOfferPositionModal={showEmployerOfferPositionModal}
+            modalClicked={modalClicked}
             >
-           
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}          
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+                <Heading>{seeker.name}</Heading>
+                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>About Joe Blogs</BodySubtitle>
-                <BodyContent>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor nam a viverra sed id nulla laoreet accumsan. Cursus et
-                  fermentum turpis ut suspendisse rhoncus nec neque. Dui, sed
-                  amet maecenas sollicitudin. Est proin pulvinar imperdiet morbi
-                  nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
-                  tristique suspendisse arcu, accumsan..
+                <BodySubtitle>About {seeker.name}</BodySubtitle>
+                <BodyContent readOnly defaultValue={seeker.about}>        
                 </BodyContent>
                 <FormContainer>
-                  <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>09/11/21 9:30am</InterviewTime>
+                    <InterviewTime>{stages.SCHEDEULED_FOR_INTERVIEW.actionDate}</InterviewTime>
                 </InterviewTimeContainer>
-                <BodySubtitle>Important Information</BodySubtitle>
-                <BodyContent>
-                  Important Information regarding this Interview
-                </BodyContent>
+                {/* <BodySubtitle>Important Information</BodySubtitle> */}
+                {/* <BodyContent placeholder="Important Information regarding this Interview">
+                  
+                </BodyContent> */}
                 <BodySubtitle>Feedback</BodySubtitle>
-                <BodyContent>
-                  Please add any feedback you have for the applicant.
+                <BodyContent onChange={(e)=>{setFormState({...formState,"feedback":e.target.value})}} value={formState.feedback} name="feedback" placeholder="Please add any feedback you have for the applicant.">
+                  
                 </BodyContent>
               <ContractContainer>
                 <BodySubtitle>Upload Contract</BodySubtitle>
-                <ContractInput  type="file" placeholder="Upload Contract" onChange={({target})=>{}}></ContractInput>
+                <ContractInput  type="file" placeholder="Upload Contract" onChange={({target})=>{setFormState({...formState,"contract":target.files[0]})}}></ContractInput>
                   
 
               </ContractContainer>
@@ -375,17 +363,14 @@ const EmployerOfferPositionModal = ({
             </ModalContent>
             <BtnContainer>
               <ModalBtn
-                onClick={() => {
-                  history.push("/employer/applications");
-                  setEmployerOfferPositionModal(false);
-                }}
+                onClick={handleSubmit}
               >
                 Offer Position
               </ModalBtn>
               <ModalBtn
                 onClick={() => {
                   history.push("/employer/applications");
-                  setEmployerOfferPositionModal(false);
+                  setModalClicked(false);
                 }}
               >
                 Reject
@@ -393,7 +378,7 @@ const EmployerOfferPositionModal = ({
             </BtnContainer>
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerOfferPositionModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

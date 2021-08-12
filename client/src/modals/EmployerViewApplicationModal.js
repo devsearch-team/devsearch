@@ -1,15 +1,12 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
 import DatePicker from "react-datepicker";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
+import {empAccept} from "../services/applicationServices"
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
-
 import './applications.css'
 
   const Background = styled.div`
@@ -243,34 +240,36 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 
-const EmployerViewApplicationModal = ({
-  showEmployerViewApplicationModal,
-  setEmployerViewApplicationModal,
-}) => {
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
+const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
 
+  const {seeker,stages}= app
+  const initialFormState = {
+		interviewTime: new Date(),
+		information: ''
+	}
+	const [formState, setFormState] = useState(initialFormState)
+const [serverError,setServererror]= useState("")
+console.log("inside employer view application modal")
 
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerViewApplicationModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerViewApplicationModal) {
-        setEmployerViewApplicationModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerViewApplicationModal, showEmployerViewApplicationModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -278,61 +277,48 @@ const EmployerViewApplicationModal = ({
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
+  const handleOfferSubmit=()=>{
+    const data={id:app._id,payload:formState}
+    empAccept(data)
+    .then(
+      history.go("/employer/applications")
+    ).catch(()=>{
+      setServererror("something went wrong")
+    })
+  }
 
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
+  console.log("formState is",formState)
+ 
   return (
     <>
           
-      {showEmployerViewApplicationModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerViewApplicationModal={showEmployerViewApplicationModal}
+            modalClicked={modalClicked}
             >
-           
+        {serverError && <p style={{color:"red"}}>{serverError}</p>}          
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+                <Heading>{seeker.name}</Heading>
+                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>About Joe Blogs</BodySubtitle>
-                <BodyContent>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor nam a viverra sed id nulla laoreet accumsan. Cursus et
-                  fermentum turpis ut suspendisse rhoncus nec neque. Dui, sed
-                  amet maecenas sollicitudin. Est proin pulvinar imperdiet morbi
-                  nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
-                  tristique suspendisse arcu, accumsan..
+                <BodySubtitle>About {seeker.name}</BodySubtitle>
+                <BodyContent readOnly defaultValue={seeker.about}>
+                  
                 </BodyContent>
                 <FormContainer>
-
-                <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                  {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Set Interview Time</BodySubtitle>
                 <InterviewTime>
                 <DatePicker 
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                name="interviewTime"
+                    selected={formState.interviewTime}
+                    //onChange={(date) => setStartDate(date)}
+                    onChange={(value)=>{setFormState({...formState,"interviewTime":value})}}
                     dateFormat='dd/MM/yyyy h:mm aa'
                     minDate={new Date()}
                     showMonthDropdown
@@ -343,25 +329,19 @@ const EmployerViewApplicationModal = ({
                     timeCaption="Time"              />
                 </InterviewTime>
                 <BodySubtitle>Important Information</BodySubtitle>
-                <BodyContent>
-                  Important Information regarding this Interview
+                <BodyContent onChange={(e)=>{setFormState({...formState,"information":e.target.value})}} value={formState.information} name="information" placeholder="Important Information regarding this Interview
+">
                 </BodyContent>
               </Body>
             </ModalContent>
             <BtnContainer>
               <ModalBtn
-                onClick={() => {
-                  history.push("/employer/applications");
-                  setEmployerViewApplicationModal(false);
-                }}
+                onClick={handleOfferSubmit}
               >
                 Offer Interview
               </ModalBtn>
               <ModalBtn
-                onClick={() => {
-                  history.push("/employer/applications");
-                  setEmployerViewApplicationModal(false);
-                }}
+                onClick={()=>{}}
               >
                 Reject
               </ModalBtn>
@@ -369,7 +349,7 @@ const EmployerViewApplicationModal = ({
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerViewApplicationModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

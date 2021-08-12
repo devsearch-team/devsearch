@@ -107,10 +107,10 @@ margin: 1.5rem 1rem;
 margin-top: 3rem;
 background: ${theme.NavBg};
 width: 70%;
-height: 120px;
+
 overflow-x:hidden !important;
 @media only screen and (max-width: 768px){
-  height: 100px;
+ 
   width: 80%;
   }
   `;
@@ -139,7 +139,10 @@ const DateApplied = styled.p`
   color: ${theme.PrimaryTxt};
   width:100%;
 `;
-
+const EmployerInfoData = styled.p`
+margin: 0.5rem 2rem;
+color:${theme.PrimaryTxt}
+`;
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -153,7 +156,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -189,7 +192,7 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 
@@ -210,30 +213,23 @@ text-decoration: none;
 }
 `;
 
-const SeekerAppliedModal = ({
-  showSeekerAppliedModal,
-  setSeekerAppliedModal,
-}) => {
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-
-
+const SeekerAppliedModal = ({app,modalClicked,setModalClicked,}) => {
+  const {seeker,employer,job,stages}= app
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setSeekerAppliedModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showSeekerAppliedModal) {
-        setSeekerAppliedModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setSeekerAppliedModal, showSeekerAppliedModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -241,52 +237,35 @@ const SeekerAppliedModal = ({
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
   return (
     <>
           
-      {showSeekerAppliedModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showSeekerAppliedModal={showSeekerAppliedModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
-              <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+              <Header>    
+                <Heading>{job.title}</Heading>
+                <EmployerInfoData >{employer.name}</EmployerInfoData>
+                <EmployerInfoData >{employer.email}</EmployerInfoData>
+                {employer.phone &&
+                (<EmployerInfoData>{employer.phone}</EmployerInfoData>)}
+                <DateApplied>Applied on {stages.SUBMITTED.actionDate}</DateApplied>     
               </Header>
               <Body>
                 <BodySubtitle>Application Information</BodySubtitle>
-                <BodyContent>
-                  You have applied for the postion of POSITION TITLE HERE at COMPANY NAME HERE
-                </BodyContent>
+                <BodyContentP>
+                  You have applied for the postion of ${job.title} at ${employer.name}
+                </BodyContentP>
                 <FormContainer>
-                <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <LinkContainer>
-                    <ViewJobBtn>View Job Listing</ViewJobBtn>
+                    <ViewJobBtn to={`/seeker/jobs/${job._id}`}>View Job Listing</ViewJobBtn>
                   </LinkContainer>
               </Body>
             </ModalContent>
@@ -294,7 +273,7 @@ const SeekerAppliedModal = ({
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setSeekerAppliedModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

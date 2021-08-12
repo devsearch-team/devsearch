@@ -1,14 +1,12 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
-import DatePicker from "react-datepicker";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
+
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
+
 
 import './applications.css'
 
@@ -97,7 +95,10 @@ width: 95%;
   // height: 100vh;
 }
 `;
-
+const EmployerInfoData = styled.p`
+margin: 0.5rem 2rem;
+color:${theme.PrimaryTxt}
+`;
 const Header = styled.div`
 display: flex;
 flex-direction: column;
@@ -107,10 +108,10 @@ margin: 1.5rem 1rem;
 margin-top: 3rem;
 background: ${theme.NavBg};
 width: 70%;
-height: 120px;
+
 overflow-x:hidden !important;
 @media only screen and (max-width: 768px){
-  height: 100px;
+  
   width: 80%;
   }
   `;
@@ -153,7 +154,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContentP = styled.p`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -212,7 +213,7 @@ const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
 
@@ -233,30 +234,24 @@ text-decoration: none;
 }
 `;
 
-const SeekerHiredModal = ({
-  showSeekerHiredModal,
-  setSeekerHiredModal,
-}) => {
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-
+const SeekerHiredModal = ({app, modalClicked,setModalClicked}) => {
+  const { seeker, employer, job, stages } = app
 
   const modalRef = useRef();
   let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setSeekerHiredModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showSeekerHiredModal) {
-        setSeekerHiredModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setSeekerHiredModal, showSeekerHiredModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -264,64 +259,50 @@ const SeekerHiredModal = ({
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
   return (
     <>
           
-      {showSeekerHiredModal ? (
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showSeekerHiredModal={showSeekerHiredModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
-              <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+            <Header>
+                <Heading>{job.title}</Heading>
+                <EmployerInfoData >{employer.name}</EmployerInfoData>
+                {employer.address && <EmployerInfoData >{employer.address}</EmployerInfoData>}
+                <EmployerInfoData >{employer.email}</EmployerInfoData>
+                {employer.phone && (
+                  <EmployerInfoData>{employer.phone}</EmployerInfoData>
+                )
+                }
               </Header>
               <Body>
                 <BodySubtitle>You have been Hired</BodySubtitle>
-                <BodyContent>
-                  Congratulations on your new position at COMPANY NAME.
-                </BodyContent>
+                <BodyContentP>
+                  Congratulations on your new position at {employer.name}.
+                </BodyContentP>
                 <FormContainer>
-                <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
-                <ContractInfoContainer>
-                    <ContractDownloadBtn>View Contract</ContractDownloadBtn>
-                  </ContractInfoContainer>
+                {(stages.OFFER_MADE.contract && stages.OFFER_MADE.contract == !"undefined") &&
+                  <ContractInfoContainer>
+                    <ContractDownloadBtn href={stages.OFFER_MADE.contract}>View Contract</ContractDownloadBtn>
+                  </ContractInfoContainer>}
                 <BodySubtitle>Feedback Given</BodySubtitle>
-                <BodyContent>
-                  This will contain the feedback an employer has provided to the Applicant
-                </BodyContent>
+                <BodyContentP >
+                  {stages.OFFER_MADE.feedback ? stages.OFFER_MADE.feedback : "No feedback was given"}
+                </BodyContentP>
               </Body>
             </ModalContent>
            
 
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setSeekerHiredModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

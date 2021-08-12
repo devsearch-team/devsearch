@@ -239,7 +239,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
 
 
   useEffect(() => {
-    console.log("{showJobApplicationModal}",showJobApplicationModal)
+   // console.log("{showJobApplicationModal}",showJobApplicationModal)
     getSeeker()
     .then((res) => {
       setSeekerData(res)

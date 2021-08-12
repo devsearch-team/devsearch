@@ -1,14 +1,12 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { getJob } from "../services/jobServices";
 
-import { useHistory, useParams, Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
 import "react-datepicker/dist/react-datepicker.css";
-import { getSeeker } from "../services/authServices";
+
 import './DateEditor.css'
-import EmpApplications from "../pages/EmpApplications";
+
 
 import './applications.css'
 
@@ -153,7 +151,7 @@ const BodySubtitle = styled.h6`
   font-weight: 600px;
 `;
 
-const BodyContent = styled.p`
+const BodyContent = styled.textarea`
   outline: none;
   font-size: 14px;
   font-weight: 550;
@@ -194,12 +192,6 @@ const InterviewTimeContainer = styled.div`
 const InterviewTime = styled.p`
 font-size:16px;
 `
-const BtnContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: space-evenly;
-  // max-width:100%;
-`;
 
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
@@ -211,65 +203,31 @@ const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `;
-const ModalBtn = styled.button`
-  margin: 1rem 0rem;
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.2);
-  transition: 3s all ease-out;
-  background: ${(props) => theme.PrimaryBtnBg};
-  &:hover {
-    box-shadow: 7px 3px 5px rgba(0, 0, 0, 0.8);
-  }
-  @media only screen and (max-width: 768px) {
-    width: 110px;
-    font-size: 16px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-  @media only screen and (max-height: 600px) {
-    width: 180px;
-    font-size: 14px;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    height: 40px;
-  }
-`;
 const FormContainer = styled.div`
 display:flex;
 margin:1rem;
 `;
-const FileLink = styled(Link)`
+const FileLink = styled.a`
 margin: 0.1rem 3rem;
 `;
-const EmployerViewApplicationModal = ({
-  showEmployerAcceptedApplicationModal,
-  setEmployerAcceptedApplicationModal,
+const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
 
-}) => {
-  // Adds close functionality to ShowApplication Modal
-  // const [value, onChange] = useState(new Date());
-  const modalRef = useRef();
-  let history = useHistory();
+console.log("inside employer accepted application modal")
+const {seeker,stages}= app
+const modalRef = useRef();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setEmployerAcceptedApplicationModal(false);
+      setModalClicked(false);
     }
   };
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showEmployerAcceptedApplicationModal) {
-        setEmployerAcceptedApplicationModal(false);
+      if (e.key === "Escape" && modalClicked) {
+        setModalClicked(false);
       }
     },
-    [setEmployerAcceptedApplicationModal, showEmployerAcceptedApplicationModal]
+    [setModalClicked, modalClicked]
   );
 
   useEffect(() => {
@@ -277,71 +235,45 @@ const EmployerViewApplicationModal = ({
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
 
-  // Get Job Information for header
-  // const [employerData, setEmployerData] = useState('')
-  // const [seekerData, setSeekerData] = useState('')
-
-  // let {id} = useParams()
-  // useEffect(() => {
-  //   getJob(id)
-  //   .then((data) => {
-  //     setEmployerData(data.data)
-  //     console.log("EmployerData",data.data)
-  //   })
-  // }, [id])
-
-  // useEffect(() => {
-  //   getSeeker()
-  //   .then((data) => {
-  //     setSeekerData(data)
-  //     console.log("SeekerData",data)
-  //   })
-  // }, [])
-  // console.log(seekerData)
-
-  // Get the date from interview time
-
   return (
     <>
-          
-      {showEmployerAcceptedApplicationModal ? (
+        
+      {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
           <ModalWrapper
-            showEmployerAcceptedApplicationModal={showEmployerAcceptedApplicationModal}
+            modalClicked={modalClicked}
             >
            
             <ModalContent>
               <Header>
-                <Heading>Joe Blogs</Heading>
-                <DateApplied>Applied {Date.now()}</DateApplied>
+                <Heading>{seeker.name}</Heading>
+                <DateApplied>Applied {stages.SUBMITTED.actionDate}</DateApplied>
               </Header>
               <Body>
-                <BodySubtitle>About Joe Blogs</BodySubtitle>
-                <BodyContent>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor nam a viverra sed id nulla laoreet accumsan. Cursus et
-                  fermentum turpis ut suspendisse rhoncus nec neque. Dui, sed
-                  amet maecenas sollicitudin. Est proin pulvinar imperdiet morbi
-                  nulla senectus. Id in est, etiam aenean. Tincidunt dignissim
-                  tristique suspendisse arcu, accumsan..
+                <BodySubtitle>About {seeker.name}</BodySubtitle>
+                <BodyContent readOnly>
+                {seeker.about}
                 </BodyContent>
                 <FormContainer>
-                <FileLink to={'/'}target="blank">View Resume</FileLink>
-                  <FileLink to={'/'}target="blank">View Cover Letter</FileLink>
+                {((seeker.resumeFile)&&(seeker.resumeFile!=="undefined"))&&<FileLink href={seeker.resumeFile} target="_blank">View Resume</FileLink>}
+                {(app.coverLetter&&app.coverLetter!=="undefined")&&<FileLink href={app.coverLetter} target="_blank">View Cover Letter</FileLink>}
                 </FormContainer>
                 <BodySubtitle>Interview offered on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>09/11/21 9:30am</InterviewTime>
+                    <InterviewTime>{stages.APPROVED_FOR_INTERVIEW.interviewTime}</InterviewTime>
                 </InterviewTimeContainer>
+                {stages.APPROVED_FOR_INTERVIEW.information&&
+                <>
                 <BodySubtitle>Important Information</BodySubtitle>
-                <BodyContent>
-                  Important Information regarding this Interview
+                <BodyContent readOnly>
+                {stages.APPROVED_FOR_INTERVIEW.information}
                 </BodyContent>
+                </>}
               </Body>
             </ModalContent>
             <CloseModalButton
               aria-label="Close modal"
-              onClick={() => setEmployerAcceptedApplicationModal((prev) => !prev)}
+              onClick={() => setModalClicked((prev) => !prev)}
             />
           </ModalWrapper>
         </Background>

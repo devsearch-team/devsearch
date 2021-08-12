@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import styled from "styled-components";
 import { getEmployerJobs } from '../services/jobServices';
 import { useGlobalState } from "../utils/globalContext";
-import EmployerJobListingCard from "../globalComponents/Cards";
+import {EmpJobCard} from "../globalComponents/Cards";
 import { ShowMoreButton } from "../globalComponents/Buttons";
 
 const ListingContainer = styled.div`
@@ -30,11 +30,6 @@ const CardContainer = styled.div`
   max-width: 80%;
   flex-wrap: wrap;
 `;
-const BtnContainer = styled.div`
-display: flex;
-justify-content:center;
-width:80%;
-`;
 
 const EmployerJobListings = () => {
   const { store } = useGlobalState();
@@ -49,13 +44,13 @@ const EmployerJobListings = () => {
     getEmployerJobs(page)
       .then((res) => {
         console.log("my jobs",res)
-        setJobList([...jobList, ...res.data.jobs])
+        setJobList(jobList=>[...jobList, ...res.data.jobs])
         setTotalPages(res.data.totalPages)
         setLoading(false)
       })
       .catch((error) =>{ 
         // console.log("err from catch",error.message)
-        setServerError(error.message)
+        setServerError("something went wrong")
         });
   }, [page]);
 
@@ -68,7 +63,7 @@ const EmployerJobListings = () => {
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
             <CardContainer>
               {jobList.map((job,index)=>   
-              <EmployerJobListingCard
+              <EmpJobCard
                 key={index}
                 jobId={job._id}
                 jobTitle={job.title}

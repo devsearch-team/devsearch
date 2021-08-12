@@ -19,10 +19,9 @@ const register = function(req, res){
 }
 
 const signIn = function(req,res){
-    console.log("secret key",process.env.EMPLOYER_SECRET_KEY)
     Employer.findOne({email: req.body.email}, (err, employer)=>{
         if(err){
-            console.log("error after sign in")
+            // console.log("error after sign in")
             res.status(400)
             return res.json({error: err.message})
         }
@@ -49,7 +48,7 @@ const getEmployer=function(req,res){
    
 
 const updateEmployer=function(req,res){
-    console.log("req.user.id",req.user.id)
+    // console.log("req.user.id",req.user.id)
     Employer.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, employer)=>{
         if (err){
             res.status(404)
@@ -63,7 +62,7 @@ const updateEmployer=function(req,res){
 const empApplications=async function(req,res){
     try{
         let applications=await getEmpApplications(req)
-        console.log("inside controller applications are ",applications)
+        // console.log("inside controller applications are ",applications)
         res.send(applications)
     }
     catch(err){
@@ -76,6 +75,8 @@ const empApplication=async function(req,res){
 }
 
 const employerProceed=async function(req,res){
+    console.log("emp accept req.body",req.body)
+    req.file && ( req.body.contract=req.file.location)
    await doAction(empAccept, req,res);
 }
 
@@ -87,8 +88,8 @@ async function doAction(action, req,res){
     // try{
         console.log("inside do action")
         const {application, error} = await action(req)
-        console.log("do action application",application)
-        console.log("error is ", error)
+        // console.log("do action application",application)
+        // console.log("error is ", error)
         if(error){
             res.status(error.status)
             res.send({message: error.message});
