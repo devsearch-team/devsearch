@@ -1,216 +1,14 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import { useHistory} from 'react-router-dom'
-import { MdClose } from "react-icons/md";
 import { theme } from "../globalStyles";
-import { seekerAccept, seekerReject } from "../services/applicationServices";
+import {Heading,Body,BodySubtitle,Header,Background,BodyContentP,LongModalWrapper,ContractInfoContainer,ModalContent,DateApplied,EmployerInfoData,FormContainer,CloseModalButton,ContractDownloadBtn ,InterviewTime,FileLink,BtnContainer} from "../globalComponents/modalComponents"
+
+import { seekerAccept, seekerReject} from "../services/applicationServices";
 import Moment from 'moment';
 
-const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: #000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(0);
-  transform: scaleY(0.01) scaleX(0);
-  animation: unfoldIn 1s cubic-bezier(0.65, 0.84, 0.42, 1) forwards;
-
-  @keyframes unfoldIn {
-    0% {
-      transform: scaleY(0.0005) scaleX(0);
-      background: rgba(0, 0, 0, 1);
-    }
-    50% {
-      transform: scaleY(0.003) scaleX(1);
-      background: rgba(0, 0, 0, 1);
-    }
-    100% {
-      transform: scaleY(1) scaleX(1);
-      background: rgba(0, 0, 0, 0.9);
-    }
-  }
-`;
-const ModalWrapper = styled.div`
-  max-width: 500px;
-  max-height: 100%;
-  // height:60%;
-  margin-top:3rem;
-  width:100%;
-  box-shadow: 3px 3px 5px #333;
-  background: ${(props) => theme.MainBg};
-  color: ${(props) => theme.PrimaryTxt};
-
-  position: relative;
-  z-index: 10;
-  border-radius: 10px;
-  animation: hiddenBackground 1.5s ease-out;
-  @keyframes hiddenBackground {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-}
-@media only screen and (max-width: 768px) {
-  display:flex;
-  flex-direction:column;
-  width: 100vw;
-  height: 90vh;
-}
-`;
 
 
-const ModalContent = styled.div`
-
-  margin: 0rem 1rem;
-  width: 95%;
-  
-  
-  // @media only screen and (max-width: 768px) {  
-  //   margin: 0 3rem;
-  //   justify-content: center;
-  //   align-items: left;
-  //   width: 100vw;
-  // }
-`;
-
-const Header = styled.div`
-display: flex;
-flex-direction:column;
-border-radius: 5px;
-margin: 1.5rem 1rem;
-margin-top:3rem;
-background: ${theme.NavBg};
-width:80%;
-
-`;
-const Heading = styled.h1`
-  margin: 0.5rem 2rem;
-  width: 100%;
-  word-wrap: wrap;
-  color:${theme.PrimaryBtnBg};
-  font-size:24px;
-  @media only screen and (max-width: 768px) {  
-    font-size: 24px;
-    text-align:left;
-    // width: 100%;
-  }
-  @media only screen and (max-width: 360px) {  
-
-    text-align:left;
-    width: 100%;
-    
-    font-size: 20px;
-  }
-`;
-
-const EmployerInfoData = styled.p`
-margin: 0.5rem 2rem;
-color:${theme.PrimaryTxt}
-`;
-
-
-const Body = styled.div`
-display: flex;
-flex-direction:column;
-margin: 1rem 0;
-// width: 100%;
-`;
-
-const BodySubtitle = styled.h6`
-margin: 0.5rem 3rem;
-font-size:18px;
-font-weight:600px;
-`;
-
-const BodyContentP = styled.p`
-outline:none;
-font-size:14px;
-font-weight:550;
-border-radius:5px;
-background: ${theme.accentBg};
-width:80%;
-line-height:1.3;
-text-align:left;
-border:none;
-padding:15px;
-height:100%;
-margin: 0.5rem 1rem;
-color:${theme.PrimaryTxt}
-`;
-
-const InterviewTime = styled.p`
-font-size:14px;
-font-weight:550;
-border-radius:5px;
-background: ${theme.accentBg};
-width:80%;
-line-height:1.3;
-text-align:left;
-border:none;
-padding:5px;
-height:30px;
-margin: 0.5rem 1rem;
-color:${theme.PrimaryTxt}
-`;
-
-const BtnContainer = styled.div`
-
-display:flex;
-width:90%;
-justify-content:space-evenly;
-// max-width:100%;
-`;
-const ContractInfoContainer = styled.div`
-display:flex;
-width:100%;
-margin: 1rem -2rem;
-justify-content:center;
-// max-width:100%;
-`;
-const ContractDownloadBtn = styled.a`
-// width:200px;
-text-decoration: none;
-
-&:hover{
-  text-decoration: underline;
-  font-weight:600;
-}
-`;
-const FormContainer = styled.div`
-display:flex;
-margin:1rem;
-`;
-const FileLink = styled.a`
-margin: 0.1rem 3rem;
-`;
-const CloseModalButton = styled(MdClose)`
-cursor: pointer;
-position: absolute;
-top: 20px;
-right: 20px;
-width: 32px;
-height: 32px;
-padding: 0;
-z-index: 10;
-`;
-
-const DateApplied = styled.p`
-  margin: 0.5rem 1rem;
-  font-size:14px;
-  color: ${theme.PrimaryTxt};
-  width:100%;
-`;
 const ModalBtn = styled.button`
   margin: 1rem 0rem;
   width: 130px;
@@ -296,7 +94,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
     <>
       {modalClicked ? (
         <Background ref={modalRef} onClick={closeModal}>
-          <ModalWrapper modalClicked={modalClicked}>
+          <LongModalWrapper modalClicked={modalClicked}>
 
             <ModalContent>
               <Header>
@@ -333,7 +131,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
             </ModalContent>
             <BtnContainer>
                 <ModalBtn onClick={handleAccept}>Accept Offer</ModalBtn>
-                <ModalBtn onClick={handleReject}>Deny</ModalBtn>
+                <ModalBtn onClick={handleReject}>Withdraw</ModalBtn>
                 </BtnContainer>
 
 
@@ -341,7 +139,7 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
               aria-label="Close modal"
               onClick={() => setModalClicked((prev) => !prev)}
             />
-          </ModalWrapper>
+          </LongModalWrapper>
         </Background>
       ) : null}
     </>

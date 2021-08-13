@@ -16,10 +16,6 @@ const Job=new Schema({
     maxPay:{
         type: String
     },
-    category:{
-        type:String
-        // Schema.Types.ObjectId, ref: 'Category'
-    },
     description:{
         type: String,
         required: true

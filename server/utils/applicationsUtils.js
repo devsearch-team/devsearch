@@ -126,11 +126,13 @@ const seekReject=async function(req){
     let application=await setseekerApp(req)
     if (validateSeekerApp(application)) return validateSeekerApp(application) //validates the application exists
     if(!seekerWorkflow[application.currentStage].canWithdraw) {//validates the seeker can withdraw at this stage
-        console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
+        //console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
         return {error: {status: 403, message: 'action not allowed'}}
     } 
-    application.stages[WITHDRAWN]={actionDate: new Date(),...req.body}
-    application.currentStage=WITHDRAWN
+      application.stages[REJECTED]={actionDate: new Date(),...req.body}
+    application.currentStage=REJECTED
+    // application.stages[WITHDRAWN]={actionDate: new Date(),...req.body}
+    // application.currentStage=WITHDRAWN
     application.markModified("stages")
     await application.save()
     return {application: application}
