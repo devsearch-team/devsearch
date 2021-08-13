@@ -13,14 +13,17 @@ Please click [here](devsearch.io).<br>
 URL: https://devsearch.io
 
 GitHub Repository.<br>
-Please Click [here](https://github.com/MrAjMann/devSearch).<br>
-URL: https://github.com/MrAjMann/devSearch
+Please Click [here](https://github.com/devsearch-team/devsearch).<br>
+URL: https://github.com/devsearch-team/devsearch
 
+<br>
 
-Testing SpreadSheets.<br>
-[Test file local development FrontEnd](https://docs.google.com/spreadsheets/d/1v0Cmjdx4Va4W_thPkE7V9En2UaJ4waM2c4tmVp9wOyw/edit?usp=sharing).
+### Testing SpreadSheets.<br>
+You will find a copy of these test spreadsheets and a video of the testing process inside the docs folder
 
-[Test file local Deployed FrontEnd](https://docs.google.com/spreadsheets/d/1xknJeU0PS0rds3_2EkpvZ-61KSVB4_az5qvinu82v-s/edit?usp=sharing).
+Online [Test file local Development FrontEnd](https://docs.google.com/spreadsheets/d/1v0Cmjdx4Va4W_thPkE7V9En2UaJ4waM2c4tmVp9wOyw/edit?usp=sharing).<br>
+
+Online [Test file local Deployed FrontEnd](https://docs.google.com/spreadsheets/d/1xknJeU0PS0rds3_2EkpvZ-61KSVB4_az5qvinu82v-s/edit?usp=sharing).<br>
 ---
 
 ## Table Of Contents
