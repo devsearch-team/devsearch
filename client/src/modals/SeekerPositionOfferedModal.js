@@ -71,9 +71,9 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
   const handleAccept=()=>{
     console.log("handle accept")
     seekerAccept({id:app._id})
-    .then(
+    .then((d)=>{
       history.go("/seeker/applications")
-  
+    }
     ).catch(()=>{
       setServererror("something went wrong")
     })
@@ -81,9 +81,9 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
   
   const handleReject=()=>{
     seekerReject({id:app._id})
-    .then(
+    .then((d)=>{
       history.go("/seeker/applications")
-  
+    }
     ).catch(()=>{
       setServererror("something went wrong")
     })

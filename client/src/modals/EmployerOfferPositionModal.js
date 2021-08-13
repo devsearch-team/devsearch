@@ -104,8 +104,10 @@ const {seeker,stages}= app
     }
     const data={id:app._id,payload: form_data}
     empAccept(data)
-    .then(
-      history.go("/employer/applications")
+    .then((d)=>
+      {
+        history.go("/employer/applications")
+      }
     ).catch(()=>{
       setServererror("something went wrong")
     })
@@ -114,8 +116,9 @@ const {seeker,stages}= app
   function handleReject(){
     const data={id:app._id,payload:{feedback: formState.feedback}}
     empReject(data)
-    .then(
+    .then((d)=>{
       history.go("/employer/applications")
+    }
     ).catch(()=>{
       setServererror("something went wrong")
     })

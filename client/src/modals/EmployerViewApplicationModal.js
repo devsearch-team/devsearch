@@ -99,11 +99,10 @@ console.log("inside employer view application modal")
   const handleOfferSubmit=()=>{
     const data={id:app._id,payload:formState}
     empAccept(data)
-    .then((d)=>
-      {
-    console.log("after post emp accept", d)
-        
-        history.go("/employer/applications")}
+    .then((d)=>{
+        console.log("after post emp accept", d)
+        history.go("/employer/applications")
+      }
     ).catch(()=>{
       setServererror("something went wrong")
     })
@@ -113,8 +112,9 @@ console.log("inside employer view application modal")
   function handleReject(){
     const data={id:app._id,payload:{feedback: formState.information}}
     empReject(data)
-    .then(
+    .then((d)=>{
       history.go("/employer/applications")
+    }
     ).catch(()=>{
       setServererror("something went wrong")
     })
