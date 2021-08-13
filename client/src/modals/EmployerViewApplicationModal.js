@@ -99,8 +99,11 @@ console.log("inside employer view application modal")
   const handleOfferSubmit=()=>{
     const data={id:app._id,payload:formState}
     empAccept(data)
-    .then(
-      history.go("/employer/applications")
+    .then((d)=>
+      {
+    console.log("after post emp accept", d)
+        
+        history.go("/employer/applications")}
     ).catch(()=>{
       setServererror("something went wrong")
     })
