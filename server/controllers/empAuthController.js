@@ -1,6 +1,8 @@
 const Employer = require('../models/employer')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const {empAccept,empReject,getEmpApplications,getEmployerApplication}=require("../utils/applicationsUtils")
+
 
 const register = function(req, res){
     const newEmployer = new Employer(req.body)
@@ -11,16 +13,15 @@ const register = function(req, res){
             res.status(400)
             return res.json({error: err.message})
         }
-        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, _id: employer.id},process.env.EMPLOYER_SECRET_KEY) })
+        return res.json({username: employer.name, jwt: jwt.sign({username: employer.name, email: employer.email, id: employer.id},process.env.EMPLOYER_SECRET_KEY) })
     })
 
 }
 
 const signIn = function(req,res){
-    console.log("secret key",process.env.EMPLOYER_SECRET_KEY)
     Employer.findOne({email: req.body.email}, (err, employer)=>{
         if(err){
-            console.log("error after sign in")
+            // console.log("error after sign in")
             res.status(400)
             return res.json({error: err.message})
         }
@@ -47,7 +48,7 @@ const getEmployer=function(req,res){
    
 
 const updateEmployer=function(req,res){
-    console.log("req.user.id",req.user.id)
+    // console.log("req.user.id",req.user.id)
     Employer.findByIdAndUpdate(req.user.id, req.body,{new: true}).exec((err, employer)=>{
         if (err){
             res.status(404)
@@ -57,17 +58,51 @@ const updateEmployer=function(req,res){
         res.send(employer)
     } ) 
 }
-    const loginRequired = function(req,res, next){
-        if(req.user){
-            next()
-        }else{
-            console.log("req.user",req.user)
-            return res.status(401).json({message: "Unauthorized operation"})
-        }
+   
+const empApplications=async function(req,res){
+    try{
+        let applications=await getEmpApplications(req)
+        // console.log("inside controller applications are ",applications)
+        res.send(applications)
     }
+    catch(err){
+        res.status(500)
+        res.json({error: err.message})
+    }
+}
+const empApplication=async function(req,res){
+    await doAction(getEmployerApplication,req,res)
+}
 
-    
+const employerProceed=async function(req,res){
+    // console.log("emp accept req.body",req.body)
+    req.file && ( req.body.contract=req.file.location)
+   await doAction(empAccept, req,res);
+}
+
+const employerReject= async function(req,res){
+    await doAction(empReject,req,res)
+}
+
+async function doAction(action, req,res){
+    // try{
+        // console.log("inside do action")
+        const {application, error} = await action(req)
+        // console.log("do action application",application)
+        // console.log("error is ", error)
+        if(error){
+            res.status(error.status)
+            res.send({message: error.message});
+        }
+
+        res.send(application);
+    // }
+    // catch(err){
+    //     res.status(500)
+    //     return res.json({error: err.message})
+    // }
+}
       
-module.exports = {register,signIn,getEmployer,loginRequired,updateEmployer}
+module.exports = {register,signIn,getEmployer,updateEmployer,employerProceed,employerReject,empApplications,empApplication}
 
 // 

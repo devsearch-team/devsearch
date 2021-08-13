@@ -4,15 +4,17 @@ import landingImage from "../Assets/landingImage.svg";
 import { theme } from "../globalStyles";
 import { InputButton } from "../globalComponents/Buttons";
 import SelectUserModal from "../modals/SelectUserModal";
-import {} from "../globalComponents/Buttons";
+import { useGlobalState } from "../utils/globalContext";
+
 // import EmployerProfilePage from "./EmployerProfilePage";
 
 export default function LandingPage() {
   // Using state to open a Select User modal when a User Clicks Register
   const [showSelectUserModal, setSelectUserModal] = useState(false);
-
+  const {  setLandingEmail } = useGlobalState();
   // This function runs when the Register button after prefilling the email address is selected
   const openSelectUserModal = () => {
+    
     setSelectUserModal((prev) => !prev);
   };
 
@@ -31,7 +33,7 @@ export default function LandingPage() {
             setSelectUserModal={setSelectUserModal}
           />
           <FormDiv>
-            <Input placeHolder="yourEmail@email.com"></Input>
+            <Input placeHolder="yourEmail@email.com" onChange={(e)=>{setLandingEmail(e.target.value)}}></Input>
             <InputButton onClick={openSelectUserModal}>
               Sign Up to DevSeach
             </InputButton>

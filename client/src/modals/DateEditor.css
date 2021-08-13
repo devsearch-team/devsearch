@@ -1,0 +1,67 @@
+
+.dateEditor{
+    /* overflow: visible !important; */
+    height:30px;
+    width: 80%;
+    border-radius: 5px;
+    border:none;
+    padding-left: 15px;
+    margin: 0 0.5rem;
+    color:#000 !important;
+    font-size:16px;
+    z-index: 100;
+    /* overflow: visible; */
+}
+.react-datepicker__time-container {
+    /* overflow-x: hidden !important; */
+    width:120px;
+    color:#000;
+    overflow-y:scroll !important;
+    /* overflow: visible; */
+}
+.react-datepicker__input-container{
+    padding: 0px 10px ;
+    margin: 0rem 0rem;
+}
+.react-datepicker__month-option{
+    color:#000;   
+}
+.react-datepicker__time-list-item {
+    color:#000;
+}
+.react-datepicker__header .react-datepicker__header--has-time-selectl{
+    background-color: #424B53 !important;
+}
+.react-datepicker__month-read-view--selected-month{
+    color:#000;
+}
+.react-datepicker__month-read-view--down-arrow{
+    
+    border-color:#000;
+}
+.react-datepicker__month-read-view--down-arrow:hover{
+    border-color:#000 ;
+}
+.react-datepicker__navigation-icon::before{
+    /* margin:0 -25px; */
+    border-color:blue ;
+
+}
+
+@media only screen and (max-width: 768px){
+    .react-datepicker__input-container{
+        /* padding: 5px px ; */
+        margin: 0.2rem 0rem;
+    }
+    .dateEditor{
+        padding:  3px 15px;
+        height: 100%;
+        width: 90%;
+    }
+    .react-datepicker__month-container{
+        width: 100%;
+    }
+    .react-datepicker__time-container{
+        width:100%;
+    }
+}

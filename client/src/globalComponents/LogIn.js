@@ -44,16 +44,17 @@ export default function LogIn({callback,header}){
         if(!emailError&&!passwordError){
             callback(formState)
             .then((user) => {
+              // console.log("logIn component user",user)
               localStorage.setItem("username", user.username)
               localStorage.setItem("token", user.jwt)
               localStorage.setItem("isEmployer", user.isEmployer)
               dispatch({type: 'setLoggedInUser', data: user.username})
               dispatch({type:'setRole',data: user.isEmployer})
               dispatch({type: 'setToken', data: user.jwt})
-              return user.isEmployer? history.push("/employer/jobs") : history.push("/seeker/jobs")
+              return user.isEmployer==="true"? history.push("/employer/profile") : history.push("/seeker/profile")
 		})
 		.catch((error) =>{ 
-      console.log("err from catch",error.message)
+      // console.log("err from catch",error.message)
       setServerError(error.message)
       })
         }
