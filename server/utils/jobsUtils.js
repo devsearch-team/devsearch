@@ -2,7 +2,7 @@ const Job = require('../models/job')
 
 const getAllJobs = async function (req) {
     const page = parseInt(req.query.page, 10) || 0
-    const limit = parseInt(req.query.limit, 10) || 10
+    const limit = parseInt(req.query.limit, 10) || 5
 
     const params = {
         $text: req.query.search ? { $search: req.query.search } : undefined, // full text search index
@@ -29,7 +29,7 @@ const getAllJobs = async function (req) {
 
 const getEmployerJobs = async function (req) {
     const page = parseInt(req.query.page, 10) || 0
-    const limit = parseInt(req.query.limit, 10) || 10
+    const limit = parseInt(req.query.limit, 10) || 5
     const filter =  { employer: req.user.id };
     
     const jobs = await Job.find(filter)
