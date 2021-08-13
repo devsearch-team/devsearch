@@ -132,7 +132,7 @@ const NavMobile = () => {
   const closeMobileMenu = () => setClick(false);
 
   const handleIdChange = (e) => {
-    console.log(activebutton);
+    // console.log(activebutton);
     setActiveButton(e.target.id);
   };
   //

@@ -75,13 +75,16 @@ const JobSeekerStatusTabs = [
   },
 ];
 
-const MobileApplicationTabs = () => {
+const MobileApplicationTabs = ({setStage}) => {
     
   const {  store } = useGlobalState();
   const {  isEmployer } = store;
   const swiperSlideID = useRef(0)
 
-   
+  const handleTab = (e) => {
+    setStage(e.target.name)
+    // setActiveTab(e.target.id);
+  };
 
     return (
       <>
@@ -89,16 +92,14 @@ const MobileApplicationTabs = () => {
 
         <TabsContainer>
         <Swiper spaceBetween={60} slidesPerView={1} navigation ref={swiperSlideID}>
-            {/* <TabsContainer> */}
            
-       { EmployerStatusTabs.map((index, slide) => (
+       { EmployerStatusTabs.map((slide,index) => (
            
-           <SwiperSlide key={slide}> <Tab>{index.displayName} </Tab> </SwiperSlide>
+           <SwiperSlide key={index}> <Tab name={slide.name} onClick={handleTab}>{slide.displayName} </Tab> </SwiperSlide>
            )
            )
         }
  
-           {/* </TabsContainer> */}
     
 
     </Swiper>
@@ -106,16 +107,16 @@ const MobileApplicationTabs = () => {
   ) : (
     <TabsContainer>
     <Swiper spaceBetween={60} slidesPerView={1} navigation >
-        {/* <TabsContainer> */}
+ 
        
-   { JobSeekerStatusTabs.map((index, slide) => (
+   { JobSeekerStatusTabs.map((slide,index) => (
        
-       <SwiperSlide key={slide}> <Tab>{index.displayName} </Tab> </SwiperSlide>
+       <SwiperSlide key={index}> <Tab name={slide.name} onClick={handleTab}>{slide.displayName} </Tab> </SwiperSlide>
        )
        )
     }
 
-       {/* </TabsContainer> */}
+     
 
 
 </Swiper>

@@ -61,7 +61,7 @@ const {seeker,employer,job,stages}= app
                   <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY LT')}</InterviewTime>
                   <BodySubtitle>Important Information</BodySubtitle>
                     <BodyContentP >
-                    {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>
+                    {stages.APPROVED_FOR_INTERVIEW.information?stages.APPROVED_FOR_INTERVIEW.information:"Not provided"}</BodyContentP>
                 </Body>
               </ModalContent>
 

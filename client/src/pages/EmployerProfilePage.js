@@ -35,8 +35,8 @@ const [resMessage, setResMessage]=useState("")
 const [formState, setFormState] = useState(initialFormState)
 
 const {store } = useGlobalState()
-const { loggedInUser,isEmployer } = store
-console.log("isEmployer",isEmployer)
+const { loggedInUser} = store
+// console.log("isEmployer",isEmployer)
 useEffect(()=>{
   getEmployer().then((data)=>{
     setFormState(data)

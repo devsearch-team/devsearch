@@ -32,7 +32,7 @@ module.exports.createDb = async () => {
   // return process.env.MONGODB_URI
 }
 module.exports.dropDb = async () => {
-  console.log("DROP TEST DB")
+  // console.log("DROP TEST DB")
   await mongoose.connection.dropDatabase();
   await mongoose.connection.close();
   await mongod.stop();

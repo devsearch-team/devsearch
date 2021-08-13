@@ -177,9 +177,6 @@ const JobInfo = styled.p`
   }
 `;
 export default function JobCard({ job }) {
-  //let date = new Date();
-  //let hour = date.getHours();
-  console.log("job is",job)
   return (
     <>
     {job&&<CardContainer>

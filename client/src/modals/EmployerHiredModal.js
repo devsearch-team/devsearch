@@ -11,7 +11,7 @@ import './applications.css'
 const EmployerHiredModal = ({app,modalClicked,setModalClicked}) => {
   
   const {seeker,stages}= app
-  console.log("inside employer hired application modal")
+  // console.log("inside employer hired application modal")
 
   const modalRef = useRef();
 
