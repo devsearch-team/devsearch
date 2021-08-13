@@ -155,7 +155,7 @@ const BtnContainer = styled.div`
 `;
 
 const AddNewJob = () => {
-  const { store,setSelectedPage,selectedPage } = useGlobalState();
+  const { store} = useGlobalState();
   const { loggedInUser } = store;
   let {id}=useParams()
   let history= useHistory()
@@ -189,7 +189,7 @@ const AddNewJob = () => {
     // console.log(wysiwyg);
   };
   useEffect(() => {
-		setSelectedPage(4) //to highlight navbar
+
     if(id) {
 			getJob(id)
 			.then((job) => {
