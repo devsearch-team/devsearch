@@ -16,6 +16,11 @@ GitHub Repository.<br>
 Please Click [here](https://github.com/MrAjMann/devSearch).<br>
 URL: https://github.com/MrAjMann/devSearch
 
+
+Testing SpreadSheets.<br>
+[Test file local development FrontEnd](https://docs.google.com/spreadsheets/d/1v0Cmjdx4Va4W_thPkE7V9En2UaJ4waM2c4tmVp9wOyw/edit?usp=sharing).
+
+[Test file local Deployed FrontEnd](https://docs.google.com/spreadsheets/d/1xknJeU0PS0rds3_2EkpvZ-61KSVB4_az5qvinu82v-s/edit?usp=sharing).
 ---
 
 ## Table Of Contents
@@ -122,7 +127,7 @@ This application is targeted towards job seekers, and employers looking for empl
 - **Heroku:** a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
 - **Axios:** promise-based HTTP client for the browser and node.js
 - **Cloudinary:** Cloudinary is an end-to-end image- and video management solution for websites and mobile app.
-- **Cypress:** a test automation tool used for functional testing of web applications by automating browser actions.
+
 
 #### Updated TechStack
 
@@ -440,3 +445,11 @@ We initially split the application into front-end and backend tasks with Anthony
 ![Individual Trello Card](./docs/IndividualTrelloCard.jpg)
 
 ![Trello Layout ](./docs/AllTrelloCards.jpg)
+
+![Trello Development Under Way](./docs/TrelloDevelopmentUnderWay.png)
+
+![Trello Coming Together](./docs/TrelloComingTogether.png)
+
+![Trello Development Look at that Dent](./docs/TrelloLookAtThatDent.png)
+
+![Trello Ready to submit](./docs/ReadyToSubmit.png)
