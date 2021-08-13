@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import { theme } from "../globalStyles";
 import {Heading,Body,FormContainer,FileLink,BodyContent,BtnContainer,CloseModalButton,BodySubtitle,Background,DateApplied,ModalWrapper,Header,ModalContent} from "../globalComponents/modalComponents"
 import "react-datepicker/dist/react-datepicker.css";
@@ -63,7 +63,7 @@ const ModalBtn = styled.button`
   }
 `;
 
-const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
+const EmployerViewApplicationModal = ({app,setRender,modalClicked,setModalClicked}) => {
 
   const {seeker,stages}= app
   const initialFormState = {
@@ -75,7 +75,7 @@ const [serverError,setServererror]= useState("")
 // console.log("inside employer view application modal")
 
   const modalRef = useRef();
-  let history = useHistory();
+  //let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);
@@ -100,8 +100,10 @@ const [serverError,setServererror]= useState("")
     const data={id:app._id,payload:formState}
     empAccept(data)
     .then((d)=>{
-        console.log("after post emp accept", d)
-        history.go("/employer/applications")
+        //console.log("after post emp accept", d)
+        setModalClicked(false)
+        setRender(prev=>!prev)
+        //history.go("/employer/applications")
       }
     ).catch(()=>{
       setServererror("something went wrong")
@@ -113,7 +115,9 @@ const [serverError,setServererror]= useState("")
     const data={id:app._id,payload:{feedback: formState.information}}
     empReject(data)
     .then((d)=>{
-      history.go("/employer/applications")
+      //history.go("/employer/applications")
+      setModalClicked(false)
+      setRender(prev=>!prev)
     }
     ).catch(()=>{
       setServererror("something went wrong")
