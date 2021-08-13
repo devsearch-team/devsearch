@@ -75,7 +75,7 @@ const empApplication=async function(req,res){
 }
 
 const employerProceed=async function(req,res){
-    console.log("emp accept req.body",req.body)
+    // console.log("emp accept req.body",req.body)
     req.file && ( req.body.contract=req.file.location)
    await doAction(empAccept, req,res);
 }
@@ -86,7 +86,7 @@ const employerReject= async function(req,res){
 
 async function doAction(action, req,res){
     // try{
-        console.log("inside do action")
+        // console.log("inside do action")
         const {application, error} = await action(req)
         // console.log("do action application",application)
         // console.log("error is ", error)

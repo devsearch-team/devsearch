@@ -34,15 +34,15 @@ export async function getEmpApplications(stage){
 }
 
 export async function empAccept(data){
-    console.log("req data",data)
+    // console.log("req data",data)
     const res = await devSearchApi.post(`/employer/empaccept/${data.id}`,data.payload)
-    console.log("accepted app is",res.data)
+    // console.log("accepted app is",res.data)
     return res
 }
 
 export async function empReject(data){
-    console.log("req data",data)
+    // console.log("req data",data)
     const res = await devSearchApi.post(`/employer/empreject/${data.id}`,data.payload)
-    console.log("emp rejected app is",res.data)
+    // console.log("emp rejected app is",res.data)
     return res
 }

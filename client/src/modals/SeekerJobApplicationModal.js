@@ -68,7 +68,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
     getJob(id)
     .then((res) => {
       setJobData(res.data)
-      console.log("jobData",res.data)
+      // console.log("jobData",res.data)
     })
   }, [id])
 
@@ -78,7 +78,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
     getSeeker()
     .then((res) => {
       setSeekerData(res)
-      console.log("SeekerData",res)
+      // console.log("SeekerData",res)
     })
   }, [])
   function handleSubmit(){
@@ -89,7 +89,7 @@ const SeekerJobApplicationModal = ({showJobApplicationModal, setJobApplicationMo
     form_data.append("coverLetter",coverLetter)
     createApplication(form_data)
     .then((res)=>{
-      console.log("created application is ",res)
+      // console.log("created application is ",res)
     })
     .catch()
     history.push('/seeker/jobs'); 

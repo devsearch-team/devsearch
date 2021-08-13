@@ -65,7 +65,7 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
   const handleAccept = () => {
-    console.log("handle accept")
+    // console.log("handle accept")
     seekerAccept({ id: app._id })
       .then((d)=>{
         history.go("/seeker/applications")
@@ -115,7 +115,7 @@ const SeekerInterviewOfferedModal = ({ app, modalClicked, setModalClicked }) => 
                 <InterviewTime>{Moment(stages.APPROVED_FOR_INTERVIEW.interviewTime).format('d MMM YYYY LT')}</InterviewTime>
                 <BodySubtitle>Important Information</BodySubtitle>
                 <BodyContentP >
-                  {stages.APPROVED_FOR_INTERVIEW.information}</BodyContentP>
+                  {stages.APPROVED_FOR_INTERVIEW.information?stages.APPROVED_FOR_INTERVIEW.information:"Not provided"}</BodyContentP>
               </Body>
             </ModalContent>
             <BtnContainer>

@@ -48,7 +48,7 @@ const JobSeekerJobListings = () => {
         setJobList(jobList=>[...jobList, ...res.data.jobs])
         setTotalPages(res.data.totalPages)
         setLoading(false)
-        console.log("seeker job list res",res.data.jobs)
+        // console.log("seeker job list res",res.data.jobs)
       })
       .catch((error) =>{ 
         // console.log("err from catch",error.message)
@@ -63,7 +63,6 @@ const JobSeekerJobListings = () => {
       <ListingContainer>
         <Heading>Job Listings</Heading>
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
-        {console.log(jobList)}
         {jobList.map((job, index) => (
           <JobCard job={job} key={index} />
         ))}

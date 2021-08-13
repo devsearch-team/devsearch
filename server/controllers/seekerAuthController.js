@@ -19,15 +19,15 @@ const register = function(req, res){
 }
 
 const signIn = function(req,res){
-    console.log("secret key",process.env.SEEKER_SECRET_KEY)
+    // console.log("secret key",process.env.SEEKER_SECRET_KEY)
     Seeker.findOne({email: req.body.email}, (err, seeker)=>{
         if(err){
-            console.log("error after sign in")
+            // console.log("error after sign in")
             res.status(400)
             return res.json({error: err.message})
         }
         if (!seeker || !seeker.comparePassword(req.body.password) ){
-            console.log("authentication failed after sign in")
+            // console.log("authentication failed after sign in")
             res.status(400)
             return res.json({message: "Authentication failed"})
         }

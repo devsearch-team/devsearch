@@ -164,7 +164,6 @@ describe("Seeker", async () => {
             //act
             let applicationRes = await seekerHelper.applyForApplication({ job: job._id, employer: job.employer, jwt: applicantSeeker.jwt })
             //assert
-            console.log("created app is ", applicationRes)
             applicationRes.should.have.status(200)
             applicationRes.should.have.property("currentStage").eql("SUBMITTED")
             applicationRes.should.have.property("employer").eql(job.employer)
@@ -185,7 +184,7 @@ describe("Seeker", async () => {
                 res.body.should.be.a('array')
                 res.body.length.should.be.eql(1)
                 res.body[0]._id.should.be.eql(secondSeekrApplication._id)
-                    console.log("applications list", res.body)
+                    // console.log("applications list", res.body)
 
             })
         })

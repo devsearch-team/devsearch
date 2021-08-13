@@ -197,7 +197,7 @@ const AddNewJob = () => {
 			})
       
 		}
-  console.log( "editor",editorRef.current)
+  // console.log( "editor",editorRef.current)
 
 	},[id])
  
@@ -205,7 +205,7 @@ const AddNewJob = () => {
 
 
   function handleSubmit(){
-    console.log("inside handle submit")
+    // console.log("inside handle submit")
 
     if(id) {
 			updateJob( {id: id, ...formState})
@@ -214,7 +214,7 @@ const AddNewJob = () => {
         setSuccessMessage("Your listing has neen updated")
 			}).catch(
         (error) =>{ 
-          console.log("err from catch",error.message)
+          // console.log("err from catch",error.message)
           setServerError(error.message)
           }
       )
@@ -222,7 +222,7 @@ const AddNewJob = () => {
     else{
       createJob(formState)
       .then((data)=>{
-        console.log("new added job",data)
+        // console.log("new added job",data)
         history.push("/employer/jobs")
       })
       .catch((error) =>{ 

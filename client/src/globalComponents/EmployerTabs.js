@@ -45,7 +45,7 @@ const EmployerStatusTabs = [
     setStage(e.target.name)
     // setActiveTab(e.target.id);
   };
-    console.log("ActiveTab", activeTab);
+   // console.log("ActiveTab", activeTab);
 
   return (
     <TabsContainer>

@@ -18,7 +18,6 @@ const ViewModal = ({ app, stage, modalClicked, setModalClicked }) => {
   const { isEmployer } = store
   return (
     <>
-      {console.log("inside view modal")}
       {(isEmployer === "true") ?
         <>
           {stage === "SUBMITTED" &&
