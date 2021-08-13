@@ -170,6 +170,8 @@ const AddNewJob = () => {
   }
   const [formState, setFormState] = useState(initialFormState);
   const [serverError, setServerError] = useState("")
+  const [titleError, setTitleError] = useState("")
+  const [descriptionError, setDescriptionError] = useState("")
   const [successMessage, setSuccessMessage] = useState("")
   
   function handleChange(event) {
@@ -205,31 +207,43 @@ const AddNewJob = () => {
 
 
   function handleSubmit(){
-    console.log("inside handle submit")
-
+   // console.log("inside handle submit")
+   let titleError=""
+   let descriptionError=""
+  if (!formState.title){
+    titleError="Title is required"
+  }
+  if(!formState.description){
+    descriptionError="Description is required"
+  }
+  setTitleError(titleError)
+  setDescriptionError(descriptionError)
+  if(!titleError&&!descriptionError){    
     if(id) {
-			updateJob( {id: id, ...formState})
-			.then((data) => {
-        //console.log("data updated",data)
-        setSuccessMessage("Your listing has neen updated")
-			}).catch(
-        (error) =>{ 
-          console.log("err from catch",error.message)
-          setServerError(error.message)
-          }
-      )
-		}
-    else{
-      createJob(formState)
-      .then((data)=>{
-        console.log("new added job",data)
-        history.push("/employer/jobs")
-      })
-      .catch((error) =>{ 
-        //console.log("err from catch",error.message)
-        setServerError(error.message)
+        updateJob( {id: id, ...formState})
+        .then((data) => {
+          //console.log("data updated",data)
+          setSuccessMessage("Your listing has neen updated")
+        }).catch(
+          (error) =>{ 
+            console.log("err from catch",error.message)
+            setServerError(error.message)
+            }
+        )
+      }
+      else{
+        
+        createJob(formState)
+        .then((data)=>{
+          console.log("new added job",data)
+          history.push("/employer/jobs")
         })
-    }
+        .catch((error) =>{ 
+          //console.log("err from catch",error.message)
+          setServerError(error.message)
+          })
+      }
+  }  
   }
 
   return (
@@ -243,6 +257,7 @@ const AddNewJob = () => {
               {serverError && <p style={{color:"red"}}>{serverError}</p>}
               {successMessage&&<p>{successMessage}</p>}
             <InputField name='title' value={formState.title} onChange={handleChange} placeholder="Position title"></InputField>
+        <div style={{color:"red"}}>{titleError}</div>           
             <FormDiv>
               <TextBoxContainer>
                 <InputField name='location' value={formState.location} onChange={handleChange} placeholder="Location"></InputField>
@@ -256,7 +271,7 @@ const AddNewJob = () => {
             </FormDiv>
             <FormDiv>
               <SubHeading>Role Description</SubHeading>
-              {/* <DescContainer placeholder="About your company!!!"></DescContainer> */}
+        <div style={{color:"red"}}>{descriptionError}</div>
               <DescContainer style={{height:'600px', width:'600px'}}>
               <Editor ref={editorRef} name='description'  initialValue={wysiwyg} apiKey='59omwpr6thzzk3ci27k6w0497s9d0alttwb5dc09yb788b3u' init={{
                     auto_focus:false,
