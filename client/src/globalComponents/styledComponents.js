@@ -16,6 +16,7 @@ margin-left:25rem;
 }
 @media only screen and (max-width: 768px) {
   margin-left:1rem;
+  margin-top: 3rem;
   width:100%;
 }
 `;

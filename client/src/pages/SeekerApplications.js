@@ -3,7 +3,7 @@ import SeekerTabs from '../globalComponents/SeekerTabs'
 import {ApplicationCard} from '../globalComponents/Cards'
 import {ApplicationsContainer,CardContainer} from '../globalComponents/styledComponents'
 import { theme } from "../globalStyles";
-
+import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
 import {getSeekerApplications} from "../services/applicationServices"
 
 const SeekerApplications = () => {
@@ -24,11 +24,18 @@ const SeekerApplications = () => {
         });
     },[stage])
 
+
+    const [width, setWidth] = useState(window.innerWidth);
+    const breakpoint = 768;
+    useEffect(()=> {
+      const handleWindowResize = () => setWidth(window.innerWidth)
+      window.addEventListener("resize", handleWindowResize);
+    })  
     return (
-        <>  
-        
+
                <ApplicationsContainer>
-               <SeekerTabs stage={stage} setStage={setStage} />          
+               { width < breakpoint ? <MobileApplicationTabs />:<SeekerTabs stage={stage} setStage={setStage} />}
+        
                {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
         {(!appList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>No applications at this stage yet</p>}
@@ -40,10 +47,6 @@ const SeekerApplications = () => {
                })}        
                </CardContainer>
                </ApplicationsContainer> 
-               
-
-            
-            </>
             )
 }
 
