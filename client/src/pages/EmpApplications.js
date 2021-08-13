@@ -14,6 +14,7 @@ const EmpApplications = () => {
     // const { store } = useGlobalState();
     // const { isEmployer } = store;
     const [stage,setStage]=useState("SUBMITTED")
+    const [render,setRender]=useState(true)
     const [appList,setAppList]=useState([])
     const [serverError,setServerError]=useState("")
 
@@ -26,7 +27,7 @@ const EmpApplications = () => {
       .catch(() =>{ 
         setServerError("something went wrong")
         });
-    },[stage])
+    },[stage,render])
 
 
       // Change to Mobile Applications Component when reach mobile screen size
@@ -40,12 +41,12 @@ const EmpApplications = () => {
         <ApplicationsContainer>
            { width < breakpoint ? <MobileApplicationTabs setStage={setStage}/>:<EmployerTabs stage={stage} setStage={setStage} />}
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
-               <CardContainer>
+               <CardContainer >
         {(!appList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>No applications at this stage yet</p>}
 
                {appList && appList.map((app,index)=>{
                 return (stage===app.currentStage&&
-                  <ApplicationCard key={index} app={app} stage={stage}/>
+                  <ApplicationCard key={index} app={app} stage={stage} setRender={setRender}/>
                   )
                })}   
                </CardContainer>

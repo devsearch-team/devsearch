@@ -73,7 +73,7 @@ const CardBtn = styled.button`
 `;
 
 
-export function ApplicationCard({ app,stage }) {
+export function ApplicationCard({ app,stage,setRender}) {
 
   const [modalClicked,setModalClicked]=useState(false)
   const {store} = useGlobalState()
@@ -92,7 +92,7 @@ export function ApplicationCard({ app,stage }) {
         <CardText>{(isEmployer==="true") ?app.seeker.name:app.employer.name}</CardText>  
       </CardLeft>
       {console.log("modalClicked",modalClicked)}
-        {modalClicked&&<ViewModal app={app} stage={stage} setModalClicked={setModalClicked} modalClicked={modalClicked}/>}
+        {modalClicked&&<ViewModal app={app} stage={stage} setRender={setRender} setModalClicked={setModalClicked} modalClicked={modalClicked}/>}
       <CardRight>
        <CardBtn  onClick={handleModalClicked}>
           <FaChevronRight style={{ fontSize: "24px", paddingTop: "3px" }} />
