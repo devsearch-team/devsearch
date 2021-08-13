@@ -76,7 +76,7 @@ export default function Register({ name, header, callback }) {
             // dispatch({type: 'setLoggedInUser', data: username?username:companyname})
             dispatch({ type: "setRole", data: user.isEmployer });
             dispatch({ type: "setToken", data: user.jwt });
-            console.log("user after sign up",user)
+            // console.log("user after sign up",user)
             return user.isEmployer==="true"
               ? history.push("/employer/profile")
               : history.push("/seeker/profile");

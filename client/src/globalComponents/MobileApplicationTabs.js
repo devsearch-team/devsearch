@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useGlobalState } from "../utils/globalContext";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
@@ -10,53 +11,120 @@ SwiperCore.use([Navigation]);
 
 const EmployerStatusTabs = [
   {
-    name: "Recieved",
+    displayName: "Recieved",
+    name:"SUBMITTED",
     id: 0,
   },
   {
-    name: "Accepted",
+    displayName: "Accepted",
+    name:"APPROVED_FOR_INTERVIEW",
     id: 1,
   },
   {
-    name: "Interviewing",
+    displayName: "Interviewing",
+    name:"SCHEDEULED_FOR_INTERVIEW",
     id: 2,
   },
   {
-    name: "Offer Made",
+    displayName: "Offer Made",
+    name:"OFFER_MADE",
     id: 3,
   },
   {
-    name: "Hired",
+    displayName: "Hired",
+    name:"HIRED",
     id: 4,
   },
   {
-    name: "Rejected",
+    displayName: "Rejected",
+    name:"REJECTED",
     id: 5,
   },
 ];
 
-const MobileApplicationTabs = () => {
-    
+const JobSeekerStatusTabs = [
+  {
+    displayName: "Applied",
+    name:"SUBMITTED",
+    id: 0,
+  },
+  {
+    displayName: "Interview Offered",
+    name:"APPROVED_FOR_INTERVIEW",
+    id: 1,
+  },
+  {
+    displayName: "Interviewing",
+    name:"SCHEDEULED_FOR_INTERVIEW",
+    id: 2,
+  },
+  {
+    displayName: "Offers Recieved",
+    name:"OFFER_MADE",
+    id: 3,
+  },
+  {
+    displayName: "Hired",
+    name:"HIRED",
+    id: 4,
+  },
+  {
+    displayName: "Rejected",
+    name:"REJECTED",
+    id: 5,
+  },
+];
 
+const MobileApplicationTabs = ({setStage}) => {
     
+  const {  store } = useGlobalState();
+  const {  isEmployer } = store;
+  const swiperSlideID = useRef(0)
+
+  const handleTab = (e) => {
+    setStage(e.target.name)
+    // setActiveTab(e.target.id);
+  };
+
     return (
-            <TabsContainer>
-        <Swiper spaceBetween={60} slidesPerView={1} navigation >
-            {/* <TabsContainer> */}
+      <>
+      {(isEmployer==="true") ? (
+
+        <TabsContainer>
+        <Swiper spaceBetween={60} slidesPerView={1} navigation ref={swiperSlideID}>
            
-       { EmployerStatusTabs.map((index, slide) => (
+       { EmployerStatusTabs.map((slide,index) => (
            
-           <SwiperSlide key={slide}> <Tab>{index.name} </Tab> </SwiperSlide>
+           <SwiperSlide key={index}> <Tab name={slide.name} onClick={handleTab}>{slide.displayName} </Tab> </SwiperSlide>
            )
            )
         }
  
-           {/* </TabsContainer> */}
     
 
     </Swiper>
         </TabsContainer>
-  );
+  ) : (
+    <TabsContainer>
+    <Swiper spaceBetween={60} slidesPerView={1} navigation >
+ 
+       
+   { JobSeekerStatusTabs.map((slide,index) => (
+       
+       <SwiperSlide key={index}> <Tab name={slide.name} onClick={handleTab}>{slide.displayName} </Tab> </SwiperSlide>
+       )
+       )
+    }
+
+     
+
+
+</Swiper>
+    </TabsContainer>
+  )
+      }
+  </>
+    )
 };
 
 export default MobileApplicationTabs;

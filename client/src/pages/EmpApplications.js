@@ -21,7 +21,7 @@ const EmpApplications = () => {
       getEmpApplications(stage)
       .then((res)=>{
         setAppList(res.data)
-        console.log("applicatin list res",res.data)
+        // console.log("applicatin list res",res.data)
       })
       .catch(() =>{ 
         setServerError("something went wrong")
@@ -38,7 +38,7 @@ const EmpApplications = () => {
       })  
     return (
         <ApplicationsContainer>
-           { width < breakpoint ? <MobileApplicationTabs />:<EmployerTabs stage={stage} setStage={setStage} />}
+           { width < breakpoint ? <MobileApplicationTabs setStage={setStage}/>:<EmployerTabs stage={stage} setStage={setStage} />}
         {serverError && <p style={{color:"red"}}>{serverError}</p>}
                <CardContainer>
         {(!appList.length)&&<p style={{color:theme.Accent,fontSize:"18px"}}>No applications at this stage yet</p>}

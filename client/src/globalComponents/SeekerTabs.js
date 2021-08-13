@@ -38,7 +38,7 @@ const JobSeekerStatusTabs = [
 
 
 const SeekerTabs = ({stage,setStage}) => {
-    // const [activeTab, setActiveTab] = useState(0);
+
     const [activeTab, setActiveTab] = useState(stage);
     console.log("stage is ",stage);
     const handleTab = (e) => {

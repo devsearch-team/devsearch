@@ -35,8 +35,6 @@ const App = () => {
   const [width, setWidth] = useState(window.innerWidth);
   
   const breakpoint = 768;
- console.log("localStorage isEmployer",typeof localStorage.getItem("isEmployer"))
- console.log("App isEmployer type",  isEmployer)
   useEffect(()=> {
     const handleWindowResize = () => setWidth(window.innerWidth)
     window.addEventListener("resize", handleWindowResize);

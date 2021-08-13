@@ -72,7 +72,7 @@ const EmployerViewApplicationModal = ({app,modalClicked,setModalClicked}) => {
 	}
 	const [formState, setFormState] = useState(initialFormState)
 const [serverError,setServererror]= useState("")
-console.log("inside employer view application modal")
+// console.log("inside employer view application modal")
 
   const modalRef = useRef();
   let history = useHistory();

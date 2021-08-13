@@ -63,7 +63,7 @@ const empAccept=async function(req){
     await application.save()
     // console.log("res", res);
     // application=await Application.findOne({_id: req.params.id,employer: req.user.id})
-    console.log("Application after save", application);
+    // console.log("Application after save", application);
     return {application: application}
 }
 
@@ -109,7 +109,7 @@ const seekerAccept=async function(req){
     let application=await setseekerApp(req)
     if (validateSeekerApp(application)) return validateSeekerApp(application) 
     if(!seekerWorkflow[application.currentStage].next) {//validates the seeker can proceed at this stage
-        console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
+        // console.log("seeker can withdraw? ",seekerWorkflow[application.currentStage].canWithdraw)
         return {error: {status: 403, message: 'action not allowed'}}
     } 
     const nextStage=seekerWorkflow[application.currentStage].next
@@ -117,7 +117,7 @@ const seekerAccept=async function(req){
     application.markModified("stages")
     application.currentStage=nextStage
     const res = await application.save()
-     console.log("res", res);
+    //  console.log("res", res);
     // application=await Application.findOne({_id: req.params.id,employer: req.user.id})
     // console.log("Application after save", application);
     return {application: application}
