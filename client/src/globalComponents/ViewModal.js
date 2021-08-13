@@ -13,7 +13,7 @@ import SeekerHiredModal from '../modals/SeekerHiredModal'
 import SeekerRejectedApplicationModal from '../modals/SeekerRejectedApplication'
 import { useGlobalState } from '../utils/globalContext'
 
-const ViewModal = ({ app, stage, modalClicked, setModalClicked }) => {
+const ViewModal = ({ app, stage, modalClicked,setRender, setModalClicked }) => {
   const { store } = useGlobalState()
   const { isEmployer } = store
   return (
@@ -21,41 +21,41 @@ const ViewModal = ({ app, stage, modalClicked, setModalClicked }) => {
       {(isEmployer === "true") ?
         <>
           {stage === "SUBMITTED" &&
-            <EmployerViewApplicationModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <EmployerViewApplicationModal setRender={setRender} app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "APPROVED_FOR_INTERVIEW" &&
             <EmployerAcceptedApplicationModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "SCHEDEULED_FOR_INTERVIEW" &&
-            <EmployerOfferPositionModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <EmployerOfferPositionModal setRender={setRender} app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "OFFER_MADE" &&
-            <EmployerOfferMadeModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <EmployerOfferMadeModal  app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "HIRED" &&
-            <EmployerHiredModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <EmployerHiredModal app={app}  setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "REJECTED" &&
-            <EmployerRejectedApplicationModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <EmployerRejectedApplicationModal app={app}  setModalClicked={setModalClicked} modalClicked={modalClicked} />}
         </> :
         <>
           {stage === "SUBMITTED" &&
-            <SeekerAppliedModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <SeekerAppliedModal app={app}  setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "APPROVED_FOR_INTERVIEW" &&
-            <SeekerInterviewOfferedModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <SeekerInterviewOfferedModal app={app} setRender={setRender} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "SCHEDEULED_FOR_INTERVIEW" &&
             <SeekerInterviewAcceptedModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "OFFER_MADE" &&
-            <SeekerPositionOfferedModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <SeekerPositionOfferedModal app={app} setRender={setRender} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "HIRED" &&
-            <SeekerHiredModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <SeekerHiredModal app={app} setRender={setRender} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
 
           {stage === "REJECTED" &&
-            <SeekerRejectedApplicationModal app={app} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
+            <SeekerRejectedApplicationModal app={app} setRender={setRender} setModalClicked={setModalClicked} modalClicked={modalClicked} />}
         </>
       }
     </>
