@@ -7,6 +7,7 @@ import MobileApplicationTabs from '../globalComponents/MobileApplicationTabs'
 import {getSeekerApplications} from "../services/applicationServices"
 
 const SeekerApplications = () => {
+  const [render,setRender]=useState(true)
     
     const [stage,setStage]=useState("SUBMITTED")
     const [appList,setAppList]=useState([])
@@ -22,7 +23,7 @@ const SeekerApplications = () => {
       .catch((error) =>{ 
         setServerError("something went wrong")
         });
-    },[stage])
+    },[stage,render])
 
 
     const [width, setWidth] = useState(window.innerWidth);
@@ -42,7 +43,7 @@ const SeekerApplications = () => {
 
                {appList && appList.map((app,index)=>{
                  return (stage===app.currentStage?
-                 <ApplicationCard  app={app} stage={stage}/>:
+                 <ApplicationCard  app={app} stage={stage} setRender={setRender}/>:
                  <></>)
                })}        
                </CardContainer>

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { useHistory} from "react-router-dom";
+//import { useHistory} from "react-router-dom";
 
 import { theme } from "../globalStyles";
 import {Heading,Body,BodyContent,InterviewTimeContainer,FormContainer,BtnContainer,FileLink,CloseModalButton,BodySubtitle,Background,DateApplied,Header,ModalWrapper,ModalContent} from "../globalComponents/modalComponents"
@@ -68,7 +68,7 @@ font-size: 18px;
   width:400px;
 }
 `;
-const EmployerOfferPositionModal = ({app,modalClicked,setModalClicked}) => {
+const EmployerOfferPositionModal = ({app,modalClicked,setModalClicked,setRender}) => {
 
   const initialFormState = {
 		feedback: "",
@@ -81,7 +81,7 @@ console.log("inside employer offer application modal")
 const {seeker,stages}= app
 
   const modalRef = useRef();
-  let history = useHistory();
+  //let history = useHistory();
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);
@@ -106,7 +106,9 @@ const {seeker,stages}= app
     empAccept(data)
     .then((d)=>
       {
-        history.go("/employer/applications")
+        setModalClicked(false)
+        setRender(prev=>!prev)
+       // history.go("/employer/applications")
       }
     ).catch(()=>{
       setServererror("something went wrong")
@@ -117,7 +119,10 @@ const {seeker,stages}= app
     const data={id:app._id,payload:{feedback: formState.feedback}}
     empReject(data)
     .then((d)=>{
-      history.go("/employer/applications")
+      //history.go("/employer/applications")
+      setModalClicked(false)
+      setRender(prev=>!prev)
+
     }
     ).catch(()=>{
       setServererror("something went wrong")
@@ -155,7 +160,7 @@ const {seeker,stages}= app
                 </FormContainer>
                 <BodySubtitle>Interview arranged on</BodySubtitle>
                 <InterviewTimeContainer>
-                    <InterviewTime>{Moment(stages.SCHEDEULED_FOR_INTERVIEW.actionDate).format('d MMM YYYY LT')}</InterviewTime>
+                    <InterviewTime>{Moment(stages.SCHEDEULED_FOR_INTERVIEW.InterviewTime).format('d MMM YYYY LT')}</InterviewTime>
                 </InterviewTimeContainer>
                 <BodySubtitle>Feedback</BodySubtitle>
                 <BodyContent onChange={(e)=>{setFormState({...formState,"feedback":e.target.value})}} value={formState.feedback} name="feedback" placeholder="Please add any feedback you have for the applicant.">

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
-import { useHistory} from 'react-router-dom'
+//import { useHistory} from 'react-router-dom'
 import { theme } from "../globalStyles";
 import {Heading,Body,BodySubtitle,Header,Background,BodyContentP,LongModalWrapper,ContractInfoContainer,ModalContent,DateApplied,EmployerInfoData,FormContainer,CloseModalButton,ContractDownloadBtn ,InterviewTime,FileLink,BtnContainer} from "../globalComponents/modalComponents"
 
@@ -40,13 +40,13 @@ const ModalBtn = styled.button`
   }
 `;
 
-const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
+const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked,setRender }) => {
   const { seeker, employer, job, stages } = app
   const [serverError, setServererror] = useState("")
 
   // Adds close functionality to ShowApplication Modal
   const modalRef = useRef();
-  let history = useHistory()
+  // let history = useHistory()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setModalClicked(false);
@@ -72,7 +72,11 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
     console.log("handle accept")
     seekerAccept({id:app._id})
     .then((d)=>{
-      history.go("/seeker/applications")
+      //history.go("/seeker/applications")
+      setRender(prev=>!prev)
+      setModalClicked(false)
+
+
     }
     ).catch(()=>{
       setServererror("something went wrong")
@@ -82,7 +86,11 @@ const SeekerPositionOfferedModal = ({ app, modalClicked, setModalClicked }) => {
   const handleReject=()=>{
     seekerReject({id:app._id})
     .then((d)=>{
-      history.go("/seeker/applications")
+     // history.go("/seeker/applications")
+     setRender(prev=>!prev)
+     setModalClicked(false)
+
+
     }
     ).catch(()=>{
       setServererror("something went wrong")
